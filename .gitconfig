@@ -1,0 +1,24 @@
+[color "status"]
+	added = yellow
+	changed = red
+	untracked = cyan
+
+[core]
+	editor = nvim
+
+[help]
+	autocorrect = 1
+
+[include]
+	path = ~/.config/.gitconfig.local
+
+[init]
+	defaultBranch = main
+
+[alias]
+	a = add
+	c = commit
+	st = status
+	rs = restore --staged
+	amend = commit --amend --reuse-message=HEAD
+	po = push origin main
