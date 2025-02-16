@@ -1,8 +1,8 @@
-# Welcome to My Dotfiles!
+# 🌱 Welcome to My Dotfiles! 🌱
 
 I love tinkering with my development environment to make it both productive and enjoyable. Here, you'll find everything about my setup—what I use, why I use it, and how it all fits together. Feel free to take anything you find useful!
 
-## Code Editor
+## Code Editor 💻
 
 I currently use both **Neovim** and **IntelliJ IDEA**—the latter specifically for Java-related development. Since I keep IntelliJ vanilla, I'll focus on my **Neovim** setup:
 
@@ -19,7 +19,7 @@ Check out my [Neovim config file](./nvim/init.lua).
 
 ---
 
-## Terminal Emulator
+## Terminal Emulator ⌨️
 
 My terminal of choice is [WezTerm](https://wezterm.org/) because it’s fully **cross-platform**. Since I currently use Windows (but plan to move to Linux), having a consistent terminal experience is really important to me.
 
@@ -27,7 +27,7 @@ Another thing I love is that **WezTerm is configurable using Lua**, the same lan
 
 ---
 
-## Tools
+## Tools 🧰
 
 I’m always looking for ways to improve my workflow, and these tools help me do just that. Since I love working from the terminal, most of them cater to that preference:
 
@@ -35,7 +35,7 @@ I’m always looking for ways to improve my workflow, and these tools help me do
 - [**Git**](https://git-scm.com/): Pretty self-explanatory.
 - [**Mermaid**](https://mermaid.js.org/): Helps me write diagrams in plain text. No more dragging boxes around, I can just focus on the structure, and let Mermaid handle the rest. Additionally, it works great with Git since it is plain text!
 
-## Nerd Font
+## Nerd Fonts ✒️
 
 I use [**Monocraft**][mainfont] because I love the **retro Minecraft aesthetic**. Plus, it supports:
 
