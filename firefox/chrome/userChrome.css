@@ -1,0 +1,26 @@
+/*Remove window buttons*/
+.titlebar-min,
+.titlebar-max,
+.titlebar-restore,
+.titlebar-close {
+	display: none !important;
+}
+
+/*Remove tab buttons*/
+#tabs-newtab-button,
+#alltabs-button,
+.tab-close-button.close-icon,
+.tab-icon-image {
+	display:none !important;
+}
+
+/*Remove sidebar toogle button*/
+#sidebar-button {
+	display: none !important;
+}
+
+#forward-button,
+#back-button,
+#reload-button {
+	display:none !important;
+}
