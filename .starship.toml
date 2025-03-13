@@ -1,0 +1,37 @@
+format = """
+$directory $git_branch $git_status $memory_usage $status
+$character"""
+
+[character]
+success_symbol = "[⌬](bold green)"
+error_symbol = "[⨳](bold red)"
+vicmd_symbol = "[V](bold yellow)"
+
+[directory]
+style = "bold cyan"
+format = "[$path]($style)[$read_only]($read_only_style)"
+repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)'
+repo_root_style = "bold red"
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style)"
+style = "bold green"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style))'
+style = "bold green"
+
+[status]
+disabled = false
+format = '[$symbol$status]($style)'
+style = "bold red"
+
+[memory_usage]
+disabled = false
+threshold = 80
+symbol = ""
+format = '$symbol[${ram}]($style)'
+style = "bold blue"
+
+# [lua]
+# format = '[$symbol($version )]($style)'
