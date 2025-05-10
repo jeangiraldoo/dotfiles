@@ -1,0 +1,27 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[manager]
+show_hidden = true
+
+[preview]
+wrap = "yes"
+tab_size = 4
+
+[input]
+cursor_blink = true
+
+[opener]
+editor = [
+	{ run = "%EDITOR% %*",  block = true, for = "windows" },
+]
+open = [
+	{ run = "cmd /c start \"\" %*", for = "windows" }
+]
+
+[open]
+rules = [
+	{ name = "*.pdf", use = "open"},
+	{ mime = "*video/mp4", use = "open"},
+	{ mime = "image/*", use = "open"},
+	{ mime = "*", use = "editor"},
+]
