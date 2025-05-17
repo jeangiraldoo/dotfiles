@@ -18,6 +18,20 @@ local opts = {
 local autocmds = require("autocommands")
 local keymaps = require("keymaps")
 
+vim.diagnostic.config({
+	virtual_text = true,
+})
+
+vim.lsp.enable({
+	"lua_ls",
+	"rust_analyzer",
+	"ruff",
+	"harper_ls",
+	"marksman",
+	"tinymist",
+	"yaml_ls",
+})
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local out = vim.fn.system({
