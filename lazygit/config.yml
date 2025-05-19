@@ -1,0 +1,26 @@
+gui:
+  theme:
+    activeBorderColor:
+      - "#bf15a0"
+
+    selectedLineBgColor:
+      - "#bf15a0"
+  spinner:
+    frames:
+      - "＿(ᵔ⩊ ᵔ)／"
+      - "＼(ᵔ⩊ ᵔ)＿"
+    rate: 3
+  expandFocusedSidePanel: true
+  showPanelJumps: false
+  mouseEvents: false
+  nerdFontsVersion: "3"
+
+git:
+  log:
+    showWholeGraph: true
+  parseEmoji: true
+  branchLogCmd: git log --graph --color=always --abbrev-commit --decorate --date=format:"%d/%b/%Y" --pretty=format:"%C(blue)%h%Creset %C(red)%an %C(yellow)%ad%Creset %s" {{branchName}} --
+  allBranchesLogCmds:
+    - git log --graph --all --color=always --abbrev-commit --decorate --date=format:"%d/%b/%Y" --pretty=format:"%C(blue)%h%Creset %C(red)%an %C(yellow)%ad%Creset %s" {{branchName}} --
+update:
+  days: 7
