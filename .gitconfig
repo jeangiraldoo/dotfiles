@@ -1,3 +1,6 @@
+[user]
+    useConfigOnly = true
+
 [color "status"]
 	added = yellow
 	changed = red
@@ -5,6 +8,7 @@
 
 [core]
 	editor = nvim
+	abbrev = 10
 
 [help]
 	autocorrect = 1
@@ -15,10 +19,58 @@
 [init]
 	defaultBranch = main
 
+[push]
+	default = simple
+    followTags = true
+
 [alias]
 	a = add
+	ua = restore --staged
+
+	b = branch
+	bn = checkout --branch
+
 	c = commit
-	st = status
-	rs = restore --staged
-	amend = commit --amend --reuse-message=HEAD
-	po = push origin main
+	ca = commit --amend
+
+	co = checkout
+
+	cp = cherry-pick
+
+	d = diff
+
+	s = status
+
+	sh = show --pretty=format:'%C(magenta)Author: %C(red)%an <%ae>%n%C(magenta)Date: %C(yellow)%ad%n%C(magenta)Hash: %C(blue)%H%n%n%s%n%n%b%n' --date=format:'%d/%b/%Y %H:%M:%S'
+
+	f = fetch
+
+	p = push
+	pf = push --force
+
+	pl = pull
+	l = log --graph --abbrev-commit --decorate --date=format:%d/%b/%Y --pretty=format:'%C(blue)%h%Creset %C(red)%an %C(yellow)%ad%Creset %s'
+
+	r = rebase -i
+	ra = rebase --abort
+	rc = rebase --continue
+	rs = rebase --skip
+
+	ss = stash
+	sl = stash list
+	sp = stash pop
+
+	t = tag
+	tl = tag --list
+
+	re = remote
+	rea = remote add
+
+	bi = bisect
+	bis = bisect start
+	bib = bisect bad
+	big = bisect good
+	bir = bisect run
+	birs = bisect reset
+
+	contributors = shortlog --summary --numbered --email
