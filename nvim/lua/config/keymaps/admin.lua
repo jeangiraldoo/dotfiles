@@ -35,4 +35,16 @@ return {
 			vim.o.list = not vim.o.list
 		end,
 	},
+	{
+		desc = "Exit terminal mode",
+		mode = "t",
+		keys = "<Esc>",
+		cmd = [[<C-\><C-n>]],
+	},
+	{
+		desc = "Re-enter insert mode in terminal",
+		mode = "t",
+		keys = "<C-i>",
+		cmd = "i",
+	},
 }

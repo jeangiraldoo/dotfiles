@@ -24,18 +24,59 @@ function utils.get_combined_module_tables(dir)
 	return combined_entries
 end
 
-function utils.run_in_project_root(cli_cmd)
-	local root = vim.fs.root(0, ".git")
-
-	if root then
-		local full_cmd = "cd " .. vim.fn.shellescape(root) .. " && " .. cli_cmd .. " " .. root
-		local output_lines = vim.fn.systemlist(full_cmd)
-		local final_output = table.concat(output_lines, "\n")
-
-		return root, final_output
-	else
-		vim.notify("Project root not found", vim.log.levels.WARN)
+function utils.launch_terminal(data)
+	data = data or {}
+	local shell = {
+		windows = {
+			shell_only = "powershell -NoLogo",
+			cmd_with_shell = "%s & powershell -NoLogo",
+		},
+		linux = {
+			shell_only = "bash",
+			cmd_with_shell = "%s ; bash",
+		},
+		mac = {
+			shell_only = "zsh",
+			cmd_with_shell = "%s ; zsh",
+		},
+	}
+	local os_name = vim.loop.os_uname().sysname:lower()
+	if os_name == "windows_nt" then
+		os_name = "windows"
+	elseif os_name == "darwin" then
+		os_name = "mac"
 	end
+
+	local os_shell_cmds = shell[os_name]
+	if not os_shell_cmds then
+		vim.notify_once("Unsupported OS: " .. os_name, vim.log.levels.ERROR)
+		return
+	end
+
+	local cmd
+	if data.cmd then
+		local cmd_template = os_shell_cmds.cmd_with_shell
+		cmd = string.format(cmd_template, data.cmd)
+	else
+		cmd = os_shell_cmds.shell_only
+	end
+
+	vim.cmd("botright split | resize 15")
+	local term_buf = vim.api.nvim_create_buf(false, true)
+
+	local win = vim.api.nvim_get_current_win()
+	vim.api.nvim_win_set_buf(win, term_buf)
+
+	vim.fn.termopen(cmd, {
+		cwd = data.cwd or vim.fn.getcwd(),
+	})
+
+	-- Set buffer options to make it behave like a terminal
+	vim.bo[term_buf].buftype = "terminal"
+	vim.bo[term_buf].bufhidden = "hide"
+	vim.bo[term_buf].swapfile = false
+
+	vim.cmd("startinsert")
 end
 
 return utils
