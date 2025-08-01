@@ -1,4 +1,5 @@
 local utils = require("utils")
+local code_runner = require("custom.code_runner")
 
 return {
 	{
@@ -21,13 +22,27 @@ return {
 		cmd = ":Neotree right toggle<CR>",
 	},
 	{
-		desc = "Run Cloc on project root",
+		desc = "Run file",
+		mode = "n",
+		keys = "<leader>lf",
+		cmd = function()
+			code_runner.run_file()
+		end,
+	},
+	{
+		desc = "Run project",
+		mode = "n",
+		keys = "<leader>lp",
+		cmd = function()
+			code_runner.run_project()
+		end,
+	},
+	{
+		desc = "Launch terminal",
 		mode = "n",
 		keys = "<leader>tt",
 		cmd = function()
-			local path, output_lines = utils.run_in_project_root("cloc")
-			local project_name = vim.fn.fnamemodify(path, ":t")
-			print("Project:", project_name, "\n", output_lines)
+			utils.launch_terminal()
 		end,
 	},
 }
