@@ -47,4 +47,12 @@ return {
 		keys = "<C-i>",
 		cmd = "i",
 	},
+	{
+		desc = "Toggle inlay hints",
+		mode = "n",
+		keys = "<leader>ah",
+		cmd = function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		end,
+	},
 }
