@@ -24,8 +24,15 @@ function utils.get_combined_module_tables(dir)
 	return combined_entries
 end
 
-function utils.launch_terminal(data)
-	data = data or {}
+--- Launches a configurable terminal using a vertical split.
+--- @param opts table A table with the following optional settings:
+--- * `cmd`: The shell command to run.
+--- * `close_after_cmd`: Whether or not to close the terminal after running a command.
+---   Mimicks running a command in the background.
+--- * `cwd`: The working directory to run the command from.
+--- @return nil
+function utils.launch_terminal(opts)
+	opts = opts or {}
 	local shell = {
 		windows = {
 			shell_only = "powershell -NoLogo",
@@ -54,9 +61,9 @@ function utils.launch_terminal(data)
 	end
 
 	local cmd
-	if data.cmd then
+	if opts.cmd then
 		local cmd_template = os_shell_cmds.cmd_with_shell
-		cmd = string.format(cmd_template, data.cmd)
+		cmd = string.format(cmd_template, opts.cmd)
 	else
 		cmd = os_shell_cmds.shell_only
 	end
@@ -68,7 +75,7 @@ function utils.launch_terminal(data)
 	vim.api.nvim_win_set_buf(win, term_buf)
 
 	vim.fn.termopen(cmd, {
-		cwd = data.cwd or vim.fn.getcwd(),
+		cwd = opts.cwd or vim.fn.getcwd(),
 	})
 
 	-- Set buffer options to make it behave like a terminal
@@ -76,7 +83,11 @@ function utils.launch_terminal(data)
 	vim.bo[term_buf].bufhidden = "hide"
 	vim.bo[term_buf].swapfile = false
 
-	vim.cmd("startinsert")
+	if opts.close_after_cmd then
+		vim.cmd("close")
+	else
+		vim.cmd("startinsert")
+	end
 end
 
 return utils
