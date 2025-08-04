@@ -8,7 +8,7 @@ local function build_colour_map(template)
 end
 
 return {
-	"https://github.com/uga-rosa/ccc.nvim",
+	"uga-rosa/ccc.nvim",
 	config = function()
 		local colour_map = build_colour_map({
 			yellow = "#FFFF00",
@@ -26,6 +26,7 @@ return {
 		})
 
 		local ccc = require("ccc")
+
 		ccc.setup({
 			bar_len = 40,
 			point_char = "⋇",
@@ -37,6 +38,18 @@ return {
 			},
 			pickers = {
 				ccc.picker.custom_entries(colour_map),
+				ccc.picker.hex,
+				ccc.picker.hex_long,
+				ccc.picker.hex_short,
+				ccc.picker.css_rgb,
+				ccc.picker.css_hsl,
+				ccc.picker.css_hwb,
+				ccc.picker.css_lab,
+				ccc.picker.css_lch,
+				ccc.picker.css_oklab,
+				ccc.picker.css_oklch,
+				ccc.picker.css_name,
+				ccc.picker.defaults,
 			},
 		})
 	end,
