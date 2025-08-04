@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 return {
 	{
 		desc = "Comment line/s",
@@ -59,5 +61,17 @@ return {
 		mode = { "n", "v" },
 		keys = "<leader>al",
 		cmd = "ggvG",
+	},
+	{
+		desc = "Toggle AI chat",
+		mode = { "n", "v" },
+		keys = "<leader>ap",
+		cmd = function()
+			utils.launch_terminal({
+				cmd = "ollama serve",
+				close_after_cmd = true,
+			})
+			vim.cmd("CodeCompanionChat Toggle")
+		end,
 	},
 }
