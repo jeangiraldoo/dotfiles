@@ -74,4 +74,10 @@ return {
 			vim.cmd("CodeCompanionChat Toggle")
 		end,
 	},
+	{
+		desc = "Open color picker",
+		mode = { "n", "v" },
+		keys = "<leader>ew",
+		cmd = ":CccPick<CR>",
+	},
 }
