@@ -2,6 +2,9 @@ return {
 	"nvim-treesitter",
 	config = function()
 		require("nvim-treesitter.configs").setup({
+			-- highlight = {
+			-- 	enable = true,
+			-- },
 			ensure_installed = {
 				"java",
 				"javascript",
@@ -12,8 +15,11 @@ return {
 				"python",
 				"typst",
 				"html",
-				"go"
-			}
+				"go",
+				"c",
+				"cpp",
+				"yaml",
+			},
 		})
-	end
+	end,
 }

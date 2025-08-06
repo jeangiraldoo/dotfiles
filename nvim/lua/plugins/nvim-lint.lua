@@ -4,6 +4,7 @@ return {
 		require("lint").linters_by_ft = {
 			markdown = {
 				"markdownlint",
+				"typos",
 			},
 			rust = {
 				"clippy",

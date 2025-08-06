@@ -7,6 +7,7 @@ local opts = {
 	number = true,
 	relativenumber = true,
 	cursorline = true,
+	cursorcolumn = true,
 	scroll = 10,
 	mouse = "",
 	tabstop = 4,
@@ -34,8 +35,10 @@ vim.lsp.enable({
 	"yaml_ls",
 })
 
-vim.lsp.set_log_level(vim.log.levels.OFF)
+vim.lsp.set_log_level(vim.log.levels.DEBUG)
 vim.lsp.log.set_format_func(vim.inspect)
+
+vim.treesitter.start()
 
 vim.diagnostic.config({
 	virtual_text = true,

@@ -71,10 +71,17 @@ return {
 		end,
 	},
 	{
-		desc = "Toggle Git blame",
+		desc = "Toggle inline Git blame",
 		mode = "n",
 		keys = "<leader>pb",
-		cmd = ":GitBlameToggle<CR>",
+		-- cmd = ":GitBlameToggle<CR>",
+		cmd = ":Gitsigns toggle_current_line_blame<CR>",
+	},
+	{
+		desc = "Open buffer Git blame",
+		mode = "n",
+		keys = "<leader>pB",
+		cmd = ":Gitsigns blame<CR>",
 	},
 	{
 		desc = "Display Github issue actions",

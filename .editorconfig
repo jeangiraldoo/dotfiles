@@ -7,6 +7,10 @@ insert_final_newline = true
 indent_style = tab
 indent_size = 4
 
+[*.py]
+indent_size = 4
+indent_style = space
+
 [*.{yaml,yml, md, json}]
 indent_size = 2
 indent_style = space
