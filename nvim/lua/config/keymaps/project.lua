@@ -71,6 +71,12 @@ return {
 		end,
 	},
 	{
+		desc = "Toggle Git blame",
+		mode = "n",
+		keys = "<leader>pb",
+		cmd = ":GitBlameToggle<CR>",
+	},
+	{
 		desc = "Display Github issue actions",
 		mode = "n",
 		keys = "<leader>pi",
