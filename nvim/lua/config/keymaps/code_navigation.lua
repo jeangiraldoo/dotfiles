@@ -17,4 +17,20 @@ return {
 		keys = "<leader>gf",
 		cmd = vim.lsp.buf.outgoing_calls,
 	},
+	{
+		desc = "Go to next word occurrence",
+		mode = "n",
+		keys = "<leader>gn",
+		cmd = function()
+			require("illuminate").goto_next_reference(true)
+		end,
+	},
+	{
+		desc = "Go to previous word occurrence",
+		mode = "n",
+		keys = "<leader>gN",
+		cmd = function()
+			require("illuminate").goto_prev_reference(true)
+		end,
+	},
 }
