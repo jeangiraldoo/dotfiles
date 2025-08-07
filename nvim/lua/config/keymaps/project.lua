@@ -74,7 +74,6 @@ return {
 		desc = "Toggle inline Git blame",
 		mode = "n",
 		keys = "<leader>pb",
-		-- cmd = ":GitBlameToggle<CR>",
 		cmd = ":Gitsigns toggle_current_line_blame<CR>",
 	},
 	{
