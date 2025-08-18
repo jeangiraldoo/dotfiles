@@ -71,6 +71,18 @@ return {
 		end,
 	},
 	{
+		desc = "Toggle inline Git blame",
+		mode = "n",
+		keys = "<leader>pb",
+		cmd = ":Gitsigns toggle_current_line_blame<CR>",
+	},
+	{
+		desc = "Open buffer Git blame",
+		mode = "n",
+		keys = "<leader>pB",
+		cmd = ":Gitsigns blame<CR>",
+	},
+	{
 		desc = "Display Github issue actions",
 		mode = "n",
 		keys = "<leader>pi",
