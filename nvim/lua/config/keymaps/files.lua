@@ -1,6 +1,58 @@
-local utils = require("utils")
-
 return {
+	{
+		desc = "Open fuzzy finder",
+		mode = "n",
+		keys = "<leader>ff",
+		cmd = ":FzfLua files<CR>",
+	},
+	{
+		desc = "Open file manager",
+		mode = "n",
+		keys = "<leader>fm",
+		cmd = ":Oil <CR>",
+	},
+	{
+		desc = "Display file tree",
+		mode = "n",
+		keys = "<leader>ft",
+		cmd = ":Neotree right toggle<CR>",
+	},
+	{
+		desc = "Close file",
+		mode = "n",
+		keys = "<leader>q",
+		cmd = ":q<CR>",
+	},
+	{
+		desc = "Save file",
+		mode = "n",
+		keys = "<leader>w",
+		cmd = ":w<CR>",
+	},
+	{
+		desc = "Save and close file",
+		mode = "n",
+		keys = "<leader>ww",
+		cmd = ":wq<CR>",
+	},
+	{
+		desc = "Create fold",
+		mode = { "n", "v" },
+		keys = "<leader>fc",
+		cmd = "zf",
+	},
+	{
+		desc = "Delete fold",
+		mode = { "n", "v" },
+		keys = "<leader>fd",
+		cmd = "zd",
+	},
+	{
+		desc = "Toogle fold",
+		mode = "n",
+		keys = "<leader>ft",
+		cmd = "za",
+	},
 	{
 		desc = "Comment line/s",
 		mode = { "n", "v" },
@@ -61,23 +113,5 @@ return {
 		mode = { "n", "v" },
 		keys = "<leader>al",
 		cmd = "ggvG",
-	},
-	{
-		desc = "Toggle AI chat",
-		mode = { "n", "v" },
-		keys = "<leader>ap",
-		cmd = function()
-			utils.launch_terminal({
-				cmd = "ollama serve",
-				close_after_cmd = true,
-			})
-			vim.cmd("CodeCompanionChat Toggle")
-		end,
-	},
-	{
-		desc = "Open color picker",
-		mode = { "n", "v" },
-		keys = "<leader>ew",
-		cmd = ":CccPick<CR>",
 	},
 }
