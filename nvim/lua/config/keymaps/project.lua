@@ -47,6 +47,18 @@ return {
 		cmd = ":Neotree right toggle<CR>",
 	},
 	{
+		desc = "Open fuzzy finder",
+		mode = "n",
+		keys = "<leader>ps",
+		cmd = ":FzfLua files<CR>",
+	},
+	{
+		desc = "Open file manager",
+		mode = "n",
+		keys = "<leader>pf",
+		cmd = ":Oil <CR>",
+	},
+	{
 		desc = "Run file",
 		mode = "n",
 		keys = "<leader>lf",
