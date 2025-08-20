@@ -3,6 +3,7 @@ local opts = {
 	number = true,
 	relativenumber = true,
 	cursorline = true,
+	cursorcolumn = true,
 	scroll = 10,
 	mouse = "",
 	tabstop = 4,
@@ -18,6 +19,8 @@ local opts = {
 		precedes = "‹",
 		space = "·",
 	},
+	scrolloff = 10,
+	showmode = false,
 }
 
 for opt_name, value in pairs(opts) do
