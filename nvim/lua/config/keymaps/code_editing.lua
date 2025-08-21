@@ -48,28 +48,69 @@ return {
 		cmd = "<plug>Codedocs",
 	},
 	{
-		desc = "Toogle case",
+		desc = "Toggle word under the cursor",
 		mode = "n",
 		keys = "<leader>ct",
-		cmd = "viw~",
-	},
-	{
-		desc = "Toogle boolean",
-		mode = "n",
-		keys = "<leader>cT",
 		cmd = function()
 			local word = vim.fn.expand("<cword>")
-			local bools = {
+
+			local replacements = {
 				["True"] = "False",
 				["False"] = "True",
 				["true"] = "false",
 				["false"] = "true",
+
+				["on"] = "off",
+				["off"] = "on",
+				["ON"] = "OFF",
+				["OFF"] = "ON",
+
+				["enabled"] = "disabled",
+				["disabled"] = "enabled",
+
+				["public"] = "private",
+				["private"] = "public",
+
+				["up"] = "down",
+				["down"] = "up",
+
+				["break"] = "continue",
+				["continue"] = "break",
+
+				["fg"] = "bg",
+				["bg"] = "fg",
+				["foreground"] = "background",
+				["background"] = "foreground",
+
+				["local"] = "remote",
+				["remote"] = "local",
+
+				["==="] = "!==",
+				["!=="] = "===",
+
+				["and"] = "or",
+				["or"] = "and",
+				["&&"] = "||",
+				["||"] = "&&",
+
+				["=="] = "!=",
+				["!="] = "==",
+				[">"] = "<",
+				["<"] = ">",
+				[">="] = "<=",
+				["<="] = ">=",
+
+				["++"] = "--",
+				["--"] = "++",
 			}
-			local replacement = bools[word]
+			local replacement = replacements[word]
 
 			if replacement then
-				vim.cmd("normal! ciw" .. replacement)
+				vim.cmd.normal("ciw" .. replacement)
+				return
 			end
+
+			vim.cmd.normal("viw~")
 		end,
 	},
 }
