@@ -12,9 +12,9 @@ return {
 		cmd = "silent! mkview",
 	},
 	{
-		desc = "Update status bar diagnostics",
-		event = "DiagnosticChanged",
-		pattern = "*",
-		cmd = "redrawstatus",
+		desc = "Reload config",
+		event = "BufWritePost",
+		pattern = "*/nvim/*",
+		cmd = "silent source %",
 	},
 }
