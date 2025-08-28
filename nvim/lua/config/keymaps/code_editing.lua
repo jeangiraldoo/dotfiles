@@ -2,25 +2,25 @@ return {
 	{
 		desc = "List references to symbol",
 		mode = "n",
-		keys = "<leader>cr",
+		keys = "<leader>sr",
 		cmd = vim.lsp.buf.references,
 	},
 	{
 		desc = "Go to symbol declaration",
 		mode = "n",
-		keys = "<leader>cd",
+		keys = "<leader>sd",
 		cmd = vim.lsp.buf.definition,
 	},
 	{
 		desc = "Go to call",
 		mode = "n",
-		keys = "<leader>cf",
+		keys = "<leader>sf",
 		cmd = vim.lsp.buf.outgoing_calls,
 	},
 	{
 		desc = "Go to next word occurrence",
 		mode = "n",
-		keys = "<leader>cn",
+		keys = "<leader>sn",
 		cmd = function()
 			require("illuminate").goto_next_reference(true)
 		end,
@@ -28,7 +28,7 @@ return {
 	{
 		desc = "Go to previous word occurrence",
 		mode = "n",
-		keys = "<leader>cN",
+		keys = "<leader>sN",
 		cmd = function()
 			require("illuminate").goto_prev_reference(true)
 		end,
@@ -36,7 +36,7 @@ return {
 	{
 		desc = "Toggle inlay hints",
 		mode = "n",
-		keys = "<leader>ch",
+		keys = "<leader>sh",
 		cmd = function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end,
@@ -44,13 +44,13 @@ return {
 	{
 		desc = "Insert code annotation",
 		mode = "n",
-		keys = "<leader>ca",
+		keys = "<leader>sa",
 		cmd = "<plug>Codedocs",
 	},
 	{
 		desc = "Toggle word under the cursor",
 		mode = "n",
-		keys = "<leader>ct",
+		keys = "<leader>st",
 		cmd = function()
 			local word = vim.fn.expand("<cword>")
 
