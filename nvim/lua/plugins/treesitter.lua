@@ -1,7 +1,12 @@
 return {
-	"nvim-treesitter",
-	config = function()
-		require("nvim-treesitter.configs").setup({
+	{
+		name = "nvim-treesitter",
+		enabled = false,
+		author = "nvim-treesitter",
+		version = "main",
+		remove_name_suffix = true,
+		require_name = "nvim-treesitter.configs",
+		opts = {
 			ensure_installed = {
 				"java",
 				"javascript",
@@ -12,8 +17,13 @@ return {
 				"python",
 				"typst",
 				"html",
-				"go"
-			}
-		})
-	end
+				"go",
+			},
+		},
+	},
+	{
+		name = "nvim-treesitter-context",
+		author = "nvim-treesitter",
+		remove_name_suffix = true,
+	},
 }

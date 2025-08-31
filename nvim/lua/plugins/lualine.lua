@@ -1,8 +1,15 @@
 return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	config = function()
-		require("lualine").setup({
+	{
+		name = "lualine",
+		author = "nvim-lualine",
+		dependencies = {
+			{
+				name = "nvim-web-devicons",
+				author = "nvim-tree",
+				remove_name_suffix = true,
+			},
+		},
+		opts = {
 			theme = "gruvbox",
 			sections = {
 				lualine_a = { "branch", "diff" },
@@ -12,6 +19,6 @@ return {
 				lualine_y = { "progress" },
 				lualine_z = { "location" },
 			},
-		})
-	end,
+		},
+	},
 }

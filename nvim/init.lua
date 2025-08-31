@@ -1,6 +1,10 @@
 vim.g.mapleader = " "
 
 require("config")
+vim.opt.packpath:prepend(vim.fn.stdpath("data") .. "\\site")
+require("plugins.init")
+
+vim.cmd("colorscheme tokyonight")
 
 vim.lsp.enable({
 	"lua_ls",

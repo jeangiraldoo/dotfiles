@@ -1,7 +1,7 @@
 return {
-	"lukas-reineke/indent-blankline.nvim",
-	main = "ibl",
-	config = function()
-		require("ibl").setup()
-	end,
+	{
+		name = "indent-blankline",
+		author = "lukas-reineke",
+		require_name = "ibl",
+	},
 }

@@ -71,4 +71,12 @@ return {
 			end
 		end,
 	},
+	{
+		desc = "Display installed plugins",
+		mode = "n",
+		keys = "<leader>ae",
+		cmd = function()
+			print(vim.inspect(vim.pack.get()))
+		end
+	}
 }

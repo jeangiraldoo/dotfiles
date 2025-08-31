@@ -1,8 +1,8 @@
 return {
-	"stevearc/conform.nvim",
-	opts = {},
-	config = function()
-		require("conform").setup({
+	{
+		name = "conform",
+		author = "stevearc",
+		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				yaml = { "prettier" },
@@ -17,6 +17,6 @@ return {
 			notify_on_error = true,
 			notify_no_formatters = true,
 			log_level = vim.log.levels.DEBUG,
-		})
-	end,
+		},
+	},
 }

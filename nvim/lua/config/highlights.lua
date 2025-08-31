@@ -12,6 +12,12 @@ local HIGHLIGHTS = {
 		bold = true,
 		bg = "#4c3f39",
 	},
+	-- nvim-treesitter-context
+	TreesitterContext = {
+		bg = "#003767",
+		italic = true,
+		bold = true,
+	},
 }
 
 for highlight_name, data in pairs(HIGHLIGHTS) do

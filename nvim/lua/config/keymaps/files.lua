@@ -14,7 +14,7 @@ return {
 	{
 		desc = "Display file tree",
 		mode = "n",
-		keys = "<leader>ft",
+		keys = "<leader>fM",
 		cmd = ":Neotree right toggle<CR>",
 	},
 	{

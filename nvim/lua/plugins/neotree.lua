@@ -1,11 +1,22 @@
 return {
-	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v3.x",
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons",
-		"MunifTanjim/nui.nvim",
+	{
+		name = "neo-tree",
+		author = "nvim-neo-tree",
+		dependencies = {
+			{
+				name = "plenary",
+				author = "nvim-lua",
+			},
+			{
+				name = "nvim-web-devicons",
+				author = "nvim-tree",
+				remove_name_suffix = true,
+			},
+			{
+				name = "nui.nvim",
+				author = "MunifTanjim",
+				remove_name_suffix = true,
+			},
+		},
 	},
-	lazy = false,
-	opts = {},
 }

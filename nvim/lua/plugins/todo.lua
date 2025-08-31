@@ -1,5 +1,12 @@
 return {
-	"folke/todo-comments.nvim",
-	dependencies = { "nvim-lua/plenary.nvim" },
-	opts = {},
+	{
+		name = "todo-comments",
+		author = "folke",
+		dependencies = {
+			{
+				name = "plenary",
+				author = "nvim-lua",
+			},
+		},
+	},
 }
