@@ -1,5 +1,5 @@
 local utils = require("utils")
-local keymaps = utils.get_combined_module_tables("config.keymaps")
+local keymaps = utils.get_combined_module_tables("keymaps")
 
 local opts = {
 	noremap = true,

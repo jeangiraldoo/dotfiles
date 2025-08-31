@@ -113,4 +113,18 @@ return {
 			vim.cmd.normal("viw~")
 		end,
 	},
+	{
+		desc = "Swap TS nodes",
+		mode = "n",
+		keys = "<leader>ss",
+		cmd = ":ISwapNodeWith<CR>",
+	},
+	{
+		desc = "Go to code context",
+		mode = "n",
+		keys = "<leader>sc",
+		cmd = function()
+			require("treesitter-context").go_to_context(vim.v.count1)
+		end,
+	},
 }

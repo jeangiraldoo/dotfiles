@@ -1,8 +1,12 @@
 vim.g.mapleader = " "
 
-require("config")
 vim.opt.packpath:prepend(vim.fn.stdpath("data") .. "\\site")
+
+require("opts")
+require("highlights")
+require("autocommands")
 require("plugins.init")
+require("keymaps")
 
 vim.cmd("colorscheme tokyonight")
 
