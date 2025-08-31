@@ -21,6 +21,11 @@ local opts = {
 	},
 	scrolloff = 10,
 	showmode = false,
+	winborder = "rounded",
+	autocomplete = true,
+	complete = "",
+	completeopt = "menuone,noselect,popup,preview",
+	pumheight = 12,
 }
 
 for opt_name, value in pairs(opts) do

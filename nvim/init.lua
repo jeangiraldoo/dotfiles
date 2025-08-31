@@ -3,10 +3,11 @@ vim.g.mapleader = " "
 vim.opt.packpath:prepend(vim.fn.stdpath("data") .. "\\site")
 
 require("opts")
-require("highlights")
 require("autocommands")
 require("plugins.init")
 require("keymaps")
+require("lsp")
+require("highlights")
 
 vim.cmd("colorscheme tokyonight")
 
@@ -22,7 +23,6 @@ vim.lsp.enable({
 
 vim.lsp.set_log_level(vim.log.levels.OFF)
 vim.lsp.log.set_format_func(vim.inspect)
-
 vim.diagnostic.config({
 	virtual_text = true,
 })

@@ -77,6 +77,27 @@ return {
 		keys = "<leader>ae",
 		cmd = function()
 			print(vim.inspect(vim.pack.get()))
-		end
-	}
+		end,
+	},
+	{
+		desc = "Move up an item menu",
+		mode = "i",
+		keys = "<C-k>",
+		cmd = "<C-p>",
+	},
+
+	{
+		desc = "Move down an item menu",
+		mode = "i",
+		keys = "<C-j>",
+		cmd = "<C-n>",
+	},
+	{
+		desc = "Accept selected menu item",
+		mode = "i",
+		keys = "<CR>",
+		cmd = function()
+			vim.cmd([[inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"]])
+		end,
+	},
 }
