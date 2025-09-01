@@ -1,6 +1,4 @@
 return {
-	{
-		name = "refactoring",
-		author = "ThePrimeagen",
-	},
+	name = "refactoring",
+	author = "ThePrimeagen",
 }

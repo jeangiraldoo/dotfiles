@@ -1,9 +1,7 @@
 return {
-	{
-		name = "tokyonight",
-		author = "folke",
-		opts = {
-			transparent = true,
-		},
+	name = "tokyonight",
+	author = "folke",
+	opts = {
+		transparent = true,
 	},
 }

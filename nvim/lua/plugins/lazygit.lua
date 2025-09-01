@@ -1,6 +1,4 @@
 return {
-	{
-		name = "lazygit",
-		author = "kdheepak",
-	},
+	name = "lazygit",
+	author = "kdheepak",
 }
