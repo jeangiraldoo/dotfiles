@@ -1,5 +1,5 @@
 local utils = require("utils")
-local raw_plugin_specs = utils.get_combined_module_tables("plugins")
+local raw_plugin_specs = utils.get_combined_module_tbls("plugins")
 
 local PROVIDER_URL = {
 	github = "https://github.com",
@@ -12,7 +12,6 @@ local PLUGIN_URL_TEMPLATE = "%s/%s/%s"
 
 local function setup_plugins(plugin_opts)
 	for module_name, config in pairs(plugin_opts) do
-		print(module_name, type(config))
 		if type(config) == "function" then
 			config()
 			goto continue
@@ -54,7 +53,8 @@ end
 
 local function add_plugin_config_entry(spec, config_entries)
 	local require_name = spec.require_name or spec.name
-	local config = spec.config or spec.opts
+	local opts = spec.opts or {}
+	local config = spec.config or opts
 
 	config_entries[require_name] = config
 end
@@ -88,9 +88,6 @@ end
 
 local plugin_specs, plugin_opts, dependency_specs = build_plugin_specs_and_opts()
 
-print("OPts: ", vim.inspect(plugin_opts))
-print("Original specs: ", vim.inspect(plugin_specs))
-
 local dependencies_without_full_spec = {}
 
 for _, dependency in ipairs(dependency_specs) do
@@ -108,13 +105,6 @@ for _, dependency in ipairs(dependency_specs) do
 end
 
 local specs = vim.list_extend(vim.deepcopy(plugin_specs), dependencies_without_full_spec)
-print("Depend: ", vim.inspect(dependencies_without_full_spec))
-print("Specs: ", vim.inspect(specs))
 
--- vim.pack.add(plugin_specs)
 vim.pack.add(specs, { confirm = false, load = true })
--- for _, spec in ipairs(specs) do
--- 	print("added " .. spec.name)
--- 	vim.cmd("packadd " .. spec.name)
--- end
 setup_plugins(plugin_opts)
