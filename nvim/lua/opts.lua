@@ -1,5 +1,4 @@
-local opts = {
-	ruler = true,
+local OPTS = {
 	number = true,
 	relativenumber = true,
 	cursorline = true,
@@ -29,6 +28,6 @@ local opts = {
 	pumheight = 12,
 }
 
-for opt_name, value in pairs(opts) do
+for opt_name, value in pairs(OPTS) do
 	vim.opt[opt_name] = value
 end
