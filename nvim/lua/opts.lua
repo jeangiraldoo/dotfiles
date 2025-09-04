@@ -8,6 +8,7 @@ local opts = {
 	mouse = "",
 	tabstop = 4,
 	shiftwidth = 4,
+	statusline = "%!v:lua.require'statusline'.build_statusline()",
 	foldenable = true,
 	foldmethod = "manual",
 	foldcolumn = "1",
