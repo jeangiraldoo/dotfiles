@@ -97,7 +97,13 @@ return {
 		mode = "i",
 		keys = "<CR>",
 		cmd = function()
-			vim.cmd([[inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"]])
+			local is_completion_selected = vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1
+			local code = is_completion_selected and "<C-y>" or "<CR>"
+
+			return vim.api.nvim_replace_termcodes(code, true, true, true)
 		end,
+		opts = {
+			expr = true,
+		},
 	},
 }
