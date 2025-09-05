@@ -1,9 +1,9 @@
 local SECTIONS = {
-	GIT = require("statusline.git"),
-	FILE_STATUS = require("statusline.file_status"),
-	DIAGNOSTICS = require("statusline.diagnostics"),
-	FILE_METADATA = require("statusline.file_metadata"),
-	POSITION = require("statusline.position"),
+	GIT = require("interface.statusline.git"),
+	FILE_STATUS = require("interface.statusline.file_status"),
+	DIAGNOSTICS = require("interface.statusline.diagnostics"),
+	FILE_METADATA = require("interface.statusline.file_metadata"),
+	POSITION = require("interface.statusline.position"),
 }
 
 local PATTERNS = {
