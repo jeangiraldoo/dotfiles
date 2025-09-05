@@ -4,7 +4,7 @@ vim.opt.packpath:prepend(vim.fn.stdpath("data") .. "\\site")
 
 require("plugins.init")
 require("opts")
-require("highlights")
+require("interface")
 require("autocommands")
 require("keymaps")
 require("lsp")
