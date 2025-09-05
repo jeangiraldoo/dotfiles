@@ -1,63 +1,26 @@
 local utils = require("utils")
+local DEFAULTS = require("custom.runner._defaults")
 
 local CodeRunner = {}
 
-local CMDS = {
-	python = {
-		type = "interpreted",
-		cmd = "python %s",
-		project_markers = {
-			"main.py",
-		},
-	},
-	javascript = {
-		type = "interpreted",
-		cmd = "node %s",
-		project_markers = {
-			"index.js",
-			"main.js",
-		},
-	},
-	go = {
-		type = "compiled",
-		cmd = "go run .",
-		project_markers = {
-			"go.mod",
-			"main.go",
-		},
-	},
-	rust = {
-		type = "compiled",
-		cmd = "cargo run",
-		project_markers = {
-			"Cargo.toml",
-		},
-	},
-}
-
-local function notify(msg)
-	vim.notify("[CodeRunner] " .. msg, vim.log.levels.WARN)
+local function _display_warning(msg)
+	vim.notify("[Runner] " .. msg, vim.log.levels.WARN)
 end
 
 local function _get_filetype_data()
 	local filetype = vim.bo.filetype
-	local filetype_data = CMDS[filetype]
+	local filetype_data = DEFAULTS[filetype]
 
 	if not filetype_data then
-		notify("Unsupported filetype: " .. filetype)
+		_display_warning("Unsupported filetype: " .. filetype)
 		return
 	end
 
 	return filetype_data
 end
 
-function CodeRunner.run_file()
+local function _run_file(filetype_data)
 	local file_path = vim.fn.expand("%:p")
-
-	local filetype_data = _get_filetype_data()
-	if filetype_data == nil then
-		return
-	end
 
 	local data = {
 		cmd = string.format(filetype_data.cmd, file_path),
@@ -67,16 +30,12 @@ function CodeRunner.run_file()
 	utils.launch_terminal(data)
 end
 
-function CodeRunner.run_project()
-	local filetype_data = _get_filetype_data()
-	if filetype_data == nil then
-		return
-	end
+local function _run_project(filetype_data)
 	local project_markers = filetype_data.project_markers
 	local project_root_path = vim.fs.root(0, project_markers)
 
 	if not project_root_path then
-		notify("No project root found")
+		_display_warning("No project root found")
 		return
 	end
 
@@ -95,6 +54,25 @@ function CodeRunner.run_project()
 			return
 		end
 	end
+end
+
+function CodeRunner.run(run_file_as_project)
+	local filetype_data = _get_filetype_data()
+	if filetype_data == nil then
+		return
+	end
+
+	if not run_file_as_project and filetype_data.type == "compiled" then
+		_display_warning("Compiled languages should be run as a project")
+		return
+	end
+
+	if not run_file_as_project then
+		_run_file(filetype_data)
+		return
+	end
+
+	_run_project(filetype_data)
 end
 
 return CodeRunner

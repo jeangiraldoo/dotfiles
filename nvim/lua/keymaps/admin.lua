@@ -1,5 +1,5 @@
 local utils = require("utils")
-local code_runner = require("custom.code_runner")
+local runner = require("custom.runner")
 
 return {
 	{
@@ -47,7 +47,7 @@ return {
 		mode = "n",
 		keys = "<leader>ar",
 		cmd = function()
-			code_runner.run_file()
+			runner.run(false)
 		end,
 	},
 	{
@@ -55,7 +55,7 @@ return {
 		mode = "n",
 		keys = "<leader>aR",
 		cmd = function()
-			code_runner.run_project()
+			runner.run(true)
 		end,
 	},
 	{
