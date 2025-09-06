@@ -15,4 +15,12 @@ return {
 			end
 		end,
 	},
+	{
+		desc = "Lint the current file on save",
+		event = "BufWritePost",
+		pattern = "*",
+		cmd = function()
+			require("lint").try_lint()
+		end,
+	},
 }
