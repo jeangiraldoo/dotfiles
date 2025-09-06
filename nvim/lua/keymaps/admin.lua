@@ -106,4 +106,10 @@ return {
 			expr = true,
 		},
 	},
+	{
+		desc = "Display diagnostics window",
+		mode = "n",
+		keys = "<leader>ad",
+		cmd = vim.diagnostic.open_float,
+	},
 }

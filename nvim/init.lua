@@ -8,7 +8,3 @@ require("interface")
 require("autocommands")
 require("keymaps")
 require("lsp")
-
-vim.diagnostic.config({
-	virtual_text = true,
-})
