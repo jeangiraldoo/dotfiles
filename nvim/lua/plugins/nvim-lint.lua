@@ -3,7 +3,9 @@ return {
 	author = "mfussenegger",
 	remove_name_suffix = true,
 	config = function()
-		require("lint").linters_by_ft = {
+		local nvim_lint_config = require("lint")
+
+		nvim_lint_config.linters_by_ft = {
 			markdown = {
 				"markdownlint",
 			},
@@ -19,6 +21,18 @@ return {
 			["yaml.github"] = {
 				"actionlint",
 			},
+		}
+
+		local linters_config = nvim_lint_config.linters
+
+		linters_config.luacheck.args = {
+			"--formatter",
+			"plain",
+			"--codes",
+			"--ranges",
+			"-",
+			"--globals",
+			"vim",
 		}
 
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
