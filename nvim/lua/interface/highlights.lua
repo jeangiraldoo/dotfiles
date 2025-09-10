@@ -1,4 +1,10 @@
 local HIGHLIGHTS = {
+	DapBreakpoint = {
+		fg = "#FF0000",
+	},
+	DapStopped = {
+		fg = "#00add6",
+	},
 	WhiteText = {
 		fg = "#ffffff",
 	},
