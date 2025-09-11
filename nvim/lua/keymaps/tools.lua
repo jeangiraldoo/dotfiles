@@ -2,12 +2,6 @@ local utils = require("utils")
 
 return {
 	{
-		desc = "Open LazyGit",
-		mode = "n",
-		keys = "<leader>tg",
-		cmd = "<cmd>LazyGit<cr>",
-	},
-	{
 		desc = "Toggle AI chat",
 		mode = { "n", "v" },
 		keys = "<leader>ta",
