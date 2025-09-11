@@ -31,3 +31,16 @@ local OPTS = {
 for opt_name, value in pairs(OPTS) do
 	vim.opt[opt_name] = value
 end
+
+local GLOBALS = {
+	netrw_liststyle = 3, -- tree mode
+	netrw_banner = 0, -- hide banner
+	netrw_winsize = 25, -- window width
+	netrw_altv = 1, -- splits open to the right
+	netrw_browse_split = 4, -- open files in the previous window
+	netrw_tree_indent = 2,
+}
+
+for global_name, value in pairs(GLOBALS) do
+	vim.g[global_name] = value
+end
