@@ -4,7 +4,6 @@ end
 
 # Environment variables
 set -Ux EDITOR nvim
-set -Ux YAZI_CONFIG_HOME ~/.config/yazi/
 set -U fish_greeting ""
 set -g fish_key_bindings fish_vi_key_bindings
 
