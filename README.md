@@ -1,6 +1,7 @@
 # Unix dotfiles 🐧
 
-I love tinkering with my development environment to make it both productive and enjoyable. Here, you'll find everything about my setup—what I use, why I use it, and how it all fits together. Feel free to take anything you find useful!
+I love tinkering with my personal and development environment to make it both productive and fun to use.
+Feel free to check my setup, comment on it, or grab anything that you find useful, but be aware that it is tailored to my needs!
 
 > [!NOTE]
 > This repository is organized into the following branches:
