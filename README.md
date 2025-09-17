@@ -8,7 +8,7 @@ The setup is organized into branches:
 - **termux** — Based on `main`, adapted for Android/Termux
 - **windows** — Windows-specific setup
 
-The current branch is `main`. Here you will find settings for:
+The current branch is `termux`. Here you will find settings for:
 
 - Neovim (main editor)
 - Yazi (file manager)
@@ -22,7 +22,7 @@ The current branch is `main`. Here you will find settings for:
 ## Usage
 
 ```bash
-curl -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/main/install.sh
+curl -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/termux/install.sh
 chmod +x install.sh
 ./install.sh
 ```
