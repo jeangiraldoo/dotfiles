@@ -45,4 +45,4 @@ The script does the following:
 - Zoxide
 - Eza
 
-1. It will clone this repository into `~/.config` if `~/.config` does not exist or is empty
+2. It will clone this repository into `~/.config` if `~/.config` does not exist or is empty
