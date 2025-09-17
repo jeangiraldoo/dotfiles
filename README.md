@@ -1,4 +1,4 @@
-# 🌱 Welcome to My Dotfiles! 🌱
+# 🌱 Welcome to my Termux Dotfiles! 🌱
 
 I love tinkering with my development environment to make it both productive and enjoyable. Here, you'll find everything about my setup—what I use, why I use it, and how it all fits together. Feel free to take anything you find useful!
 
@@ -8,8 +8,9 @@ The setup is organized into branches:
 - **termux** — Based on `main`, adapted for Android/Termux
 - **windows** — Windows-specific setup
 
-The current branch is `termux`. Here you will find settings for:
+In this branch you will find settings for:
 
+- Termux (Terminal emulator & Linux environment for Android)
 - Neovim (main editor)
 - Yazi (file manager)
 - Wezterm (terminal emulator)
