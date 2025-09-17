@@ -1,4 +1,4 @@
-# 🌱 Welcome to my Unix Dotfiles! 🌱
+# Welcome to my Unix Dotfiles! 🐧
 
 I love tinkering with my development environment to make it both productive and enjoyable. Here, you'll find everything about my setup—what I use, why I use it, and how it all fits together. Feel free to take anything you find useful!
 
