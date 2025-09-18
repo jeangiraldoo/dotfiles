@@ -1,4 +1,4 @@
-# Unix dotfiles 🐧
+# Windows dotfiles 🪟
 
 I love tinkering with my personal and development environment to make it both productive and fun to use.
 Feel free to check my setup, comment on it, or grab anything that you find useful, but be aware that it is tailored to my needs!
