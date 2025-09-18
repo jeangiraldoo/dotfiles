@@ -1,6 +1,8 @@
 # Environment variables
 $env:EDITOR = "nvim"
 $env:STARSHIP_CONFIG = "$HOME/.config/starship.toml"
+$env:YAZI_CONFIG_HOME = "$HOME/.config/yazi"
+$env:GIT_CONFIG_GLOBAL = "$HOME/.config/git/config"
 
 # Aliases
 Set-Alias e $env:EDITOR
