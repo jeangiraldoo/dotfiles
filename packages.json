@@ -1,0 +1,128 @@
+{
+	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
+	"CreationDate" : "2025-09-18T15:30:46.870-00:00",
+	"Sources" :
+	[
+		{
+			"Packages" :
+			[
+				{
+					"PackageIdentifier" : "Git.Git",
+					"Version" : "2.49.0"
+				},
+				{
+					"PackageIdentifier" : "Mozilla.Firefox",
+					"Version" : "143.0"
+				},
+				{
+					"PackageIdentifier" : "RARLab.WinRAR",
+					"Version" : "7.11.0"
+				},
+				{
+					"PackageIdentifier" : "Neovim.Neovim",
+					"Version" : "0.11.4"
+				},
+				{
+					"PackageIdentifier" : "JohnMacFarlane.Pandoc",
+					"Version" : "3.6.3"
+				},
+				{
+					"PackageIdentifier" : "glzr-io.glazewm",
+					"Version" : "> 3.9.1"
+				},
+				{
+					"PackageIdentifier" : "OpenEducationFoundation.OpenBoard",
+					"Version" : "1.7.3.240"
+				},
+				{
+					"PackageIdentifier" : "wez.wezterm",
+					"Version" : "20240203-110809-5046fc22"
+				},
+				{
+					"PackageIdentifier" : "GitHub.cli",
+					"Version" : "2.76.2"
+				},
+				{
+					"PackageIdentifier" : "Starship.Starship",
+					"Version" : "1.22.1"
+				},
+				{
+					"PackageIdentifier" : "Python.Launcher",
+					"Version" : "> 3.13.5"
+				},
+				{
+					"PackageIdentifier" : "AlDanial.Cloc",
+					"Version" : "2.06"
+				},
+				{
+					"PackageIdentifier" : "Artempyanykh.Marksman",
+					"Version" : "2024.12.18"
+				},
+				{
+					"PackageIdentifier" : "Automattic.harper-ls",
+					"Version" : "v0.28.0"
+				},
+				{
+					"PackageIdentifier" : "flux.flux",
+					"Version" : "4.137"
+				},
+				{
+					"PackageIdentifier" : "JesseDuffield.lazygit",
+					"Version" : "0.50.0"
+				},
+				{
+					"PackageIdentifier" : "LuaLS.lua-language-server",
+					"Version" : "3.13.6"
+				},
+				{
+					"PackageIdentifier" : "Myriad-Dreamin.Tinymist",
+					"Version" : "0.13.20"
+				},
+				{
+					"PackageIdentifier" : "Typst.Typst",
+					"Version" : "0.13.1"
+				},
+				{
+					"PackageIdentifier" : "ajeetdsouza.zoxide",
+					"Version" : "0.9.8"
+				},
+				{
+					"PackageIdentifier" : "astral-sh.ruff",
+					"Version" : "0.12.4"
+				},
+				{
+					"PackageIdentifier" : "eza-community.eza",
+					"Version" : "0.20.21"
+				},
+				{
+					"PackageIdentifier" : "junegunn.fzf",
+					"Version" : "0.65.1"
+				},
+				{
+					"PackageIdentifier" : "nektos.act",
+					"Version" : "0.2.76"
+				},
+				{
+					"PackageIdentifier" : "rhysd.actionlint",
+					"Version" : "1.7.7"
+				},
+				{
+					"PackageIdentifier" : "sxyazi.yazi",
+					"Version" : "25.5.31"
+				},
+				{
+					"PackageIdentifier" : "Ollama.Ollama",
+					"Version" : "0.9.6"
+				}
+			],
+			"SourceDetails" :
+			{
+				"Argument" : "https://cdn.winget.microsoft.com/cache",
+				"Identifier" : "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Name" : "winget",
+				"Type" : "Microsoft.PreIndexed.Package"
+			}
+		}
+	],
+	"WinGetVersion" : "1.11.430"
+}
