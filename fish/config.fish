@@ -21,6 +21,9 @@ abbr g git
 # Vi mode
 fish_vi_key_bindings
 
+# Source brew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # Initializations
 starship init fish | source
 zoxide init fish --cmd cd | source
