@@ -23,4 +23,23 @@ return {
 			require("lint").try_lint()
 		end,
 	},
+	{
+		desc = "Set up LSP autocompletion only if LSP is attached",
+		event = "LspAttach",
+		pattern = "*",
+		cmd = function()
+			vim.opt_local.complete = ""
+		end
+	},
+	{
+		desc = "Set up text autocompletion when no LSP is found",
+		event = "BufEnter",
+		pattern = "*",
+		cmd = function()
+			local bufnr = vim.api.nvim_get_current_buf()
+			if not next(vim.lsp.get_clients({ bufnr = bufnr })) then
+				vim.opt_local.complete = "."
+			end
+		end
+	}
 }

@@ -23,7 +23,6 @@ local OPTS = {
 	showmode = false,
 	winborder = "rounded",
 	autocomplete = true,
-	complete = "",
 	completeopt = "menuone,noselect,popup,preview",
 	pumheight = 12,
 }
