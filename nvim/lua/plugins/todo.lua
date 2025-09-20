@@ -1,10 +1,12 @@
 return {
-	name = "todo-comments",
-	author = "folke",
+	src = "https://github.com/folke/todo-comments.nvim",
 	dependencies = {
-		{
-			name = "plenary",
-			author = "nvim-lua",
-		},
+		{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	},
+	data = {
+		enabled = true,
+		setup = function()
+			require("todo-comments").setup({})
+		end,
 	},
 }

@@ -1,4 +1,3 @@
 return {
-	name = "codedocs",
-	author = "jeangiraldoo",
+	src = "https://github.com/jeangiraldoo/codedocs.nvim",
 }

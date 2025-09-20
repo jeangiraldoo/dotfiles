@@ -1,38 +1,39 @@
 return {
-	name = "nvim-lint",
-	author = "mfussenegger",
-	remove_name_suffix = true,
-	config = function()
-		local nvim_lint_config = require("lint")
+	src = "https://mfussenegger/nvim-lint",
+	data = {
+		enabled = true,
+		setup = function()
+			local nvim_lint_config = require("lint")
 
-		nvim_lint_config.linters_by_ft = {
-			markdown = {
-				"markdownlint",
-			},
-			rust = {
-				"clippy",
-			},
-			lua = {
-				"luacheck",
-			},
-			python = {
-				"ruff",
-			},
-			["yaml.github"] = {
-				"actionlint",
-			},
-		}
+			nvim_lint_config.linters_by_ft = {
+				markdown = {
+					"markdownlint",
+				},
+				rust = {
+					"clippy",
+				},
+				lua = {
+					"luacheck",
+				},
+				python = {
+					"ruff",
+				},
+				["yaml.github"] = {
+					"actionlint",
+				},
+			}
 
-		local linters_config = nvim_lint_config.linters
+			local linters_config = nvim_lint_config.linters
 
-		linters_config.luacheck.args = {
-			"--formatter",
-			"plain",
-			"--codes",
-			"--ranges",
-			"-",
-			"--globals",
-			"vim",
-		}
-	end,
+			linters_config.luacheck.args = {
+				"--formatter",
+				"plain",
+				"--codes",
+				"--ranges",
+				"-",
+				"--globals",
+				"vim",
+			}
+		end,
+	},
 }
