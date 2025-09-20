@@ -1,7 +1,13 @@
+local OPTS = {
+	transparent = true,
+}
+
 return {
-	name = "tokyonight",
-	author = "folke",
-	opts = {
-		transparent = true,
+	src = "https://github.com/folke/tokyonight",
+	data = {
+		enabled = true,
+		setup = function()
+			require("tokyonight").setup(OPTS)
+		end,
 	},
 }

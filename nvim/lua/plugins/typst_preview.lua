@@ -1,10 +1,15 @@
+local OPTS = {
+	dependencies_bin = {
+		tinymist = "tinymist",
+	},
+}
+
 return {
-	name = "typst-preview",
-	author = "chomosuke",
-	ft = "typst",
-	opts = {
-		dependencies_bin = {
-			tinymist = "tinymist",
-		},
+	src = "https://github.com/chomosuke/typst-preview.nvim",
+	data = {
+		enabled = true,
+		setup = function()
+			require("typst-preview").setup(OPTS)
+		end,
 	},
 }

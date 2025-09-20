@@ -1,5 +1,9 @@
 return {
-	name = "indent-blankline",
-	author = "lukas-reineke",
-	require_name = "ibl",
+	src = "https://github.com/lukas-reineke/indent-blankline",
+	data = {
+		enabled = true,
+		setup = function()
+			require("ibl").setup({})
+		end
+	}
 }

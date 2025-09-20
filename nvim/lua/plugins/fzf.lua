@@ -1,12 +1,9 @@
 return {
-	name = "fzf-lua",
-	author = "ibhagwan",
-	remove_name_suffix = true,
-	dependencies = {
-		{
-			name = "nvim-web-devicons",
-			author = "nvim-tree",
-			remove_name_suffix = true,
+	src = "https://github.com/ibhagwan/fzf-lua",
+	data = {
+		enabled = true,
+		dependencies = {
+			{ src = "https://nvim-tree/nvim-web-devicons" },
 		},
 	},
 }

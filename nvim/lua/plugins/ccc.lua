@@ -23,35 +23,37 @@ local colour_map = build_colour_map({
 })
 
 return {
-	name = "ccc",
-	author = "uga-rosa",
-	config = function()
-		local ccc = require("ccc")
+	src = "https://github.com/uga-rosa/ccc",
+	data = {
+		enabled = true,
+		setup = function()
+			local ccc = require("ccc")
 
-		ccc.setup({
-			bar_len = 40,
-			point_char = "⋇",
-			empty_point_bg = false,
+			ccc.setup({
+				bar_len = 40,
+				point_char = "⋇",
+				empty_point_bg = false,
 
-			highlighter = {
-				auto_enable = true,
-				lsp = true,
-			},
-			pickers = {
-				ccc.picker.custom_entries(colour_map),
-				ccc.picker.hex,
-				ccc.picker.hex_long,
-				ccc.picker.hex_short,
-				ccc.picker.css_rgb,
-				ccc.picker.css_hsl,
-				ccc.picker.css_hwb,
-				ccc.picker.css_lab,
-				ccc.picker.css_lch,
-				ccc.picker.css_oklab,
-				ccc.picker.css_oklch,
-				ccc.picker.css_name,
-				ccc.picker.defaults,
-			},
-		})
-	end,
+				highlighter = {
+					auto_enable = true,
+					lsp = true,
+				},
+				pickers = {
+					ccc.picker.custom_entries(colour_map),
+					ccc.picker.hex,
+					ccc.picker.hex_long,
+					ccc.picker.hex_short,
+					ccc.picker.css_rgb,
+					ccc.picker.css_hsl,
+					ccc.picker.css_hwb,
+					ccc.picker.css_lab,
+					ccc.picker.css_lch,
+					ccc.picker.css_oklab,
+					ccc.picker.css_oklch,
+					ccc.picker.css_name,
+					ccc.picker.defaults,
+				},
+			})
+		end,
+	},
 }
