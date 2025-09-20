@@ -1,13 +1,19 @@
+local OPTS = {
+	signcolumn = true,
+	current_line_blame_opts = {
+		delay = 0,
+	},
+	current_line_blame_formatter = "  <author> -> <summary> •  <author_time:%d-%b-%Y> • 󰜛 <abbrev_sha>",
+	current_line_blame_formatter_nc = " Not commited yet",
+	gh = true,
+}
+
 return {
-	name = "gitsigns",
-	author = "lewis6991",
-	opts = {
-		signcolumn = true,
-		current_line_blame_opts = {
-			delay = 0,
-		},
-		current_line_blame_formatter = "  <author> -> <summary> •  <author_time:%d-%b-%Y> • 󰜛 <abbrev_sha>",
-		current_line_blame_formatter_nc = " Not commited yet",
-		gh = true,
+	src = "https://github.com/lewis6991/gitsigns",
+	data = {
+		enabled = true,
+		setup = function()
+			require("gitsigns").setup(OPTS)
+		end,
 	},
 }

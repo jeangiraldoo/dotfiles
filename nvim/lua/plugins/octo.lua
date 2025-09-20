@@ -1,23 +1,16 @@
 return {
-	name = "octo",
-	author = "pwntester",
+	src = "https://github.com/pwntester/octo.nvim",
 	dependencies = {
-		{
-			name = "plenary",
-			author = "nvim-lua",
-		},
-		{
-			name = "fzf-lua",
-			author = "ibhagwan",
-			remove_name_suffix = true,
-		},
-		{
-			name = "nvim-web-devicons",
-			author = "nvim-tree",
-			remove_name_suffix = true,
-		},
+		{ src = "https://github.com/nvim-lua/plenary.nvim" },
+		{ src = "https://github.com/ibhagwan/fzf-lua" },
+		{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	},
-	opts = {
-		picker = "fzf-lua",
+	data = {
+		enabled = true,
+		setup = function()
+			require("octo").setup({
+				picker = "fzf-lua",
+			})
+		end,
 	},
 }

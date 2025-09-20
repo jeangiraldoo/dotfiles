@@ -1,4 +1,6 @@
 return {
-	name = "refactoring",
-	author = "ThePrimeagen",
+	src = "https://github.com/ThePrimeagen/refactoring.nvim",
+	data = {
+		enabled = true,
+	}
 }
