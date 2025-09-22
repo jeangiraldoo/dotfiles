@@ -1,4 +1,4 @@
-local devicons = require("nvim-web-devicons")
+local FILE_ICONS = require("interface.statusline._filetype_styles")
 
 local MODIFIED = {
 	ICON = "●",
@@ -25,27 +25,25 @@ local function build_file_path_and_icon(file_name, apply_highlight)
 		})
 	end
 
+	local filetype = vim.bo.filetype
+
+	local new_icon_data = FILE_ICONS[filetype] or FILE_ICONS.text
+
 	local parent_dir = vim.fn.expand("%:p:h:t")
-	local extension = vim.fn.expand("%:e")
-
-	local icon, color = devicons.get_icon_color(file_name, extension, { default = true })
-
-	local hl_name = "StatusLineDevIcon" .. extension
-	local hl_exists = vim.fn.hlexists(hl_name) == 1
-
-	if color and not hl_exists then
-		vim.api.nvim_set_hl(0, hl_name, { fg = color })
-	end
-
 	local path = vim.fs.joinpath(parent_dir, file_name)
 
-	if not icon then
-		return path
+	local new_icon, icon_color = new_icon_data.ICON, new_icon_data.HIGHLIGHT
+
+	local hl_name = "StatusLineDevIcon" .. filetype
+	local hl_exists = vim.fn.hlexists(hl_name) == 1
+
+	if icon_color and not hl_exists then
+		vim.api.nvim_set_hl(0, hl_name, { fg = icon_color })
 	end
 
 	local coloured_icon = apply_highlight({
 		hl_name = hl_name,
-		text = icon,
+		text = new_icon,
 		should_reset = true,
 	})
 	return path, coloured_icon
