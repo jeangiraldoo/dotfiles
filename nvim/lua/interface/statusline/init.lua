@@ -1,8 +1,8 @@
+--TODO rename SECTIONS fields so that it is clear they are assigned functions
 local SECTIONS = {
 	GIT = require("interface.statusline.git"),
-	FILE_STATUS = require("interface.statusline.file_status"),
+	FILE = require("interface.statusline.file"),
 	DIAGNOSTICS = require("interface.statusline.diagnostics"),
-	FILE_METADATA = require("interface.statusline.file_metadata"),
 	POSITION = require("interface.statusline.position"),
 }
 
@@ -45,12 +45,12 @@ function M.build_statusline()
 
 	local left_section = _build_section({
 		SECTIONS.GIT(apply_highlight),
-		SECTIONS.FILE_STATUS(file_name, apply_highlight),
+		SECTIONS.FILE.status(file_name, apply_highlight),
 	})
 
 	local rigth_section = _build_section({
 		SECTIONS.DIAGNOSTICS(apply_highlight),
-		SECTIONS.FILE_METADATA(file_name),
+		SECTIONS.FILE.metadata(file_name),
 		SECTIONS.POSITION(apply_highlight),
 	})
 
