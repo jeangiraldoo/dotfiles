@@ -1,37 +1,46 @@
 format = """
-$directory $git_branch $git_status $memory_usage $status
-$character"""
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$status
+$character
+"""
+
+palette = "arrows"
+[palettes.arrows]
+git_bg_colour = "#be6f00"
+path_bg_colour = "#468588"
+text_fg_colour = "#FFD580"
+system_info_bg_colour = "red"
 
 [character]
-success_symbol = "[⌬](bold green)"
-error_symbol = "[⨳](bold red)"
-vicmd_symbol = "[V](bold yellow)"
+success_symbol = "[λ](fg:#bd00b7)"
+error_symbol = "[λ](bold red)"
+vicmd_symbol = "[V](bold green)"
+
+[os]
+disabled = false
+format = "[](fg:system_info_bg_colour)[$symbol](bg:system_info_bg_colour)"
+
+[username]
+show_always = true
+format = "[$user](bg:system_info_bg_colour fg:text_fg_colour)[  ](bg:system_info_bg_colour)"
+
+[hostname]
+format = "[  $ssh_symbol$hostname  ](bg:#7E57C2 fg:text_fg_colour)"
 
 [directory]
-style = "bold cyan"
-format = "[$path]($style)[$read_only]($read_only_style)"
-repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)'
-repo_root_style = "bold red"
+style = "bg:path_bg_colour fg:text_fg_colour"
+format = "[ $path]($style)[█](bg:git_bg_colour fg:path_bg_colour)[$read_only]($read_only_style)"
+repo_root_style = "bg:path_bg_colour fg:#2F4F4F"
+repo_root_format = "[ $repo_root]($repo_root_style)[$path]($style)[██](fg:path_bg_colour bg:git_bg_colour)[$read_only]($read_only_style)"
 
 [git_branch]
-format = "[$symbol$branch(:$remote_branch)]($style)"
-style = "bold green"
-
-[git_status]
-format = '([\[$all_status$ahead_behind\]]($style))'
-style = "bold green"
+format = "[ $symbol$branch(:$remote_branch)](bg:git_bg_colour fg:text_fg_colour)[█](fg:git_bg_colour)"
 
 [status]
 disabled = false
-format = '[$symbol$status]($style)'
+format = "[$status]($style)"
 style = "bold red"
-
-[memory_usage]
-disabled = false
-threshold = 80
-symbol = ""
-format = '$symbol[${ram}]($style)'
-style = "bold blue"
-
-# [lua]
-# format = '[$symbol($version )]($style)'
