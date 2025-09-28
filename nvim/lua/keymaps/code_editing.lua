@@ -127,4 +127,16 @@ return {
 			require("treesitter-context").go_to_context(vim.v.count1)
 		end,
 	},
+	{
+		desc = "Surround a visual selection with an opening/closing character pair",
+		mode = { "x" },
+		keys = "<leader>ls",
+		cmd = [[:<C-u>lua require("custom.text_wrapping").surround.simple.RUN()<CR>]],
+	},
+	{
+		desc = "Surround a visual selection with one or more opening/closing character pairs",
+		mode = { "x" },
+		keys = "<leader>lS",
+		cmd = [[:<C-u>lua require("custom.text_wrapping").surround.extended()<CR>]],
+	},
 }
