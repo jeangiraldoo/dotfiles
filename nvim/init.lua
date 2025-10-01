@@ -2,7 +2,6 @@ vim.g.mapleader = " "
 
 vim.opt.packpath:prepend(vim.fn.stdpath("data") .. "\\site")
 
-require("opts")
 require("autocommands")
 require("keymaps")
 require("lsp")
