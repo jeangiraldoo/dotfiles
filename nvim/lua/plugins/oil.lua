@@ -16,5 +16,13 @@ return {
 		setup = function()
 			require("oil").setup(OPTS)
 		end,
+		keymaps = {
+			{
+				desc = "Open file manager",
+				mode = "n",
+				keys = "<leader>fm",
+				cmd = ":Oil <CR>",
+			},
+		},
 	},
 }

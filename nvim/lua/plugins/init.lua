@@ -30,5 +30,9 @@ vim.pack.add(plugin_specs, {
 		if spec.data and spec.data.setup ~= nil then
 			spec.data.setup()
 		end
+
+		if spec.data.keymaps then
+			utils.set_keymaps(spec.data.keymaps)
+		end
 	end,
 })

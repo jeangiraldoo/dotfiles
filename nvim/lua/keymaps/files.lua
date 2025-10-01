@@ -13,18 +13,6 @@ end
 
 return {
 	{
-		desc = "Open fuzzy finder",
-		mode = "n",
-		keys = "<leader>ff",
-		cmd = ":FzfLua files<CR>",
-	},
-	{
-		desc = "Open file manager",
-		mode = "n",
-		keys = "<leader>fm",
-		cmd = ":Oil <CR>",
-	},
-	{
 		desc = "Display file tree",
 		mode = "n",
 		keys = "<leader>fM",

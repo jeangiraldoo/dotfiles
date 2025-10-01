@@ -3,12 +3,6 @@ local runner = require("custom.runner")
 
 return {
 	{
-		desc = "Open plugin manager menu",
-		mode = "n",
-		keys = "<leader>ap",
-		cmd = ":Lazy<CR>",
-	},
-	{
 		desc = "Display messages",
 		mode = "n",
 		keys = "<leader>am",

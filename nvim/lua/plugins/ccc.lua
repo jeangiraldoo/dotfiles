@@ -55,5 +55,13 @@ return {
 				},
 			})
 		end,
+		keymaps = {
+			{
+				desc = "Open color picker",
+				mode = { "n", "v" },
+				keys = "<leader>tc",
+				cmd = ":CccPick<CR>",
+			},
+		},
 	},
 }
