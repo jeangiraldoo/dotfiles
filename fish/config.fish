@@ -16,7 +16,6 @@ alias grep="grep --line-number --colour=always"
 
 # Abbreviations
 abbr dots "cd ~/.config"
-abbr g git
 
 # Vi mode
 fish_vi_key_bindings
