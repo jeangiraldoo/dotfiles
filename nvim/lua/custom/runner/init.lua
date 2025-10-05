@@ -1,5 +1,5 @@
-local utils = require("utils")
 local DEFAULTS = require("custom.runner._defaults")
+local utils = require("utils")
 
 local CodeRunner = {}
 
@@ -7,31 +7,37 @@ local function _display_warning(msg)
 	vim.notify("[Runner] " .. msg, vim.log.levels.WARN)
 end
 
-local function _get_filetype_data()
-	local filetype = vim.bo.filetype
-	local filetype_data = DEFAULTS[filetype]
-
-	if not filetype_data then
-		_display_warning("Unsupported filetype: " .. filetype)
-		return
+local function _build_cmd(cmd_list, abs_file_path)
+	local file_name
+	if abs_file_path then
+		file_name = abs_file_path:match(".*/(.+)%.%w+$")
+	else
+		abs_file_path = vim.fn.expand("%:p")
+		file_name = vim.fn.expand("%:t:r")
 	end
 
-	return filetype_data
+	local cmd = table.concat(cmd_list, " && "):gsub("%%abs_file_path", abs_file_path):gsub("%%file_name", file_name)
+	return cmd
 end
 
 local function _run_file(filetype_data)
-	local file_path = vim.fn.expand("%:p")
-
 	local data = {
-		cmd = string.format(filetype_data.cmd, file_path),
 		cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+		cmd = _build_cmd(filetype_data.commands),
+		close_after_cmd = filetype_data.close_after_cmd,
 	}
 
 	utils.launch_terminal(data)
 end
 
 local function _run_project(filetype_data)
-	local project_markers = filetype_data.project_markers
+	local project_markers = filetype_data.markers
+
+	if not project_markers then
+		_display_warning("No project markers defined for " .. vim.bo.filetype)
+		return
+	end
+
 	local project_root_path = vim.fs.root(0, project_markers)
 
 	if not project_root_path then
@@ -39,40 +45,38 @@ local function _run_project(filetype_data)
 		return
 	end
 
-	local is_filetype_compiled = filetype_data.type == "compiled"
+	local terminal_data = {
+		cwd = project_root_path,
+		close_after_cmd = filetype_data.close_after_cmd,
+	}
 
 	for _, file_marker in ipairs(project_markers) do
-		local marker_path = project_root_path .. "/" .. file_marker
-		if vim.uv.fs_stat(marker_path) then
-			local filetype_cmd = filetype_data.cmd
-			local cmd = is_filetype_compiled and filetype_cmd or string.format(filetype_cmd, marker_path)
+		local marker_path = vim.fs.joinpath(project_root_path, file_marker)
 
-			utils.launch_terminal({
-				cmd = cmd,
-				cwd = project_root_path,
-			})
+		if vim.uv.fs_stat(marker_path) then
+			terminal_data.cmd = _build_cmd(filetype_data.commands, marker_path)
+
+			utils.launch_terminal(terminal_data)
 			return
 		end
 	end
 end
 
-function CodeRunner.run(run_file_as_project)
-	local filetype_data = _get_filetype_data()
+function CodeRunner.run(data)
+	local filetype = vim.bo.filetype
+	local filetype_data = DEFAULTS[filetype]
+
 	if filetype_data == nil then
+		_display_warning("No settings defined for " .. filetype)
 		return
 	end
 
-	if not run_file_as_project and filetype_data.type == "compiled" then
-		_display_warning("Compiled languages should be run as a project")
+	if data.run_current_file then
+		_run_file(filetype_data.file)
 		return
 	end
 
-	if not run_file_as_project then
-		_run_file(filetype_data)
-		return
-	end
-
-	_run_project(filetype_data)
+	_run_project(filetype_data.project)
 end
 
 return CodeRunner

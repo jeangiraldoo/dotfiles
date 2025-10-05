@@ -1,32 +1,75 @@
 return {
 	python = {
-		type = "interpreted",
-		cmd = "python %s",
-		project_markers = {
-			"main.py",
+		file = {
+			commands = {
+				"python3 %abs_file_path",
+			},
+		},
+		project = {
+			markers = {
+				"main.py",
+			},
+			commands = {
+				"python3 %abs_file_path",
+			},
 		},
 	},
 	javascript = {
-		type = "interpreted",
-		cmd = "node %s",
-		project_markers = {
-			"index.js",
-			"main.js",
+		file = {
+			commands = {
+				"node %abs_file_path",
+			},
+		},
+		project = {
+			markers = {
+				"index.js",
+				"main.js",
+			},
+			commands = {
+				"node %abs_file_path",
+			},
 		},
 	},
 	go = {
-		type = "compiled",
-		cmd = "go run .",
-		project_markers = {
-			"go.mod",
-			"main.go",
+		file = {
+			commands = {
+				"go run %abs_file_path",
+			},
+		},
+		project = {
+			markers = {
+				"go.mod",
+				"main.go",
+			},
+			commands = {
+				"go run .",
+			},
 		},
 	},
 	rust = {
-		type = "compiled",
-		cmd = "cargo run",
-		project_markers = {
-			"Cargo.toml",
+		file = {
+			commands = {
+				"rustc %abs_file_path",
+				"chmod +x %file_name",
+				"./%file_name",
+			},
+		},
+		project = {
+			markers = {
+				"Cargo.toml",
+			},
+			commands = {
+				"cargo run",
+			},
+		},
+	},
+	mermaid = {
+		file = {
+			close_after_cmd = true,
+			commands = {
+				"mmdc --theme forest --input %abs_file_path --output %file_name.svg",
+				"xdg-open %file_name.svg",
+			},
 		},
 	},
 }
