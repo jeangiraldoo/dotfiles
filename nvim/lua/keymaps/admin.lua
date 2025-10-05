@@ -41,7 +41,7 @@ return {
 		mode = "n",
 		keys = "<leader>ar",
 		cmd = function()
-			runner.run(false)
+			runner.run({ run_current_file = true })
 		end,
 	},
 	{
@@ -49,7 +49,7 @@ return {
 		mode = "n",
 		keys = "<leader>aR",
 		cmd = function()
-			runner.run(true)
+			runner.run({ run_current_file = false })
 		end,
 	},
 	{
