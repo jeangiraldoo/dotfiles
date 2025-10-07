@@ -14,7 +14,7 @@ return {
 	{
 		desc = "Reload config",
 		event = "BufWritePost",
-		pattern = "*/nvim/*",
+		pattern = "*/nvim/*.lua",
 		cmd = "silent source %",
 	},
 }
