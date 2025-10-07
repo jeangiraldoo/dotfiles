@@ -1,6 +1,8 @@
 local DEFAULTS = require("custom.runner._defaults")
 local utils = require("utils")
 
+local OS_NAME = vim.loop.os_uname().sysname
+
 local CodeRunner = {}
 
 local function _display_warning(msg)
@@ -71,12 +73,14 @@ function CodeRunner.run(data)
 		return
 	end
 
+	local filetype_data_for_OS = filetype_data[OS_NAME]
+
 	if data.run_current_file then
-		_run_file(filetype_data.file)
+		_run_file(filetype_data_for_OS.file)
 		return
 	end
 
-	_run_project(filetype_data.project)
+	_run_project(filetype_data_for_OS.project)
 end
 
 return CodeRunner
