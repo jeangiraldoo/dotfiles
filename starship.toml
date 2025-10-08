@@ -22,7 +22,7 @@ vicmd_symbol = "[V](bold green)"
 
 [os]
 disabled = false
-format = "[](fg:system_info_bg_colour)[$symbol](bg:system_info_bg_colour)"
+format = "[◗](fg:system_info_bg_colour)[$symbol](bg:system_info_bg_colour)"
 
 [username]
 show_always = true
