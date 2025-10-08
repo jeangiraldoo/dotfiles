@@ -21,7 +21,7 @@ return {
 		mode = "n",
 		keys = "<leader>at",
 		cmd = function()
-			utils.launch_terminal()
+			utils.terminal.launch()
 		end,
 	},
 	{
