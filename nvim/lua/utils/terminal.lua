@@ -1,5 +1,9 @@
 local Terminal = {}
 
+local OS_NAME = vim.loop.os_uname().sysname:lower()
+local DEFAULT_SYSTEM_SHELL_CMD = OS_NAME == "windows_nt" and "powershell -NoLogo" or "$SHELL"
+local CMD_STRUCTURE = "%s ; " .. DEFAULT_SYSTEM_SHELL_CMD
+
 --- Launches a configurable terminal using a vertical split.
 --- @param opts table A table with the following optional settings:
 --- * `cmd`: The shell command to run.
@@ -9,40 +13,8 @@ local Terminal = {}
 --- @return nil
 function Terminal.launch(opts)
 	opts = opts or {}
-	local shell = {
-		windows = {
-			shell_only = "powershell -NoLogo",
-			cmd_with_shell = "%s & powershell -NoLogo",
-		},
-		linux = {
-			shell_only = "bash",
-			cmd_with_shell = "%s ; bash",
-		},
-		mac = {
-			shell_only = "zsh",
-			cmd_with_shell = "%s ; zsh",
-		},
-	}
-	local os_name = vim.loop.os_uname().sysname:lower()
-	if os_name == "windows_nt" then
-		os_name = "windows"
-	elseif os_name == "darwin" then
-		os_name = "mac"
-	end
 
-	local os_shell_cmds = shell[os_name]
-	if not os_shell_cmds then
-		vim.notify_once("Unsupported OS: " .. os_name, vim.log.levels.ERROR)
-		return
-	end
-
-	local cmd
-	if opts.cmd then
-		local cmd_template = os_shell_cmds.cmd_with_shell
-		cmd = string.format(cmd_template, opts.cmd)
-	else
-		cmd = os_shell_cmds.shell_only
-	end
+	local cmd = opts.cmd and CMD_STRUCTURE:format(opts.cmd) or DEFAULT_SYSTEM_SHELL_CMD
 
 	vim.cmd("botright split | resize 15")
 	local term_buf = vim.api.nvim_create_buf(false, true)
