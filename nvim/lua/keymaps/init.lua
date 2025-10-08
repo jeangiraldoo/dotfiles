@@ -1,4 +1,4 @@
 local utils = require("utils")
-local KEYMAPS = utils.get_combined_module_tbls("keymaps")
+local KEYMAPS = utils.module.fetch_join_tables("keymaps")
 
-utils.set_keymaps(KEYMAPS)
+utils.editor.set_keymaps(KEYMAPS)

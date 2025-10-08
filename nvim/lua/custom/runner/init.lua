@@ -29,7 +29,7 @@ local function _run_file(filetype_data)
 		close_after_cmd = filetype_data.close_after_cmd,
 	}
 
-	utils.launch_terminal(data)
+	utils.terminal.launch(data)
 end
 
 local function _run_project(filetype_data)
@@ -58,7 +58,7 @@ local function _run_project(filetype_data)
 		if vim.uv.fs_stat(marker_path) then
 			terminal_data.cmd = _build_cmd(filetype_data.commands, marker_path)
 
-			utils.launch_terminal(terminal_data)
+			utils.terminal.launch(terminal_data)
 			return
 		end
 	end

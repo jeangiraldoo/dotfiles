@@ -1,5 +1,5 @@
 local utils = require("utils")
-local plugin_specs = utils.get_combined_module_tbls("plugins")
+local plugin_specs = utils.module.fetch_join_tables("plugins")
 
 vim.pack.add(plugin_specs, {
 	confirm = false,
@@ -32,7 +32,7 @@ vim.pack.add(plugin_specs, {
 		end
 
 		if spec.data.keymaps then
-			utils.set_keymaps(spec.data.keymaps)
+			utils.editor.set_keymaps(spec.data.keymaps)
 		end
 	end,
 })
