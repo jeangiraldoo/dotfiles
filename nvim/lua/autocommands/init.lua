@@ -1,5 +1,5 @@
-local utils = require("utils")
-local autocmds = utils.get_combined_module_tbls("autocommands")
+local utils = require("utils.init")
+local autocmds = utils.module.fetch_join_tables("autocommands")
 
 for _, autocmd in ipairs(autocmds) do
 	vim.api.nvim_create_autocmd(autocmd.event, {
