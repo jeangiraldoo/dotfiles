@@ -17,6 +17,21 @@ return {
 			diagnostics = {
 				globals = { "vim" },
 			},
+			codeLens = {
+				enable = true,
+			},
+			completion = {
+				callSnippet = "Replace",
+			},
+			hint = {
+				enable = true,
+			},
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
+				},
+			},
 		},
 	},
 }
