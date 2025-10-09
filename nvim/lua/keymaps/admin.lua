@@ -11,7 +11,7 @@ return {
 	{
 		desc = "Toggle hidden characters",
 		mode = "n",
-		keys = "<leader>ah",
+		keys = "<leader>aH",
 		cmd = function()
 			vim.o.list = not vim.o.list
 		end,
@@ -105,5 +105,13 @@ return {
 		mode = "n",
 		keys = "<leader>ad",
 		cmd = vim.diagnostic.open_float,
+	},
+	{
+		desc = "Toggle inlay hints",
+		mode = "n",
+		keys = "<leader>ah",
+		cmd = function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		end,
 	},
 }
