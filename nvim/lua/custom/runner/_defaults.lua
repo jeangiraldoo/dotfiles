@@ -8,7 +8,7 @@ return {
 		Linux = {
 			file = {
 				commands = {
-					"source %root_path/myvenv/bin/activate.fish ; python3 %abs_file_path",
+					"source %root_path/myvenv/bin/activate.fish >> python3 %abs_file_path",
 				},
 			},
 			project = {
@@ -16,7 +16,7 @@ return {
 					"main.py",
 				},
 				commands = {
-					"source %root_path/myvenv/bin/activate.fish ; python3 %abs_file_path",
+					"source %root_path/myvenv/bin/activate.fish >> python3 %abs_file_path",
 				},
 			},
 		},
