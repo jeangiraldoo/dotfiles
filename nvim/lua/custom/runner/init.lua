@@ -40,7 +40,7 @@ end
 local function _run_file(filetype_data, paths)
 	local data = {
 		cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-		cmd = _build_cmd(filetype_data.commands, paths),
+		cmd = _build_cmd(filetype_data.commands.file or filetype_data.commands, paths),
 		close_after_cmd = filetype_data.close_after_cmd,
 	}
 
@@ -63,7 +63,7 @@ local function _run_project(filetype_data, paths, project_markers)
 
 		if vim.uv.fs_stat(marker_path) then
 			paths["file_absolute"] = marker_path
-			terminal_data.cmd = _build_cmd(filetype_data.commands, paths)
+			terminal_data.cmd = _build_cmd(filetype_data.commands.project or filetype_data.commands, paths)
 
 			utils.terminal.launch(terminal_data)
 			return
@@ -80,25 +80,23 @@ function CodeRunner.run(data)
 		return
 	end
 
-	local repo_markers = filetype_data.common.markers
+	local repo_markers = filetype_data.markers
+
+	local paths = {
+		root = repo_markers and vim.fs.root(0, repo_markers) or "",
+	}
+
+	if data.run_current_file then
+		_run_file(filetype_data, paths)
+		return
+	end
 
 	if not repo_markers then
 		_display_warning("No project markers defined for " .. filetype)
 		return
 	end
 
-	local paths = {
-		root = vim.fs.root(0, repo_markers),
-	}
-
-	local filetype_data_for_OS = filetype_data[OS_NAME]
-
-	if data.run_current_file then
-		_run_file(filetype_data_for_OS.file, paths)
-		return
-	end
-
-	_run_project(filetype_data_for_OS.project, paths, repo_markers)
+	_run_project(filetype_data, paths, repo_markers)
 end
 
 return CodeRunner

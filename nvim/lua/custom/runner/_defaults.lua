@@ -1,89 +1,56 @@
 return {
 	python = {
-		common = {
-			markers = {
-				"main.py",
-			},
+		markers = {
+			"main.py",
 		},
-		Linux = {
-			file = {
-				commands = {
-					"source %root_path/myvenv/bin/activate.fish >> python3 %abs_file_path",
-				},
-			},
-			project = {
-				markers = {
-					"main.py",
-				},
-				commands = {
-					"source %root_path/myvenv/bin/activate.fish >> python3 %abs_file_path",
-				},
-			},
+		commands = {
+			"source %root_path/myvenv/bin/activate.fish >> python3 %abs_file_path",
 		},
 	},
 	javascript = {
-		Linux = {
-			file = {
-				commands = {
-					"node %abs_file_path",
-				},
-			},
-			project = {
-				markers = {
-					"index.js",
-					"main.js",
-				},
-				commands = {
-					"node %abs_file_path",
-				},
-			},
+		markers = {
+			"index.js",
+			"main.js",
+		},
+		commands = {
+			"node %abs_file_path",
 		},
 	},
 	go = {
-		Linux = {
+		markers = {
+			"go.mod",
+			"main.go",
+		},
+		commands = {
 			file = {
-				commands = {
-					"go run %abs_file_path",
-				},
+				"go run %abs_file_path",
 			},
 			project = {
-				markers = {
-					"go.mod",
-					"main.go",
-				},
-				commands = {
-					"go run .",
-				},
+				"go run .",
 			},
 		},
 	},
 	rust = {
-		Linux = {
+		markers = {
+			"Cargo.toml",
+		},
+		commands = {
 			file = {
-				commands = {
-					"rustc %abs_file_path",
-					"chmod +x %file_name",
-					"./%file_name",
-				},
+				"rustc %abs_file_path",
+				"chmod +x %file_name",
+				"./%file_name",
 			},
 			project = {
-				markers = {
-					"Cargo.toml",
-				},
-				commands = {
-					"cargo run",
-				},
+				"cargo run",
 			},
 		},
 	},
 	mermaid = {
-		Linux = {
+		close_after_cmd = true,
+		commands = {
 			file = {
-				close_after_cmd = true,
-				commands = {
-					"mmdc --theme forest --input %abs_file_path --output %file_name.svg",
-					"xdg-open %file_name.svg",
-				},
+				"mmdc --theme forest --input %abs_file_path --output %file_name.svg",
+				"xdg-open %file_name.svg",
 			},
 		},
 	},
