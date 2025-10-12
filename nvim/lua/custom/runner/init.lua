@@ -3,6 +3,13 @@ local utils = require("utils")
 
 local OS_NAME = vim.loop.os_uname().sysname
 
+local OS_SHELL_OPERATORS = ({
+	Linux = {
+		["=>"] = " && ",
+		[">>"] = " ; ",
+	},
+})[OS_NAME]
+
 local CodeRunner = {}
 
 local function _display_warning(msg)
@@ -23,6 +30,10 @@ local function _build_cmd(cmd_list, paths)
 		:gsub("%%abs_file_path", paths.file_absolute)
 		:gsub("%%file_name", file_name)
 		:gsub("%%root_path", paths.root)
+
+	for key, val in pairs(OS_SHELL_OPERATORS) do
+		cmd = cmd:gsub(key, val)
+	end
 	return cmd
 end
 
