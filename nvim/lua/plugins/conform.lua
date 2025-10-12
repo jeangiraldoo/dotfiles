@@ -16,7 +16,7 @@ local OPTS = {
 }
 
 return {
-	src = "https://github.com/stevearc/conform",
+	src = "https://github.com/stevearc/conform.nvim",
 	data = {
 		enabled = true,
 		setup = function()

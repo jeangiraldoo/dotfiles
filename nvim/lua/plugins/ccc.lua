@@ -23,7 +23,7 @@ local colour_map = build_colour_map({
 })
 
 return {
-	src = "https://github.com/uga-rosa/ccc",
+	src = "https://github.com/uga-rosa/ccc.nvim",
 	data = {
 		enabled = true,
 		setup = function()

@@ -3,7 +3,7 @@ local OPTS = {
 }
 
 return {
-	src = "https://github.com/folke/tokyonight",
+	src = "https://github.com/folke/tokyonight.nvim",
 	data = {
 		enabled = true,
 		setup = function()

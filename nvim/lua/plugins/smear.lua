@@ -8,7 +8,7 @@ local OPTS = {
 }
 
 return {
-	src = "https://github.com/sphamba/smear-cursor",
+	src = "https://github.com/sphamba/smear-cursor.nvim",
 	data = {
 		enabled = true,
 		setup = function()
