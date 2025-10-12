@@ -116,7 +116,7 @@ return {
 	},
 	{
 		desc = "Toggle undotree",
-		mode = { "x" },
+		mode = { "n" },
 		keys = "U",
 		cmd = ":Undotree<CR>",
 	},

@@ -3,7 +3,7 @@ return {
 	data = {
 		enabled = true,
 		dependencies = {
-			{ src = "https://nvim-tree/nvim-web-devicons" },
+			{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 		},
 		keymaps = {
 			{

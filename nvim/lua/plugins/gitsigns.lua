@@ -9,7 +9,7 @@ local OPTS = {
 }
 
 return {
-	src = "https://github.com/lewis6991/gitsigns",
+	src = "https://github.com/lewis6991/gitsigns.nvim",
 	data = {
 		enabled = true,
 		setup = function()
