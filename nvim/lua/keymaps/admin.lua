@@ -114,4 +114,10 @@ return {
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end,
 	},
+	{
+		desc = "Toggle undotree",
+		mode = { "x" },
+		keys = "U",
+		cmd = ":Undotree<CR>",
+	},
 }

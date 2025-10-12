@@ -1,6 +1,15 @@
 local utils = require("utils")
 local plugin_specs = utils.module.fetch_join_tables("plugins")
 
+-- Defined separately from plugin specs because vim.pack.add throws an error otherwise
+local BUILTIN_PLUGINS = {
+	"nvim.undotree",
+}
+
+for _, plugin_name in ipairs(BUILTIN_PLUGINS) do
+	vim.cmd("packadd " .. plugin_name)
+end
+
 vim.pack.add(plugin_specs, {
 	confirm = false,
 	load = function(plugin)
