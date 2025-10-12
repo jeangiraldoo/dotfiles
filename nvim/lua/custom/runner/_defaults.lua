@@ -1,9 +1,14 @@
 return {
 	python = {
+		common = {
+			markers = {
+				"main.py",
+			},
+		},
 		Linux = {
 			file = {
 				commands = {
-					"python3 %abs_file_path",
+					"source %root_path/myvenv/bin/activate.fish ; python3 %abs_file_path",
 				},
 			},
 			project = {
@@ -11,7 +16,7 @@ return {
 					"main.py",
 				},
 				commands = {
-					"python3 %abs_file_path",
+					"source %root_path/myvenv/bin/activate.fish ; python3 %abs_file_path",
 				},
 			},
 		},
