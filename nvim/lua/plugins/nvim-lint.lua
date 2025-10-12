@@ -1,5 +1,5 @@
 return {
-	src = "https://mfussenegger/nvim-lint",
+	src = "https://github.com/mfussenegger/nvim-lint",
 	data = {
 		enabled = true,
 		setup = function()
