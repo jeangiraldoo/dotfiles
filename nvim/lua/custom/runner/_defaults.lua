@@ -1,10 +1,14 @@
 return {
 	python = {
+		venv = {
+			marker = "venv/",
+			source_command = "source %root_path/myvenv/bin/activate.fish",
+		},
 		markers = {
 			"main.py",
 		},
 		commands = {
-			"source %root_path/myvenv/bin/activate.fish >> python3 %abs_file_path",
+			"python3 %abs_file_path",
 		},
 	},
 	javascript = {
