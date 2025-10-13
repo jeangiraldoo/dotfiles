@@ -16,7 +16,7 @@ local function _display_warning(msg)
 	vim.notify("[Runner] " .. msg, vim.log.levels.WARN)
 end
 
-local function _build_cmd(cmd_list, paths)
+local function _build_cmd(cmd_list, paths, venv)
 	local file_name
 	if paths.file_absolute then
 		file_name = paths.file_absolute:match(".*/(.+)%.%w+$")
@@ -25,22 +25,26 @@ local function _build_cmd(cmd_list, paths)
 		file_name = vim.fn.expand("%:t:r")
 	end
 
-	local cmd = table
-		.concat(cmd_list, " && ")
-		:gsub("%%abs_file_path", paths.file_absolute)
-		:gsub("%%file_name", file_name)
-		:gsub("%%root_path", paths.root)
+	local cmd = table.concat(cmd_list, " && ")
 
 	for key, val in pairs(OS_SHELL_OPERATORS) do
 		cmd = cmd:gsub(key, val)
 	end
+
+	if paths.root and paths.root ~= "" and vim.fn.isdirectory(vim.fs.joinpath(paths.root, venv.marker)) then
+		cmd = venv.source_command .. " && " .. cmd
+	end
+
+	cmd =
+		cmd:gsub("%%abs_file_path", paths.file_absolute):gsub("%%file_name", file_name):gsub("%%root_path", paths.root)
+
 	return cmd
 end
 
 local function _run_file(filetype_data, paths)
 	local data = {
 		cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-		cmd = _build_cmd(filetype_data.commands.file or filetype_data.commands, paths),
+		cmd = _build_cmd(filetype_data.commands.file or filetype_data.commands, paths, filetype_data.venv),
 		close_after_cmd = filetype_data.close_after_cmd,
 	}
 
@@ -63,7 +67,8 @@ local function _run_project(filetype_data, paths, project_markers)
 
 		if vim.uv.fs_stat(marker_path) then
 			paths["file_absolute"] = marker_path
-			terminal_data.cmd = _build_cmd(filetype_data.commands.project or filetype_data.commands, paths)
+			terminal_data.cmd =
+				_build_cmd(filetype_data.commands.project or filetype_data.commands, paths, filetype_data.venv)
 
 			utils.terminal.launch(terminal_data)
 			return
