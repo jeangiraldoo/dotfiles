@@ -1,11 +1,16 @@
 return {
 	python = {
 		venv = {
-			marker = "venv/",
+			marker = "myvenv/",
 			source_command = "source %root_path/myvenv/bin/activate.fish",
 		},
 		markers = {
-			"main.py",
+			static = {
+				".git",
+			},
+			code = {
+				"main.py",
+			},
 		},
 		commands = {
 			"python3 %abs_file_path",
@@ -13,8 +18,13 @@ return {
 	},
 	javascript = {
 		markers = {
-			"index.js",
-			"main.js",
+			static = {
+				".git",
+			},
+			code = {
+				"index.js",
+				"main.js",
+			},
 		},
 		commands = {
 			"node %abs_file_path",
@@ -22,8 +32,13 @@ return {
 	},
 	go = {
 		markers = {
-			"go.mod",
-			"main.go",
+			static = {
+				".git",
+				"go.mod",
+			},
+			code = {
+				"main.go",
+			},
 		},
 		commands = {
 			file = {
@@ -36,7 +51,13 @@ return {
 	},
 	rust = {
 		markers = {
-			"Cargo.toml",
+			static = {
+				".git",
+				"Cargo.toml",
+			},
+			code = {
+				"src/main.rs",
+			},
 		},
 		commands = {
 			file = {

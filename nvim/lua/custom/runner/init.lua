@@ -31,12 +31,11 @@ local function _build_cmd(cmd_list, paths, venv)
 		cmd = cmd:gsub(key, val)
 	end
 
-	if paths.root and paths.root ~= "" and vim.fn.isdirectory(vim.fs.joinpath(paths.root, venv.marker)) then
-		cmd = venv.source_command .. " && " .. cmd
+	if paths.root and venv and vim.fn.isdirectory(vim.fs.joinpath(paths.root, venv.marker)) == 1 then
+		cmd = (venv.source_command .. " && " .. cmd):gsub("%%root_path", paths.root)
 	end
 
-	cmd =
-		cmd:gsub("%%abs_file_path", paths.file_absolute):gsub("%%file_name", file_name):gsub("%%root_path", paths.root)
+	cmd = cmd:gsub("%%abs_file_path", paths.file_absolute):gsub("%%file_name", file_name)
 
 	return cmd
 end
@@ -63,10 +62,10 @@ local function _run_project(filetype_data, paths, project_markers)
 	}
 
 	for _, file_marker in ipairs(project_markers) do
-		local marker_path = vim.fs.joinpath(paths.root, file_marker)
+		local code_marker_path = vim.fs.joinpath(paths.root, file_marker)
 
-		if vim.uv.fs_stat(marker_path) then
-			paths["file_absolute"] = marker_path
+		if vim.uv.fs_stat(code_marker_path) then
+			paths["file_absolute"] = code_marker_path
 			terminal_data.cmd =
 				_build_cmd(filetype_data.commands.project or filetype_data.commands, paths, filetype_data.venv)
 
@@ -74,6 +73,7 @@ local function _run_project(filetype_data, paths, project_markers)
 			return
 		end
 	end
+	_display_warning("No code marker found")
 end
 
 function CodeRunner.run(data)
@@ -87,21 +87,24 @@ function CodeRunner.run(data)
 
 	local repo_markers = filetype_data.markers
 
-	local paths = {
-		root = repo_markers and vim.fs.root(0, repo_markers) or "",
-	}
+	-- Markers are optional for files because a file (e.g., a script) can be standalone or part of a project
+	if not data.run_current_file and not repo_markers then
+		_display_warning("No project markers defined for " .. filetype)
+		return
+	end
+
+	local paths = {}
+
+	if repo_markers then
+		paths.root = vim.fs.root(0, repo_markers.static) or vim.fs.root(0, repo_markers.code)
+	end
 
 	if data.run_current_file then
 		_run_file(filetype_data, paths)
 		return
 	end
 
-	if not repo_markers then
-		_display_warning("No project markers defined for " .. filetype)
-		return
-	end
-
-	_run_project(filetype_data, paths, repo_markers)
+	_run_project(filetype_data, paths, repo_markers.code)
 end
 
 return CodeRunner
