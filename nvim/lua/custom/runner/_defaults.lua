@@ -1,11 +1,12 @@
 return {
 	python = {
 		venv = {
-			marker = "myvenv/",
-			source_command = "source %root_path/myvenv/bin/activate.fish",
+			marker = "venv/",
+			source_command = "source %root_path/venv/bin/activate.fish",
 		},
 		markers = {
 			static = {
+				"venv",
 				".git",
 			},
 			code = {
