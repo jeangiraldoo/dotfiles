@@ -87,8 +87,6 @@ return {
 				vim.cmd.normal("ciw" .. replacement)
 				return
 			end
-
-			vim.cmd.normal("viw~")
 		end,
 	},
 	{
