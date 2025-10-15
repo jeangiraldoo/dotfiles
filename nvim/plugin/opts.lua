@@ -25,6 +25,7 @@ local OPTS = {
 	autocomplete = true,
 	completeopt = "menuone,noselect,popup,preview",
 	pumheight = 12,
+	pumborder = "rounded",
 }
 
 for opt_name, value in pairs(OPTS) do
