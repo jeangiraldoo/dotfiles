@@ -24,6 +24,7 @@ local OPTS = {
 	winborder = "rounded",
 	autocomplete = true,
 	completeopt = "menuone,noselect,popup,preview",
+	complete = ".",
 	pumheight = 12,
 	pumborder = "rounded",
 }
