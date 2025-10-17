@@ -24,22 +24,26 @@ return {
 		end,
 	},
 	{
-		desc = "Set up LSP autocompletion only if LSP is attached",
+		desc = "Set up LSP autocompletion",
 		event = "LspAttach",
-		pattern = "*",
-		cmd = function()
-			vim.opt_local.complete = ""
-		end
-	},
-	{
-		desc = "Set up text autocompletion when no LSP is found",
-		event = "BufEnter",
-		pattern = "*",
-		cmd = function()
-			local bufnr = vim.api.nvim_get_current_buf()
-			if not next(vim.lsp.get_clients({ bufnr = bufnr })) then
-				vim.opt_local.complete = "."
+		cmd = function(event)
+			local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+			if not client or not client:supports_method("textDocument/completion") then
+				return
 			end
-		end
-	}
+
+			vim.lsp.completion.enable(true, client.id, event.buf, {
+				autotrigger = true,
+				convert = function(item)
+					return { abbr = item.label:gsub("%b()", "") }
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("TextChangedI", {
+				desc = "Display autocomplete window while typing",
+				callback = vim.lsp.completion.get,
+			})
+		end,
+	},
 }
