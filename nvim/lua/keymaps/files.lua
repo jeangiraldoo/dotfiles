@@ -19,12 +19,6 @@ return {
 		cmd = toggle_netrw,
 	},
 	{
-		desc = "Close file",
-		mode = "n",
-		keys = "<leader>q",
-		cmd = ":q<CR>",
-	},
-	{
 		desc = "Save file",
 		mode = "n",
 		keys = "<leader>w",
@@ -47,17 +41,5 @@ return {
 		mode = "n",
 		keys = "O",
 		cmd = "o<Esc>",
-	},
-	{
-		desc = "Copy to clipboard",
-		mode = { "n", "v" },
-		keys = "<leader>y",
-		cmd = ":y+ <CR>",
-	},
-	{
-		desc = "Paste from clipboard",
-		mode = { "n", "v" },
-		keys = "<leader>p",
-		cmd = '"+p',
 	},
 }
