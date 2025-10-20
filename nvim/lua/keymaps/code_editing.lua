@@ -1,17 +1,5 @@
 return {
 	{
-		desc = "Rename symbol",
-		mode = "n",
-		keys = "<leader>rn",
-		cmd = vim.lsp.buf.rename,
-	},
-	{
-		desc = "List references to symbol",
-		mode = "n",
-		keys = "<leader>sr",
-		cmd = vim.lsp.buf.references,
-	},
-	{
 		desc = "Go to symbol declaration",
 		mode = "n",
 		keys = "<leader>sd",
