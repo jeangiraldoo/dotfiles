@@ -53,19 +53,6 @@ return {
 		end,
 	},
 	{
-		desc = "Record actions",
-		mode = "n",
-		keys = "<leader>az",
-		cmd = function()
-			local is_recording = vim.fn.reg_recording() ~= ""
-			if is_recording then
-				vim.api.nvim_feedkeys("q", "n", false)
-			else
-				vim.api.nvim_feedkeys("qq", "n", false)
-			end
-		end,
-	},
-	{
 		desc = "Display installed plugins",
 		mode = "n",
 		keys = "<leader>ae",
@@ -85,20 +72,6 @@ return {
 		mode = "i",
 		keys = "<C-j>",
 		cmd = "<C-n>",
-	},
-	{
-		desc = "Accept selected menu item",
-		mode = "i",
-		keys = "<CR>",
-		cmd = function()
-			local is_completion_selected = vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1
-			local code = is_completion_selected and "<C-y>" or "<CR>"
-
-			return vim.api.nvim_replace_termcodes(code, true, true, true)
-		end,
-		opts = {
-			expr = true,
-		},
 	},
 	{
 		desc = "Display diagnostics window",
