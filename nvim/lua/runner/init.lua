@@ -1,4 +1,4 @@
-local DEFAULTS = require("custom.runner._defaults")
+local DEFAULTS = require("runner._defaults")
 local utils = require("utils")
 
 local OS_NAME = vim.loop.os_uname().sysname

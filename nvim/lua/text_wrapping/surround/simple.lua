@@ -1,7 +1,7 @@
 --- This module provides basic functionality for surrounding a visual selection with a single opening/closing character pair.
 --- It can be used as a standalone solution for simple wrapping, or as a foundation for building more complex behavior.
 
-local CHAR_PAIRS = require("custom.text_wrapping.surround._pair_index")
+local CHAR_PAIRS = require("text_wrapping.surround._pair_index")
 
 local SIMPLE_SURROUND = {}
 
