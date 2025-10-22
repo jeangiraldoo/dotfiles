@@ -5,8 +5,8 @@
 --- By default, it supports only single-character wraps, but this module enables multi-character wrapping
 --- by assigning multiple characters to each of those keys.
 
-local PAIRS_DATA = require("custom.text_wrapping.surround._pair_index")
-local simple_surround = require("custom.text_wrapping.surround.simple")
+local PAIRS_DATA = require("text_wrapping.surround._pair_index")
+local simple_surround = require("text_wrapping.surround.simple")
 
 return function()
 	local typed_chars = vim.fn.input("Surround characters: ")
