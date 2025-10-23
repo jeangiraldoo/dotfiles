@@ -18,19 +18,8 @@ local WORD_TOGGLE_MAP = {
 	["public"] = "private",
 	["private"] = "public",
 
-	["up"] = "down",
-	["down"] = "up",
-
-	["break"] = "continue",
-	["continue"] = "break",
-
 	["fg"] = "bg",
 	["bg"] = "fg",
-	["foreground"] = "background",
-	["background"] = "foreground",
-
-	["local"] = "remote",
-	["remote"] = "local",
 
 	["==="] = "!==",
 	["!=="] = "===",
