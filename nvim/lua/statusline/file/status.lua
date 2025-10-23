@@ -1,4 +1,4 @@
-local FILE_ICONS = require("interface.statusline.file._filetype_styles")
+local FILE_ICONS = require("statusline.file._filetype_styles")
 
 local MODIFIED = {
 	ICON = "●",
