@@ -132,12 +132,6 @@ local KEYMAPS = {
 	},
 	-- Code editing
 	{
-		desc = "Go to symbol declaration",
-		mode = "n",
-		keys = "<leader>sd",
-		cmd = vim.lsp.buf.definition,
-	},
-	{
 		desc = "Go to call",
 		mode = "n",
 		keys = "<leader>sf",
