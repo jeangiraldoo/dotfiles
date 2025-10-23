@@ -81,12 +81,6 @@ local AUTOCMDS = {
 		end,
 	},
 	{
-		desc = "Update status bar diagnostics",
-		event = "DiagnosticChanged",
-		pattern = "*",
-		cmd = "redrawstatus",
-	},
-	{
 		desc = "Start Treesitter syntax highlight",
 		event = "FileType",
 		cmd = function(args)
