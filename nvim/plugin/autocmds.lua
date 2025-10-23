@@ -105,19 +105,6 @@ local AUTOCMDS = {
 	{
 		desc = "Start Treesitter syntax highlight",
 		event = "FileType",
-		pattern = {
-			"markdown",
-			"typst",
-			"html",
-			"javascript",
-			"lua",
-			"python",
-			"rust",
-			"go",
-			"ruby",
-			"java",
-			"php",
-		},
 		cmd = function(args)
 			pcall(vim.treesitter.start, args.buf)
 		end,
