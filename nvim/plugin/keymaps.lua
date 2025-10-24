@@ -111,12 +111,6 @@ local KEYMAPS = {
 		cmd = "<C-n>",
 	},
 	{
-		desc = "Display diagnostics window",
-		mode = "n",
-		keys = "<leader>ad",
-		cmd = vim.diagnostic.open_float,
-	},
-	{
 		desc = "Toggle inlay hints",
 		mode = "n",
 		keys = "<leader>ah",
