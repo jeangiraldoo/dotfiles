@@ -69,12 +69,6 @@ local KEYMAPS = {
 		cmd = [[<C-\><C-n>]],
 	},
 	{
-		desc = "Re-enter insert mode in terminal",
-		mode = "t",
-		keys = "<C-i>",
-		cmd = "i",
-	},
-	{
 		desc = "Run file",
 		mode = "n",
 		keys = "<leader>ar",
