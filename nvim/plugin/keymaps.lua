@@ -93,18 +93,6 @@ local KEYMAPS = {
 		end,
 	},
 	{
-		desc = "Move up an item menu",
-		mode = "i",
-		keys = "<C-k>",
-		cmd = "<C-p>",
-	},
-	{
-		desc = "Move down an item menu",
-		mode = "i",
-		keys = "<C-j>",
-		cmd = "<C-n>",
-	},
-	{
 		desc = "Toggle inlay hints",
 		mode = "n",
 		keys = "<leader>ah",
