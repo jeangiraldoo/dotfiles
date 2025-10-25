@@ -43,12 +43,6 @@ local WORD_TOGGLE_MAP = {
 local KEYMAPS = {
 	-- Admin
 	{
-		desc = "Display messages",
-		mode = "n",
-		keys = "<leader>am",
-		cmd = ":messages<CR>",
-	},
-	{
 		desc = "Toggle hidden characters",
 		mode = "n",
 		keys = "<leader>aH",
@@ -149,12 +143,6 @@ local KEYMAPS = {
 		cmd = [[:<C-u>lua require("text_wrapping").surround.extended()<CR>]],
 	},
 	-- Files
-	{
-		desc = "Save file",
-		mode = "n",
-		keys = "<leader>w",
-		cmd = ":w<CR>",
-	},
 	{
 		desc = "Swap lines above",
 		mode = "n",
