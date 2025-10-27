@@ -1,10 +1,4 @@
 local HIGHLIGHTS = {
-	DapBreakpoint = {
-		fg = "#FF0000",
-	},
-	DapStopped = {
-		fg = "#00add6",
-	},
 	WhiteText = {
 		fg = "#ffffff",
 	},
@@ -57,21 +51,6 @@ local HIGHLIGHTS = {
 	YankLine = {
 		bg = "#44004c",
 		fg = "#FFFFFF",
-	},
-	-- vim-illuminate plugin
-	IlluminatedWordRead = {
-		bold = true,
-		bg = "#39414c",
-	},
-	IlluminatedWordWrite = {
-		bold = true,
-		bg = "#4c3f39",
-	},
-	-- nvim-treesitter-context
-	TreesitterContext = {
-		bg = "#003767",
-		italic = true,
-		bold = true,
 	},
 }
 

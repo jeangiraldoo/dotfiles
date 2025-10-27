@@ -21,6 +21,14 @@ return {
 						pythonPath = "python3",
 					},
 				}
+				vim.defer_fn(function()
+					vim.api.nvim_set_hl(0, "DapBreakpoint", {
+						fg = "#FF0000",
+					})
+					vim.api.nvim_set_hl(0, "DapStopped", {
+						fg = "#00add6",
+					})
+				end, 50)
 			end,
 			keymaps = {
 				{
