@@ -1,18 +1,6 @@
 [user]
     useConfigOnly = true
 
-[color "status"]
-	added = yellow
-	changed = red
-	untracked = cyan
-
-[core]
-	editor = nvim
-	abbrev = 10
-
-[help]
-	autocorrect = 1
-
 [include]
 	path = ~/.config/.gitconfig.local
 
@@ -20,7 +8,6 @@
 	defaultBranch = main
 
 [push]
-	default = simple
     followTags = true
 
 [alias]
@@ -28,13 +15,10 @@
 	ua = restore --staged
 
 	b = branch
-	bn = checkout --branch
 
 	c = commit
 	ca = commit --amend
-
 	co = checkout
-
 	cp = cherry-pick
 
 	d = diff
@@ -45,16 +29,18 @@
 
 	f = fetch
 
-	p = push
-	pf = push --force
+	p = pull
+	P = push
+	PF = push --force-with-lease
 
-	pl = pull
 	l = log --graph --abbrev-commit --decorate --date=format:%d/%b/%Y --pretty=format:'%C(blue)%h%Creset %C(red)%an %C(yellow)%ad%Creset %s'
 
-	r = rebase -i
+	ri = rebase -i
 	ra = rebase --abort
 	rc = rebase --continue
 	rs = rebase --skip
+	re = remote
+	rea = remote add
 
 	ss = stash
 	sl = stash list
@@ -62,9 +48,6 @@
 
 	t = tag
 	tl = tag --list
-
-	re = remote
-	rea = remote add
 
 	bi = bisect
 	bis = bisect start
