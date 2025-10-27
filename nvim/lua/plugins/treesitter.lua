@@ -27,6 +27,15 @@ return {
 		src = "https://github.com/nvim-treesitter/nvim-treesitter-context",
 		data = {
 			enabled = true,
+			setup = function()
+				vim.defer_fn(function()
+					vim.api.nvim_set_hl(0, "TreesitterContext", {
+						bg = "#003767",
+						italic = true,
+						bold = true,
+					})
+				end, 50)
+			end,
 			keymaps = {
 				{
 					desc = "Go to code context",
