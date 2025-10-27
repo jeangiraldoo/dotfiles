@@ -3,7 +3,7 @@ local AUTOCMDS = {
 	{
 		desc = "Set up LSP autocompletion",
 		event = "LspAttach",
-		cmd = function(event)
+		callback = function(event)
 			local client = vim.lsp.get_client_by_id(event.data.client_id)
 
 			if not (client and client:supports_method("textDocument/completion")) then
@@ -27,7 +27,7 @@ local AUTOCMDS = {
 		desc = "Set up LSP CodeLens",
 		pattern = "*",
 		event = "LspAttach",
-		cmd = function(event)
+		callback = function(event)
 			local client = vim.lsp.get_client_by_id(event.data.client_id)
 
 			if not (client and client.server_capabilities.codeLensProvider) then
@@ -46,26 +46,26 @@ local AUTOCMDS = {
 		desc = "Load view",
 		event = "BufWinEnter",
 		pattern = "*",
-		cmd = "silent! loadview",
+		command = "silent! loadview",
 	},
 	{
 		desc = "Make view",
 		event = "BufWinLeave",
 		pattern = "*",
-		cmd = "silent! mkview",
+		command = "silent! mkview",
 	},
 	{
 		desc = "Reload config",
 		event = "BufWritePost",
 		pattern = "*/nvim/*.lua",
-		cmd = "silent source %",
+		command = "silent source %",
 	},
 	-- UI
 	{
 		desc = "Highlight yanked line",
 		pattern = "*",
 		event = "TextYankPost",
-		cmd = function()
+		callback = function()
 			vim.highlight.on_yank({
 				timeout = 200,
 				higroup = "YankLine",
@@ -75,14 +75,14 @@ local AUTOCMDS = {
 	{
 		desc = "Start Treesitter syntax highlight",
 		event = "FileType",
-		cmd = function(args)
+		callback = function(args)
 			pcall(vim.treesitter.start, args.buf)
 		end,
 	},
 	{
 		desc = "Open help buffers in a vertical split",
 		event = "BufWinEnter",
-		cmd = function()
+		callback = function()
 			if vim.bo.buftype ~= "help" then
 				return
 			end
@@ -93,10 +93,9 @@ local AUTOCMDS = {
 }
 
 for _, autocmd in ipairs(AUTOCMDS) do
-	vim.api.nvim_create_autocmd(autocmd.event, {
-		pattern = autocmd.pattern or "*",
-		command = type(autocmd.cmd) == "string" and autocmd.cmd or nil,
-		callback = type(autocmd.cmd) == "function" and autocmd.cmd or nil,
-		desc = autocmd.desc,
-	})
+	-- Passing the autocmd table with an `event` field will result in an error
+	local autocmd_event = autocmd.event
+	autocmd.event = nil
+
+	vim.api.nvim_create_autocmd(autocmd_event, autocmd)
 end
