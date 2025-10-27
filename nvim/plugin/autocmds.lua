@@ -1,14 +1,6 @@
 local AUTOCMDS = {
 	-- Code editing
 	{
-		desc = "Lint the current file on save",
-		event = "BufWritePost",
-		pattern = "*",
-		cmd = function()
-			require("lint").try_lint()
-		end,
-	},
-	{
 		desc = "Set up LSP autocompletion",
 		event = "LspAttach",
 		cmd = function(event)
