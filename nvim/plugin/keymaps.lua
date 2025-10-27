@@ -131,31 +131,6 @@ local KEYMAPS = {
 		end,
 	},
 	{
-		desc = "Surround a visual selection with an opening/closing character pair",
-		mode = { "x" },
-		keys = "<leader>ls",
-		cmd = [[:<C-u>lua require("text_wrapping").surround.simple.RUN()<CR>]],
-	},
-	{
-		desc = "Surround a visual selection with one or more opening/closing character pairs",
-		mode = { "x" },
-		keys = "<leader>lS",
-		cmd = [[:<C-u>lua require("text_wrapping").surround.extended()<CR>]],
-	},
-	-- Files
-	{
-		desc = "Swap lines above",
-		mode = "n",
-		keys = "<leader>la",
-		cmd = ":m .-2<CR>==",
-	},
-	{
-		desc = "Swap lines below",
-		mode = "n",
-		keys = "<leader>lb",
-		cmd = ":m .+1<CR>==",
-	},
-	{
 		desc = "Add new empty line",
 		mode = "n",
 		keys = "O",
