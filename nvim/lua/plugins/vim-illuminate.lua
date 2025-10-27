@@ -18,6 +18,16 @@ return {
 		enabled = true,
 		setup = function()
 			require("illuminate").configure(OPTS)
+			vim.defer_fn(function()
+				vim.api.nvim_set_hl(0, "IlluminatedWordWrite", {
+					bg = "#4c3f39",
+					bold = true,
+				})
+				vim.api.nvim_set_hl(0, "IlluminatedWordRead", {
+					bg = "#39414c",
+					bold = true,
+				})
+			end, 50)
 		end,
 		keymaps = {
 			{
