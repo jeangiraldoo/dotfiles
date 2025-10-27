@@ -80,10 +80,15 @@ local AUTOCMDS = {
 		end,
 	},
 	{
-		desc = "Automatically split help buffers to the right",
-		pattern = "help",
-		event = "FileType",
-		cmd = "wincmd L",
+		desc = "Open help buffers in a vertical split",
+		event = "BufWinEnter",
+		cmd = function()
+			if vim.bo.buftype ~= "help" then
+				return
+			end
+
+			pcall(vim.cmd, "wincmd L")
+		end,
 	},
 }
 
