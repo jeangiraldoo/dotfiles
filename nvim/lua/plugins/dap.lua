@@ -29,6 +29,18 @@ return {
 						fg = "#00add6",
 					})
 				end, 50)
+
+				vim.fn.sign_define("DapBreakpoint", {
+					text = "●",
+					texthl = "DapBreakpoint",
+					linehl = "",
+					numhl = "",
+				})
+
+				vim.fn.sign_define("DapStopped", {
+					text = "",
+					texthl = "DapStopped",
+				})
 			end,
 			keymaps = {
 				{
