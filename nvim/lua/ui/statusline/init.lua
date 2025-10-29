@@ -1,9 +1,9 @@
 --TODO rename SECTIONS fields so that it is clear they are assigned functions
 local SECTIONS = {
-	GIT = require("statusline.git"),
-	FILE = require("statusline.file"),
-	DIAGNOSTICS = require("statusline.diagnostics"),
-	POSITION = require("statusline.position"),
+	GIT = require("ui.statusline.git"),
+	FILE = require("ui.statusline.file"),
+	DIAGNOSTICS = require("ui.statusline.diagnostics"),
+	POSITION = require("ui.statusline.position"),
 }
 
 local PATTERNS = {
