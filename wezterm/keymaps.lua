@@ -2,7 +2,26 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local utils = require("utils")
 
+-- Window transparency settings
+local OPACITY = {
+	TRANSPARENT = 0.8,
+	OPAQUE = 1,
+}
+local is_window_transparent = true
+
 local keymaps = {
+	-- Window transparency keymap
+	{
+		key = "z",
+		mods = "CTRL",
+		action = wezterm.action_callback(function(window, _)
+			is_window_transparent = not is_window_transparent
+
+			local overrides = window:get_config_overrides() or {}
+			overrides.window_background_opacity = is_window_transparent and OPACITY.OPAQUE or OPACITY.TRANSPARENT
+			window:set_config_overrides(overrides)
+		end),
+	},
 	-- Window management
 	{
 		key = "T",
