@@ -83,7 +83,18 @@ local KEYMAPS = {
 		mode = "n",
 		keys = "<leader>ae",
 		cmd = function()
-			print(vim.inspect(vim.pack.get()))
+			local plugin_list = vim.pack.get()
+			local plugin_info_format = "Name: %s\nActive: %s\nSrc: %s\nPath: %s\n\n"
+
+			for _, plugin_spec in ipairs(plugin_list) do
+				local formatted_plugin_info = plugin_info_format:format(
+					plugin_spec.spec.name,
+					plugin_spec.active,
+					plugin_spec.spec.src,
+					plugin_spec.path
+				)
+				vim.notify(formatted_plugin_info)
+			end
 		end,
 	},
 	{
