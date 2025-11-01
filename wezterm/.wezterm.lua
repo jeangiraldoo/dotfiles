@@ -1,6 +1,6 @@
 local wezterm = require("wezterm")
 local utils = require("utils")
-local keymaps = require("config.keymaps")
+local keymaps = require("keymaps")
 
 local config = wezterm.config_builder()
 
