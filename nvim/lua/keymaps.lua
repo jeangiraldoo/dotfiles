@@ -111,6 +111,14 @@ local KEYMAPS = {
 		keys = "U",
 		cmd = ":Undotree<CR>",
 	},
+	{
+		desc = "Toggle virtual text",
+		mode = "n",
+		keys = "<leader>av",
+		cmd = function()
+			vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
+		end,
+	},
 	-- Code editing
 	{
 		desc = "Go to call",
