@@ -52,6 +52,10 @@ local HIGHLIGHTS = {
 		bg = "#44004c",
 		fg = "#FFFFFF",
 	},
+	DiagnosticUnderlineError = {
+		underline = true,
+		fg = "#ff5555",
+	},
 }
 
 for highlight_name, data in pairs(HIGHLIGHTS) do
