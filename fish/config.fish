@@ -16,6 +16,7 @@ alias grep="grep --line-number --colour=always"
 
 # Abbreviations
 abbr dots "cd ~/.config"
+abbr sudo!! 'eval sudo $history[1]'
 
 # Vi mode
 fish_vi_key_bindings
