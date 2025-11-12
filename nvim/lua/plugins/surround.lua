@@ -1,3 +1,4 @@
+---@type PluginSpec
 return {
 	src = "https://github.com/kylechui/nvim-surround",
 	data = {

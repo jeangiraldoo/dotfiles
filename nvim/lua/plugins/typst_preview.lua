@@ -4,6 +4,7 @@ local OPTS = {
 	},
 }
 
+---@type PluginSpec
 return {
 	src = "https://github.com/chomosuke/typst-preview.nvim",
 	data = {

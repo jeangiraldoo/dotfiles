@@ -8,6 +8,7 @@ local OPTS = {
 	gh = true,
 }
 
+---@type PluginSpec
 return {
 	src = "https://github.com/lewis6991/gitsigns.nvim",
 	data = {

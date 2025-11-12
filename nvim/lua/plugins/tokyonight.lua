@@ -2,6 +2,7 @@ local OPTS = {
 	transparent = true,
 }
 
+---@type PluginSpec
 return {
 	src = "https://github.com/folke/tokyonight.nvim",
 	data = {
