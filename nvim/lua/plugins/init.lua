@@ -1,4 +1,14 @@
 local utils = require("utils")
+
+---@class PluginSpec
+---@field src string
+---@field data {
+---     enabled: boolean,
+---     setup: fun(),
+---     dependencies?: table[],
+---     keymaps?: table[] }
+
+---@type PluginSpec[]
 local plugin_specs = utils.module.fetch_join_tables("plugins")
 
 -- Defined separately from plugin specs because vim.pack.add throws an error otherwise

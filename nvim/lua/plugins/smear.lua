@@ -7,6 +7,7 @@ local OPTS = {
 	gamma = 1,
 }
 
+---@type PluginSpec
 return {
 	src = "https://github.com/sphamba/smear-cursor.nvim",
 	data = {
