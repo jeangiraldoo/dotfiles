@@ -1,3 +1,4 @@
+---@type PluginSpec
 return {
 	src = "https://github.com/ThePrimeagen/refactoring.nvim",
 	data = {

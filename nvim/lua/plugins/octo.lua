@@ -23,6 +23,7 @@ local function select_github_action(action_type, available_actions)
 	end)
 end
 
+---@type PluginSpec
 return {
 	src = "https://github.com/pwntester/octo.nvim",
 	dependencies = {

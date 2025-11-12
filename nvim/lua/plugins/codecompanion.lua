@@ -52,6 +52,7 @@ local OPTS = {
 	},
 }
 
+---@type PluginSpec
 return {
 	src = "https://github.com/olimorris/codecompanion.nvim",
 	data = {

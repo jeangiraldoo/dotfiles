@@ -9,10 +9,11 @@ local OPTS = {
 	},
 }
 
+---@type PluginSpec
 return {
 	src = "https://github.com/stevearc/oil.nvim",
 	data = {
-		enabled = true,
+		enabled = false,
 		dependencies = {
 			{ src = "https://github.com/nvim-web-devicons" },
 		},

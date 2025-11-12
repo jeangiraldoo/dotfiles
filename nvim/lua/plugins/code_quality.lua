@@ -1,3 +1,4 @@
+---@type PluginSpec[]
 return {
 	{
 		src = "https://github.com/stevearc/conform.nvim",
@@ -11,6 +12,7 @@ return {
 						markdown = { "prettier" },
 						rust = { "rustfmt" },
 						python = { "ruff_format" },
+						typescript = { "prettier" },
 					},
 					format_on_save = {
 						timeout_ms = 1000,

@@ -22,6 +22,7 @@ local colour_map = build_colour_map({
 	black = "#000000",
 })
 
+---@type PluginSpec
 return {
 	src = "https://github.com/uga-rosa/ccc.nvim",
 	data = {
