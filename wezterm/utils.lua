@@ -26,18 +26,32 @@ function utils.create_project_workspace(window, pane, project_type)
 			action = wezterm.action_callback(function(window, pane, id, label)
 				if not id and not label then
 					wezterm.log_info("cancelled")
-				else
-					wezterm.log_info("you selected ", id, label)
-					window:perform_action(
-						wezterm.action.SwitchToWorkspace({
-							name = label,
-							spawn = {
-								cwd = id,
-							},
-						}),
-						pane
-					)
+					return
 				end
+
+				wezterm.log_info("you selected ", id, label)
+
+				window:perform_action(
+					wezterm.action.SwitchToWorkspace({
+						name = label,
+						spawn = {
+							cwd = id,
+							args = {
+								os.getenv("EDITOR") or "nvim",
+							},
+						},
+					}),
+					pane
+				)
+
+				window:perform_action(
+					wezterm.action.SpawnCommandInNewTab({
+						cwd = id,
+						args = { "lazygit" },
+					}),
+					pane
+				)
+				window:perform_action(wezterm.action.ActivateTab(0), pane)
 			end),
 			choices = projects_list,
 			alphabet = "〇一二三四五六七八九十",
