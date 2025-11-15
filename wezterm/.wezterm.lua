@@ -45,8 +45,5 @@ config.colors = {
 
 config.font_dirs = { "fonts" }
 config.font_size = 13
-config.font = wezterm.font_with_fallback({
-	"Monocraft",
-})
 
 return config
