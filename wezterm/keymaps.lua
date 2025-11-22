@@ -34,7 +34,7 @@ local keymaps = {
 		action = act.SwitchToWorkspace({
 			name = "Configs",
 			spawn = {
-				cwd = utils.get_path("config"),
+				cwd = utils.SYSTEM.PATHS.CONFIG,
 			},
 		}),
 	},

@@ -7,9 +7,14 @@ utils.SYSTEM = {
 	HOME = os.getenv("HOME") or (os.getenv("USERPROFILE"):gsub("\\", "/")),
 }
 
+utils.SYSTEM.PATHS = {
+	PROJECTS = utils.SYSTEM.HOME .. "/.code",
+	CONFIG = utils.SYSTEM.HOME .. "/.config",
+}
+
 function utils.create_project_workspace(window, pane, project_type)
 	local projects_list = utils.scandir({
-		path = utils.get_path("projects") .. "/" .. project_type,
+		path = utils.SYSTEM.PATHS.PROJECTS .. "/" .. project_type,
 		fn = function(opts)
 			local entry = wezterm.format({
 				{ Attribute = { Underline = "None" } },
@@ -71,18 +76,6 @@ function utils.create_project_workspace(window, pane, project_type)
 		}),
 		pane
 	)
-end
-
-function utils.get_path(path_name)
-	local paths = {
-		config = ".config",
-		projects = ".code",
-	}
-	local chosen_path = paths[path_name]
-	local path_ending = chosen_path == nil and path_name or chosen_path
-
-	local final_path = utils.SYSTEM.HOME .. "/" .. path_ending
-	return final_path
 end
 
 function utils.scandir(opts, get_files)
