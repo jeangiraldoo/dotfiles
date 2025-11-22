@@ -73,23 +73,6 @@ function utils.create_project_workspace(window, pane, project_type)
 	)
 end
 
-function utils.flatten_tbls(tbls)
-	local final_tbl = {}
-	for _, tbl in pairs(tbls) do
-		for _, subtbl in pairs(tbl) do
-			table.insert(final_tbl, subtbl)
-		end
-	end
-	return final_tbl
-end
-
-function utils.list_extend(t1, t2)
-	for _, v in ipairs(t2) do
-		table.insert(t1, v)
-	end
-	return t1
-end
-
 function utils.get_path(path_name)
 	local paths = {
 		config = ".config",
@@ -129,38 +112,6 @@ function utils.scandir(opts, get_files)
 
 	handle:close()
 	return result
-end
-
-function utils.get_combined_module_tables(dir, args)
-	local config_path = utils.get_path("config")
-	local full_path = config_path .. "/wezterm/" .. dir:gsub("%.", "/")
-
-	local dir_files = utils.scandir({ path = full_path }, true)
-	local combined_entries = {}
-
-	for _, file_name in ipairs(dir_files) do
-		if file_name:match("%.lua$") and not file_name:match("^init%.lua$") then
-			local file_relative_path = dir .. "." .. file_name:gsub("%.lua$", "")
-			local ok, file_tbl = pcall(require, file_relative_path)
-
-			local data_to_extend = {
-				table = function()
-					return file_tbl
-				end,
-				["function"] = function()
-					return file_tbl(table.unpack(args))
-				end,
-			}
-
-			if ok then
-				utils.list_extend(combined_entries, data_to_extend[type(file_tbl)]())
-			else
-				io.stderr:write("Warning: Unexpected return type from " .. file_relative_path .. "\n")
-			end
-		end
-	end
-
-	return combined_entries
 end
 
 return utils
