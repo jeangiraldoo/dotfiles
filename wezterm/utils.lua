@@ -12,19 +12,21 @@ utils.SYSTEM.PATHS = {
 	CONFIG = utils.SYSTEM.HOME .. "/.config",
 }
 
-function utils.create_project_workspace(window, pane, project_type)
-	local projects_list = utils.scandir({
-		path = utils.SYSTEM.PATHS.PROJECTS .. "/" .. project_type,
-		fn = function(opts)
-			local entry = wezterm.format({
-				{ Attribute = { Underline = "None" } },
-				{ Attribute = { Italic = true } },
-				{ Foreground = { AnsiColor = "Navy" } },
-				{ Text = opts.ln },
-			})
-			table.insert(opts.result, { label = entry, id = opts.path .. "/" .. opts.ln })
-		end,
-	}, false)
+function utils.create_project_workspace(window, pane, projects_path)
+	local projects_dirs_paths = utils.get_subdirs(projects_path)
+
+	local projects_list = {}
+	for _, path in ipairs(projects_dirs_paths) do
+		local dir_name = path:match("([^/]+)$")
+
+		local input_entry_line = wezterm.format({
+			{ Attribute = { Underline = "None" } },
+			{ Attribute = { Italic = true } },
+			{ Foreground = { AnsiColor = "Navy" } },
+			{ Text = dir_name },
+		})
+		table.insert(projects_list, { label = input_entry_line, id = path })
+	end
 
 	window:perform_action(
 		wezterm.action.InputSelector({
@@ -68,7 +70,7 @@ function utils.create_project_workspace(window, pane, project_type)
 				{ Foreground = { AnsiColor = "Red" } },
 				{ Attribute = { Intensity = "Bold" } },
 				{ Attribute = { Underline = "Single" } },
-				{ Text = project_type },
+				{ Text = projects_path },
 				"ResetAttributes",
 				{ Foreground = { AnsiColor = "Green" } },
 				{ Text = "プロジェクトを選ぶ\n" },
@@ -78,33 +80,19 @@ function utils.create_project_workspace(window, pane, project_type)
 	)
 end
 
-function utils.scandir(opts, get_files)
-	local fn = opts.fn or function(vals)
-		table.insert(vals.result, vals.ln)
-	end
+function utils.get_subdirs(dir_path)
+	local dir_items = wezterm.read_dir(dir_path)
 
-	local cmd
-	if utils.SYSTEM.OS_NAME == "windows" then
-		local cmd_ending = get_files and '" /b /a:-d 2>nul' or '" /b /a:d 2>nul'
-		cmd = 'dir "' .. opts.path .. cmd_ending
-	end
-	local handle = io.popen(cmd)
+	local dirs = {}
+	for _, item_path in ipairs(dir_items) do
+		local normalized_item_path = item_path:gsub("%\\", "/")
 
-	if not handle then
-		return {}
+		local item_is_dir, _ = pcall(wezterm.read_dir, normalized_item_path)
+		if item_is_dir then
+			table.insert(dirs, normalized_item_path)
+		end
 	end
-
-	local result = {}
-	for line in handle:lines() do
-		fn({
-			result = result,
-			ln = line,
-			path = opts.path,
-		})
-	end
-
-	handle:close()
-	return result
+	return dirs
 end
 
 return utils

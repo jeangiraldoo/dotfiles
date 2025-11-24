@@ -42,14 +42,14 @@ local keymaps = {
 		key = "1",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			utils.create_project_workspace(window, pane, "personal")
+			utils.create_project_workspace(window, pane, utils.SYSTEM.PATHS.PROJECTS .. "/personal")
 		end),
 	},
 	{
 		key = "2",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			utils.create_project_workspace(window, pane, "university")
+			utils.create_project_workspace(window, pane, utils.SYSTEM.PATHS.PROJECTS .. "/university")
 		end),
 	},
 }
