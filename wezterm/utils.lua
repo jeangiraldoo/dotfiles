@@ -1,11 +1,18 @@
 local wezterm = require("wezterm")
 
-local utils = {}
-
-utils.SYSTEM = {
-	OS_NAME = (package.config:sub(1, 1) == "\\") and "windows" or "linux",
-	HOME = os.getenv("HOME") or (os.getenv("USERPROFILE"):gsub("\\", "/")),
+local utils = {
+	SYSTEM = {},
 }
+
+if package.config:sub(1, 1) == "\\" then
+	utils.SYSTEM.OS_NAME = "windows"
+	utils.SYSTEM.DEFAULT_PROGRAM = "wsl"
+	utils.SYSTEM.HOME = os.getenv("USERPROFILE"):gsub("\\", "/")
+else
+	utils.SYSTEM.OS_NAME = "linux"
+	utils.SYSTEM.DEFAULT_PROGRAM = "bash"
+	utils.SYSTEM.HOME = os.getenv("HOME")
+end
 
 utils.SYSTEM.PATHS = {
 	PROJECTS = utils.SYSTEM.HOME .. "/.code",
