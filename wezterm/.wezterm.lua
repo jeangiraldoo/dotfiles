@@ -14,8 +14,7 @@ config.keys = keymaps
 config.default_prog = (function()
 	if utils.SYSTEM.OS_NAME == "windows" then
 		return {
-			"powershell.exe",
-			"-nologo",
+			utils.SYSTEM.DEFAULT_PROGRAM,
 		}
 	end
 end)()
