@@ -63,7 +63,6 @@ end
 --- * `cwd`: The working directory to run the command from.
 --- @return nil
 function Utils.terminal.launch(opts)
-	print("hi there")
 	opts = opts or {}
 
 	if opts.close_after_cmd and not opts.cmd then
