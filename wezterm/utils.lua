@@ -53,6 +53,7 @@ function utils.create_project_workspace(window, pane, projects_path)
 						spawn = {
 							cwd = id,
 							args = {
+								utils.SYSTEM.DEFAULT_PROGRAM,
 								os.getenv("EDITOR") or "nvim",
 							},
 						},
@@ -63,7 +64,10 @@ function utils.create_project_workspace(window, pane, projects_path)
 				window:perform_action(
 					wezterm.action.SpawnCommandInNewTab({
 						cwd = id,
-						args = { "lazygit" },
+						args = {
+							utils.SYSTEM.DEFAULT_PROGRAM,
+							"lazygit",
+						},
 					}),
 					pane
 				)
