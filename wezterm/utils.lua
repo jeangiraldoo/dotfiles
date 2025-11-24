@@ -31,12 +31,14 @@ function utils.create_project_workspace(window, pane, projects_path)
 	window:perform_action(
 		wezterm.action.InputSelector({
 			action = wezterm.action_callback(function(window, pane, id, label)
-				if not id and not label then
-					wezterm.log_info("cancelled")
+				local item_was_selected = id or label
+
+				if not item_was_selected then
+					wezterm.log_info("Cancelled input selection")
 					return
 				end
 
-				wezterm.log_info("you selected ", id, label)
+				wezterm.log_info("You selected ", id, label)
 
 				window:perform_action(
 					wezterm.action.SwitchToWorkspace({
