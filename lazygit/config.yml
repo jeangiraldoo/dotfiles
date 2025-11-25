@@ -4,7 +4,7 @@ gui:
       - "#bf15a0"
 
     selectedLineBgColor:
-      - "#bf15a0"
+      - "#5f004b"
   spinner:
     frames:
       - "＿(ᵔ⩊ ᵔ)／"
