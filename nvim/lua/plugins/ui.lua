@@ -1,26 +1,6 @@
 ---@type PluginSpec[]
 return {
 	{
-		src = "https://github.com/ellisonleao/gruvbox.nvim",
-		data = {
-			enabled = true,
-			-- setup = function()
-			-- 	require("tokyonight").setup(OPTS)
-			-- end,
-		},
-	},
-	{
-		src = "https://github.com/folke/tokyonight.nvim",
-		data = {
-			enabled = true,
-			setup = function()
-				require("tokyonight").setup({
-					transparent = true,
-				})
-			end,
-		},
-	},
-	{
 		src = "https://github.com/sphamba/smear-cursor.nvim",
 		data = {
 			enabled = true,
