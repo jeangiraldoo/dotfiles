@@ -29,7 +29,7 @@ return {
 			setup = function()
 				vim.defer_fn(function()
 					vim.api.nvim_set_hl(0, "TreesitterContext", {
-						bg = "#003767",
+						bg = "#6d6e18",
 						italic = true,
 						bold = true,
 					})
