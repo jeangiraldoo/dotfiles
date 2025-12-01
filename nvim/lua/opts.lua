@@ -27,6 +27,8 @@ local OPTS = {
 	complete = ".",
 	pumheight = 12,
 	pumborder = "rounded",
+	ignorecase = true,
+	smartcase = true,
 }
 
 for opt_name, value in pairs(OPTS) do
