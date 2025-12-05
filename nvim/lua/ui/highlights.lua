@@ -56,6 +56,10 @@ local HIGHLIGHTS = {
 		underline = true,
 		fg = "#ff5555",
 	},
+	FloatBorder = {
+		underline = true,
+		fg = "#828100",
+	},
 }
 
 for highlight_name, data in pairs(HIGHLIGHTS) do
