@@ -10,18 +10,6 @@ local HIGHLIGHTS = {
 		bg = "#82aaff",
 		fg = "#1e2030",
 	},
-	StatusLineGitAdded = {
-		bg = "#82aaff",
-		fg = "#009200",
-	},
-	StatusLineGitChanged = {
-		bg = "#82aaff",
-		fg = "#0000b5",
-	},
-	StatusLineGitRemoved = {
-		bg = "#82aaff",
-		fg = "#a20000",
-	},
 	StatusLineGitContainer = {
 		fg = "#82aaff",
 	},

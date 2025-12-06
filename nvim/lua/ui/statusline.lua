@@ -175,23 +175,6 @@ local Git = {
 		hl_name = "StatusLineGitContainer",
 	}),
 	NO_BRANCH_TEXT = "[No Branch]",
-	STATUS_SECTION_ITEMS = { --- The order of entries in this table defines the display order in the statusline
-		{
-			TYPE = "added",
-			HL_NAME = "StatusLineGitAdded",
-			ICON = "+",
-		},
-		{
-			TYPE = "changed",
-			HL_NAME = "StatusLineGitChanged",
-			ICON = "~",
-		},
-		{
-			TYPE = "removed",
-			HL_NAME = "StatusLineGitRemoved",
-			ICON = "-",
-		},
-	},
 }
 
 function Git.build()
@@ -206,20 +189,6 @@ function Git.build()
 		Git.ICON,
 		build_branch_name(),
 	}
-
-	local git_status = vim.b.gitsigns_status_dict or {}
-	for _, status_data in ipairs(Git.STATUS_SECTION_ITEMS) do
-		local status_type_icon = apply_highlight({
-			hl_name = status_data.HL_NAME,
-			text = status_data.ICON,
-		})
-
-		local total = git_status[status_data.TYPE] or 0
-
-		if total > 0 then
-			table.insert(section_parts, status_type_icon .. total)
-		end
-	end
 
 	local section_text = table.concat(section_parts, " ")
 
