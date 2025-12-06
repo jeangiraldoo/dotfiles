@@ -139,7 +139,7 @@ function File.build_data(file_name)
 		local hl_exists = vim.fn.hlexists(hl_name) == 1
 
 		if icon_color and not hl_exists then
-			vim.api.nvim_set_hl(0, hl_name, { fg = icon_color })
+			vim.api.nvim_set_hl(0, hl_name, { bg = icon_color })
 		end
 
 		local coloured_icon = apply_highlight({

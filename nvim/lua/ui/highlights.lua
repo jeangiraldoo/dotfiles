@@ -1,24 +1,24 @@
 local HIGHLIGHTS = {
 	WhiteText = {
-		fg = "#ffffff",
+		bg = "#ffffff",
 	},
 	StatusLineGitIcon = {
-		fg = "#b84500",
-		bg = "#82aaff",
+		bg = "#b84500",
+		fg = "#d79921",
 	},
 	StatusLineGitText = {
-		bg = "#82aaff",
-		fg = "#1e2030",
+		fg = "#d79921",
+		bg = "#1e2030",
 	},
 	StatusLineGitContainer = {
-		fg = "#82aaff",
+		bg = "#d79921",
 	},
 	StatusLinePositionText = {
-		fg = "#1e2030",
-		bg = "#82aaff",
+		bg = "#1e2030",
+		fg = "#d79921",
 	},
 	StatusLineLocationContainer = {
-		fg = "#82aaff",
+		bg = "#d79921",
 	},
 	PMenu = {
 		bg = "#222222",
@@ -45,7 +45,6 @@ local HIGHLIGHTS = {
 		fg = "#ff5555",
 	},
 	FloatBorder = {
-		underline = true,
 		fg = "#828100",
 	},
 }
