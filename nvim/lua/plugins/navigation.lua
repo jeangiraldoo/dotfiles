@@ -22,7 +22,7 @@ return {
 		data = {
 			enabled = true,
 			dependencies = {
-				{ src = "https://github.com/nvim-web-devicons" },
+				{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 			},
 			setup = function()
 				require("oil").setup({
