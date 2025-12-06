@@ -7,44 +7,26 @@ local casefile = {
 	buffer_id = nil,
 }
 
-local WORD_TOGGLE_MAP = {
+local WORD_TOGGLE_MAP = vim.iter({
 	["True"] = "False",
-	["False"] = "True",
 	["true"] = "false",
-	["false"] = "true",
-
 	["on"] = "off",
-	["off"] = "on",
 	["ON"] = "OFF",
-	["OFF"] = "ON",
-
 	["enabled"] = "disabled",
-	["disabled"] = "enabled",
-
 	["public"] = "private",
-	["private"] = "public",
-
 	["fg"] = "bg",
-	["bg"] = "fg",
-
 	["==="] = "!==",
-	["!=="] = "===",
-
 	["and"] = "or",
-	["or"] = "and",
 	["&&"] = "||",
-	["||"] = "&&",
-
 	["=="] = "!=",
-	["!="] = "==",
 	[">"] = "<",
-	["<"] = ">",
 	[">="] = "<=",
-	["<="] = ">=",
-
 	["++"] = "--",
-	["--"] = "++",
-}
+}):fold({}, function(acc, key, value)
+	acc[key] = value
+	acc[value] = key
+	return acc
+end)
 
 local KEYMAPS = {
 	-- Admin
