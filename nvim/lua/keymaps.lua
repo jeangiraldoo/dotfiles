@@ -31,14 +31,6 @@ end)
 local KEYMAPS = {
 	-- Admin
 	{
-		desc = "Toggle hidden characters",
-		mode = "n",
-		keys = "<leader>aH",
-		cmd = function()
-			vim.o.list = not vim.o.list
-		end,
-	},
-	{
 		desc = "Launch terminal",
 		mode = "n",
 		keys = "<leader>at",
