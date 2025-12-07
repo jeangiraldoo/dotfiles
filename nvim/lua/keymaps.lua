@@ -127,14 +127,12 @@ local KEYMAPS = {
 		mode = "n",
 		keys = "<leader>st",
 		cmd = function()
-			local word = vim.fn.expand("<cword>")
+			local word_under_cursor = vim.fn.expand("<cword>")
+			local replacement = WORD_TOGGLE_MAP[word_under_cursor]
 
-			local replacement = WORD_TOGGLE_MAP[word]
-
-			if not replacement then
-				return
+			if replacement then
+				vim.cmd.normal("ciw" .. replacement)
 			end
-			vim.cmd.normal("ciw" .. replacement)
 		end,
 	},
 	{
