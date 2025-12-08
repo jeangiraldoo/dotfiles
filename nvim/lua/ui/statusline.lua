@@ -89,34 +89,14 @@ function Diagnostics.build(apply_highlight)
 end
 
 local File = {
-	READ_ONLY_ICON = " ",
 	BUFFER_MODIFIED_ICON = apply_highlight({
 		hl_name = "WhiteText",
 		text = "●",
 		should_reset = true,
 	}),
-	NEWLINE_CHARS = {
-		unix = "LF",
-		dos = "CRLF",
-		mac = "CR",
-	},
 	UNNAMED_BUFFER = "[No name]",
 }
 
-function File.build_metadata(file_name)
-	local items = {}
-	if vim.bo.readonly then
-		table.insert(items, File.READ_ONLY_ICON)
-	end
-
-	if file_name ~= "" then
-		table.insert(items, File.NEWLINE_CHARS[vim.bo.fileformat])
-	end
-
-	table.insert(items, vim.bo.fileencoding:upper())
-
-	return table.concat(items, " ")
-end
 
 function File.build_data(file_name)
 	local function build_path_and_icon()
@@ -217,7 +197,6 @@ return function()
 		File.build_data(file_name),
 		"%=",
 		Diagnostics.build(apply_highlight),
-		File.build_metadata(file_name),
 		POSITION_CACHE,
 	}, " ")
 
