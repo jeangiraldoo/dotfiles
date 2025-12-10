@@ -80,32 +80,16 @@ function File.build()
 end
 
 local Git = {
-	ICON = apply_highlight({
-		hl_name = "StatusLineGitIcon",
-		text = "",
-	}),
-	CONTAINER_HL = apply_highlight({
-		hl_name = "StatusLineGitContainer",
-	}),
+	ICON = "%#StatusLineGitIcon#",
+	CONTAINER_HL = "%#StatusLineGitContainer#",
+	BRANCH_NAME_HL = "%#StatusLineGitText#",
 	NO_BRANCH_TEXT = "[No Branch]",
 }
 
 function Git.build()
-	local function build_branch_name()
-		return apply_highlight({
-			hl_name = "StatusLineGitText",
-			text = vim.b.gitsigns_head or Git.NO_BRANCH_TEXT,
-		})
-	end
-
-	local section_parts = {
-		Git.ICON,
-		build_branch_name(),
-	}
-
-	local section_text = table.concat(section_parts, " ")
-
-	return string.format("%s█%s%s█", Git.CONTAINER_HL, section_text, Git.CONTAINER_HL)
+	local branch_text = Git.BRANCH_NAME_HL .. (vim.b.gitsigns_head or Git.NO_BRANCH_TEXT)
+	local content = Git.ICON .. " " .. branch_text
+	return build_block({ "█", "█" }, Git.CONTAINER_HL, content)
 end
 
 --- The entire ´position´ section is static, so it only needs to be built once
@@ -123,11 +107,9 @@ local POSITION_CACHE = (function()
 end)()
 
 return function()
-	local file_name = vim.fn.expand("%:t")
-
 	local statusline_str = table.concat({
-		Git.build(apply_highlight),
-		File.build_data(file_name),
+		Git.build(),
+		File.build(),
 		"%=",
 		Diagnostics.build(apply_highlight),
 		POSITION_CACHE,
