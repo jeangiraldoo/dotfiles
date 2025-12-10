@@ -31,7 +31,7 @@ local Diagnostics = {
 		[vim.diagnostic.severity.WARN] = "%#DiagnosticWarn#" .. RESET_HL,
 		[vim.diagnostic.severity.INFO] = "%#DiagnosticInfo#" .. RESET_HL,
 		[vim.diagnostic.severity.HINT] = "%#DiagnosticHint#" .. RESET_HL,
-	}
+	},
 }
 
 function Diagnostics.build()
@@ -47,59 +47,34 @@ function Diagnostics.build()
 end
 
 local File = {
-	BUFFER_MODIFIED_ICON = apply_highlight({
-		hl_name = "WhiteText",
-		text = "●",
-		should_reset = true,
-	}),
-	UNNAMED_BUFFER = "[No name]",
+	BUFFER_MODIFIED_ICON = "%#WhiteText#●",
+	UNNAMED_BUFFER = RESET_HL .. "[No name]",
+	FILETYPE_ICON_HL = {
+		BASE_NAME = "StatusLineDevIcon",
+	},
 }
+File.FILETYPE_ICON_HL["STRUCTURE"] = "%%#" .. File.FILETYPE_ICON_HL.BASE_NAME .. "%s#"
 
+function File.build()
+	local file_name = vim.fn.expand("%:t")
 
-function File.build_data(file_name)
-	local function build_path_and_icon()
-		if file_name == "" then
-			return apply_highlight({
-				text = File.UNNAMED_BUFFER,
-			})
-		end
-
-		local filetype = vim.bo.filetype
-
-		local new_icon_data = FILE_ICONS[filetype] or FILE_ICONS.text
-
-		local parent_dir = vim.fn.expand("%:p:h:t")
-		local path = vim.fs.joinpath(parent_dir, file_name)
-
-		local new_icon, icon_color = new_icon_data.ICON, new_icon_data.HIGHLIGHT
-
-		local hl_name = "StatusLineDevIcon" .. filetype
-		local hl_exists = vim.fn.hlexists(hl_name) == 1
-
-		if icon_color and not hl_exists then
-			vim.api.nvim_set_hl(0, hl_name, { bg = icon_color })
-		end
-
-		local coloured_icon = apply_highlight({
-			hl_name = hl_name,
-			text = new_icon,
-			should_reset = true,
-		})
-		return path, coloured_icon
+	if file_name == "" then
+		return File.UNNAMED_BUFFER
 	end
 
-	local items = {}
-	local file_path, icon = build_path_and_icon()
+	local new_icon_data = FILE_ICONS[vim.bo.filetype] or FILE_ICONS.text
 
-	if icon then
-		table.insert(items, icon)
+	local hl_name = File.FILETYPE_ICON_HL.BASE_NAME .. vim.bo.filetype
+	local icon_color = new_icon_data.HIGHLIGHT
+	if icon_color and vim.fn.hlexists(hl_name) == 0 then
+		vim.api.nvim_set_hl(0, hl_name, { bg = icon_color })
 	end
 
-	table.insert(items, file_path)
-
-	if vim.bo.modified then
-		table.insert(items, File.BUFFER_MODIFIED_ICON)
-	end
+	local items = {
+		File.FILETYPE_ICON_HL.STRUCTURE:format(vim.bo.filetype) .. new_icon_data.ICON .. RESET_HL,
+		vim.fs.joinpath(vim.fs.basename(vim.fs.dirname(vim.api.nvim_buf_get_name(0))), file_name),
+		vim.bo.modified and File.BUFFER_MODIFIED_ICON or "",
+	}
 
 	return table.concat(items, " ")
 end
