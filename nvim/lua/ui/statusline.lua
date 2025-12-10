@@ -2,27 +2,6 @@ local FILE_ICONS = require("ui._filetype_styles")
 
 local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
 
-local function apply_highlight(data)
-	local function create_highlight(name)
-		return string.format("%%#%s#", name)
-	end
-
-	local text = data.text
-	local highlight_name = data.hl_name
-
-	if text then
-		local highlighted_text = create_highlight(highlight_name or RESET_HL_NAME) .. text
-
-		if not data.should_reset then
-			return highlighted_text
-		end
-
-		return highlighted_text .. RESET_HL
-	end
-
-	if highlight_name then
-		return create_highlight(highlight_name)
-	end
 local function build_block(block_char_pair, hl, content)
 	local block_structure = "%s" .. block_char_pair[1] .. "%s%s" .. block_char_pair[2]
 	return string.format(block_structure, hl, content, hl)
@@ -109,7 +88,7 @@ return function()
 		Git.build(),
 		File.build(),
 		"%=",
-		Diagnostics.build(apply_highlight),
+		Diagnostics.build(),
 		POSITION_CACHE,
 	}, " ")
 
