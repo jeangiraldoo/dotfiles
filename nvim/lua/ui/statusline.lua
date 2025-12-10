@@ -3,27 +3,6 @@ local FILE_ICONS = require("ui._filetype_styles")
 
 local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
 
-utils.editor.set_highlights({
-	StatusLineGitIcon = {
-		bg = "#b84500",
-		fg = "#d79921",
-	},
-	StatusLineGitText = {
-		fg = "#d79921",
-		bg = "#1e2030",
-	},
-	StatusLineGitContainer = {
-		bg = "#d79921",
-	},
-	StatusLinePositionText = {
-		bg = "#1e2030",
-		fg = "#d79921",
-	},
-	StatusLineLocationContainer = {
-		bg = "#d79921",
-	},
-})
-
 local function build_block(block_char_pair, hl, content)
 	local block_structure = "%s" .. block_char_pair[1] .. "%s%s" .. block_char_pair[2]
 	return string.format(block_structure, hl, content, hl)
@@ -84,25 +63,69 @@ function File.build()
 end
 
 local Git = {
-	ICON = "%#StatusLineGitIcon#",
-	CONTAINER_HL = "%#StatusLineGitContainer#",
-	BRANCH_NAME_HL = "%#StatusLineGitText#",
-	NO_BRANCH_TEXT = "[No Branch]",
+	ICON = {
+		VALUE = "",
+		COLOUR = "#b84500",
+		HL_NAME = "StatusLineGitIcon",
+	},
+	CONTAINER = {
+		HL_NAME = "StatusLineGitContainer",
+		COLOUR = "#d79921",
+	},
+	TEXT = {
+		HL_NAME = "StatusLineGitText",
+		NO_BRANCH = "[No Branch]",
+		COLOUR = "#1e2030",
+	},
 }
 
+utils.editor.set_highlights({
+	[Git.ICON.HL_NAME] = {
+		bg = Git.ICON.COLOUR,
+		fg = Git.CONTAINER.COLOUR,
+	},
+	[Git.TEXT.HL_NAME] = {
+		fg = Git.CONTAINER.COLOUR,
+		bg = Git.TEXT.COLOUR,
+	},
+	[Git.CONTAINER.HL_NAME] = {
+		bg = Git.CONTAINER.COLOUR,
+	},
+})
+
 function Git.build()
-	local branch_text = Git.BRANCH_NAME_HL .. (vim.b.gitsigns_head or Git.NO_BRANCH_TEXT)
-	local content = Git.ICON .. " " .. branch_text
-	return build_block({ "█", "█" }, Git.CONTAINER_HL, content)
+	local branch_text = "%#" .. Git.TEXT.HL_NAME .. "#" .. (vim.b.gitsigns_head or Git.TEXT.NO_BRANCH)
+	local content = "%#" .. Git.ICON.HL_NAME .. "#" .. Git.ICON.VALUE .. " " .. branch_text
+	return build_block({ "█", "█" }, "%#" .. Git.CONTAINER.HL_NAME .. "#", content)
 end
 
 --- The entire ´position´ section is static, so it only needs to be built once
 local POSITION_CACHE = (function()
-	local container_hl = "%#StatusLineLocationContainer#"
+	local OPTS = {
+		TEXT = {
+			COLOUR = "#1e2030",
+			HL_NAME = "StatusLinePositionText",
+		},
+		CONTAINER = {
+			COLOUR = "#d79921",
+			HL_NAME = "StatusLinePositionContainer",
+		},
+	}
+
+	utils.editor.set_highlights({
+		[OPTS.TEXT.HL_NAME] = {
+			bg = OPTS.TEXT.COLOUR,
+			fg = OPTS.CONTAINER.COLOUR,
+		},
+		[OPTS.CONTAINER.HL_NAME] = {
+			bg = OPTS.CONTAINER.COLOUR,
+		},
+	})
+
+	local container_hl = "%#" .. OPTS.CONTAINER.HL_NAME .. "#"
 	local content = "󰆌  %l:%c | %p%%"
 
-	local highlighted_text = "%#StatusLinePositionText#" .. content
-	return build_block({ "", "█" }, container_hl, highlighted_text)
+	return build_block({ "", "█" }, container_hl, "%#" .. OPTS.TEXT.HL_NAME .. "#" .. content)
 end)()
 
 return function()
