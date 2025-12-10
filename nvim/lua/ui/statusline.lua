@@ -1,6 +1,28 @@
+local utils = require("utils")
 local FILE_ICONS = require("ui._filetype_styles")
 
 local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
+
+utils.editor.set_highlights({
+	StatusLineGitIcon = {
+		bg = "#b84500",
+		fg = "#d79921",
+	},
+	StatusLineGitText = {
+		fg = "#d79921",
+		bg = "#1e2030",
+	},
+	StatusLineGitContainer = {
+		bg = "#d79921",
+	},
+	StatusLinePositionText = {
+		bg = "#1e2030",
+		fg = "#d79921",
+	},
+	StatusLineLocationContainer = {
+		bg = "#d79921",
+	},
+})
 
 local function build_block(block_char_pair, hl, content)
 	local block_structure = "%s" .. block_char_pair[1] .. "%s%s" .. block_char_pair[2]
