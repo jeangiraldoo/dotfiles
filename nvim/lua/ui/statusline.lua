@@ -26,63 +26,21 @@ local function apply_highlight(data)
 end
 
 local Diagnostics = {
-	ENABLED = {
-		{
-			TYPE = vim.diagnostic.severity.ERROR,
-			ICON = "",
-			HL_NAME = "DiagnosticError",
-		},
-		{
-			TYPE = vim.diagnostic.severity.WARN,
-			ICON = "",
-			HL_NAME = "DiagnosticWarn",
-		},
-		{
-			TYPE = vim.diagnostic.severity.INFO,
-			ICON = "",
-			HL_NAME = "DiagnosticInfo",
-		},
-		{
-			TYPE = vim.diagnostic.severity.HINT,
-			ICON = "",
-			HL_NAME = "DiagnosticHint",
-		},
-	},
+	TYPES = {
+		[vim.diagnostic.severity.ERROR] = "%#DiagnosticError#" .. RESET_HL,
+		[vim.diagnostic.severity.WARN] = "%#DiagnosticWarn#" .. RESET_HL,
+		[vim.diagnostic.severity.INFO] = "%#DiagnosticInfo#" .. RESET_HL,
+		[vim.diagnostic.severity.HINT] = "%#DiagnosticHint#" .. RESET_HL,
+	}
 }
 
-function Diagnostics.count()
-	local counts = {}
-
-	for _, diagnostic_data in pairs(Diagnostics.ENABLED) do
-		counts[diagnostic_data.TYPE] = 0
-	end
-
-	for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
-		local severity_type = diagnostic.severity
-		local severity_count = counts[severity_type]
-		if severity_count then
-			counts[severity_type] = severity_count + 1
-		end
-	end
-
-	return counts
-end
-
-function Diagnostics.build(apply_highlight)
-	local counts = Diagnostics.count()
-
+function Diagnostics.build()
 	local diagnostic_items = {}
-	for _, diagnostic_data in ipairs(Diagnostics.ENABLED) do
-		local severity_count = counts[diagnostic_data.TYPE]
-		if severity_count > 0 then
-			local coloured_icon = apply_highlight({
-				hl_name = diagnostic_data.HL_NAME,
-				text = diagnostic_data.ICON,
-				should_reset = true,
-			})
-			local diagnostic_item = coloured_icon .. " " .. severity_count
-			table.insert(diagnostic_items, diagnostic_item)
-		end
+	for severity_type, icon in pairs(Diagnostics.TYPES) do
+		local severity_count = #vim.diagnostic.get(0, { severity = severity_type })
+
+		local diagnostic_item = icon .. severity_count
+		table.insert(diagnostic_items, diagnostic_item)
 	end
 
 	return table.concat(diagnostic_items, " ")
