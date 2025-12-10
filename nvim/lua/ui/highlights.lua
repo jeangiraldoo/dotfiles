@@ -1,4 +1,6 @@
-local HIGHLIGHTS = {
+local utils = require("utils")
+
+utils.editor.set_highlights({
 	WhiteText = {
 		bg = "#ffffff",
 	},
@@ -47,8 +49,4 @@ local HIGHLIGHTS = {
 	FloatBorder = {
 		fg = "#828100",
 	},
-}
-
-for highlight_name, data in pairs(HIGHLIGHTS) do
-	vim.api.nvim_set_hl(0, highlight_name, data)
-end
+})
