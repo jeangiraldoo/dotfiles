@@ -38,6 +38,12 @@ function Utils.module.fetch_join_tables(dir)
 	return combined_entries
 end
 
+function Utils.editor.set_highlights(highlights)
+	for highlight_name, data in pairs(highlights) do
+		vim.api.nvim_set_hl(0, highlight_name, data)
+	end
+end
+
 function Utils.editor.set_keymaps(keymaps)
 	local DEFAULT_OPTS = {
 		noremap = true,
