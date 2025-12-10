@@ -23,6 +23,9 @@ local function apply_highlight(data)
 	if highlight_name then
 		return create_highlight(highlight_name)
 	end
+local function build_block(block_char_pair, hl, content)
+	local block_structure = "%s" .. block_char_pair[1] .. "%s%s" .. block_char_pair[2]
+	return string.format(block_structure, hl, content, hl)
 end
 
 local Diagnostics = {
@@ -94,16 +97,11 @@ end
 
 --- The entire ´position´ section is static, so it only needs to be built once
 local POSITION_CACHE = (function()
-	local container_hl = apply_highlight({
-		hl_name = "StatusLineLocationContainer",
-	})
+	local container_hl = "%#StatusLineLocationContainer#"
+	local content = "󰆌  %l:%c | %p%%"
 
-	local highlighted_text = apply_highlight({
-		hl_name = "StatusLinePositionText",
-		text = "󰆌  %l:%c | %p%%",
-	})
-
-	return string.format("%s%s%s█", container_hl, highlighted_text, container_hl)
+	local highlighted_text = "%#StatusLinePositionText#" .. content
+	return build_block({ "", "█" }, container_hl, highlighted_text)
 end)()
 
 return function()
