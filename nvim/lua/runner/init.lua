@@ -3,6 +3,7 @@ local utils = require("utils")
 
 local Runner = {
 	code = {},
+	project_commands = {},
 }
 
 local OPTS = {
@@ -16,6 +17,12 @@ local OPTS = {
 		label = "Project",
 		run = function()
 			Runner.code.project()
+		end,
+	},
+	{
+		label = "Project-specific Commands",
+		run = function()
+			Runner.project_commands()
 		end,
 	},
 }
@@ -122,6 +129,21 @@ function Runner.code.project()
 		end
 	end
 	_display_warning("No code marker found")
+end
+
+--- Displays a project-specific command menu offering a predefined list of actions
+--- Commands may be defined from any source, such as a `.nvim.lua` file
+function Runner.project_commands()
+	vim.ui.select(DEFAULTS.project_commands, {
+		prompt = "Select command:",
+	}, function(item)
+		if item then
+			utils.terminal.launch({
+				cwd = vim.fs.root(0, { ".git" }) or vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+				cmd = item,
+			})
+		end
+	end)
 end
 
 return Runner

@@ -80,4 +80,5 @@ return {
 			},
 		},
 	},
+	project_commands = {},
 }
