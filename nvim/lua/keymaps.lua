@@ -1,21 +1,6 @@
 local utils = require("utils")
 local runner = require("runner.init")
 
-local RUNNER_OPTS = {
-	{
-		label = "File",
-		run = function()
-			runner.run({ run_current_file = true })
-		end,
-	},
-	{
-		label = "Project",
-		run = function()
-			runner.run({ run_current_file = false })
-		end,
-	},
-}
-
 local casefile = {
 	FILE_NAME = "casefile.md",
 	window_id = nil,
@@ -61,18 +46,7 @@ local KEYMAPS = {
 		desc = "Launch runner menu",
 		mode = "n",
 		keys = "<leader>ar",
-		cmd = function()
-			vim.ui.select(RUNNER_OPTS, {
-				prompt = "Select runner:",
-				format_item = function(item)
-					return item.label
-				end,
-			}, function(item)
-				if item then
-					item.run()
-				end
-			end)
-		end,
+		cmd = runner.display_menu,
 	},
 	{
 		desc = "Display installed plugins",

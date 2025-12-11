@@ -1,14 +1,27 @@
 local DEFAULTS = require("runner._defaults")
 local utils = require("utils")
 
-local OS_NAME = vim.loop.os_uname().sysname
-
 local OS_SHELL_OPERATORS = ({
 	Linux = {
 		["=>"] = " && ",
 		[">>"] = " ; ",
 	},
-})[OS_NAME]
+})[vim.loop.os_uname().sysname]
+
+local OPTS = {
+	{
+		label = "File",
+		run = function()
+			CodeRunner.run({ run_current_file = true })
+		end,
+	},
+	{
+		label = "Project",
+		run = function()
+			CodeRunner.run({ run_current_file = false })
+		end,
+	},
+}
 
 local CodeRunner = {}
 
@@ -74,6 +87,19 @@ local function _run_project(filetype_data, paths, project_markers)
 		end
 	end
 	_display_warning("No code marker found")
+end
+
+function CodeRunner.display_menu()
+	vim.ui.select(OPTS, {
+		prompt = "Select runner:",
+		format_item = function(item)
+			return item.label
+		end,
+	}, function(item)
+		if item then
+			item.run()
+		end
+	end)
 end
 
 function CodeRunner.run(data)
