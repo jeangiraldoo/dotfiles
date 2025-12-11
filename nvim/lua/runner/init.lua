@@ -1,13 +1,6 @@
 local DEFAULTS = require("runner._defaults")
 local utils = require("utils")
 
-local OS_SHELL_OPERATORS = ({
-	Linux = {
-		["=>"] = " && ",
-		[">>"] = " ; ",
-	},
-})[vim.loop.os_uname().sysname]
-
 local Runner = {
 	code = {},
 }
@@ -32,27 +25,15 @@ local function _display_warning(msg)
 end
 
 local function _build_cmd(cmd_list, paths, venv)
-	local file_name
-	if paths.file_absolute then
-		file_name = paths.file_absolute:match(".*/(.+)%.%w+$")
-	else
-		paths.file_absolute = vim.fn.expand("%:p")
-		file_name = vim.fn.expand("%:t:r")
-	end
+	local file_name = vim.fn.fnamemodify(paths.file_absolute, ":t:r")
 
 	local cmd = table.concat(cmd_list, " && ")
 
-	for key, val in pairs(OS_SHELL_OPERATORS) do
-		cmd = cmd:gsub(key, val)
-	end
-
-	if paths.root and venv and vim.fn.isdirectory(vim.fs.joinpath(paths.root, venv.marker)) == 1 then
+	if venv and vim.fn.isdirectory(vim.fs.joinpath(paths.root, venv.marker)) == 1 then
 		cmd = (venv.source_command .. " && " .. cmd):gsub("%%root_path", paths.root)
 	end
 
-	cmd = cmd:gsub("%%abs_file_path", paths.file_absolute):gsub("%%file_name", file_name)
-
-	return cmd
+	return cmd:gsub("%%abs_file_path", paths.file_absolute):gsub("%%file_name", file_name)
 end
 
 function Runner.display_menu()
@@ -96,6 +77,7 @@ function Runner.code.file()
 	end
 
 	local paths = get_paths(filetype_data.markers)
+	paths.file_absolute = vim.fn.expand("%:p")
 
 	utils.terminal.launch({
 		cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
