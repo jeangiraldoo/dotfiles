@@ -8,22 +8,24 @@ local OS_SHELL_OPERATORS = ({
 	},
 })[vim.loop.os_uname().sysname]
 
+local Runner = {
+	code = {},
+}
+
 local OPTS = {
 	{
 		label = "File",
 		run = function()
-			CodeRunner.run({ run_current_file = true })
+			Runner.code.file()
 		end,
 	},
 	{
 		label = "Project",
 		run = function()
-			CodeRunner.run({ run_current_file = false })
+			Runner.code.project()
 		end,
 	},
 }
-
-local CodeRunner = {}
 
 local function _display_warning(msg)
 	vim.notify("[Runner] " .. msg, vim.log.levels.WARN)
@@ -53,17 +55,68 @@ local function _build_cmd(cmd_list, paths, venv)
 	return cmd
 end
 
-local function _run_file(filetype_data, paths)
-	local data = {
+function Runner.display_menu()
+	vim.ui.select(OPTS, {
+		prompt = "Select runner:",
+		format_item = function(item)
+			return item.label
+		end,
+	}, function(item)
+		if item then
+			item.run()
+		end
+	end)
+end
+
+local function _retrieve_filetype_data()
+	local filetype = vim.bo.filetype
+	local filetype_data = DEFAULTS[filetype]
+
+	if filetype_data == nil then
+		_display_warning("No settings defined for " .. filetype)
+	end
+
+	return filetype_data
+end
+
+local function get_paths(repo_markers)
+	local paths = {}
+
+	if repo_markers then
+		paths.root = vim.fs.root(0, repo_markers.static) or vim.fs.root(0, repo_markers.code)
+	end
+
+	return paths
+end
+
+function Runner.code.file()
+	local filetype_data = _retrieve_filetype_data()
+	if not filetype_data then
+		return
+	end
+
+	local paths = get_paths(filetype_data.markers)
+
+	utils.terminal.launch({
 		cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
 		cmd = _build_cmd(filetype_data.commands.file or filetype_data.commands, paths, filetype_data.venv),
 		close_after_cmd = filetype_data.close_after_cmd,
-	}
-
-	utils.terminal.launch(data)
+	})
 end
 
-local function _run_project(filetype_data, paths, project_markers)
+function Runner.code.project()
+	local filetype_data = _retrieve_filetype_data()
+	if not filetype_data then
+		return
+	end
+
+	if not filetype_data.markers then
+		_display_warning("No project markers defined for " .. vim.bo.filetype)
+		return
+	end
+
+	local paths = get_paths(filetype_data.markers)
+
 	if not paths.root then
 		_display_warning("No project root found")
 		return
@@ -74,7 +127,7 @@ local function _run_project(filetype_data, paths, project_markers)
 		close_after_cmd = filetype_data.close_after_cmd,
 	}
 
-	for _, file_marker in ipairs(project_markers) do
+	for _, file_marker in ipairs(filetype_data.markers.code) do
 		local code_marker_path = vim.fs.joinpath(paths.root, file_marker)
 
 		if vim.uv.fs_stat(code_marker_path) then
@@ -89,48 +142,4 @@ local function _run_project(filetype_data, paths, project_markers)
 	_display_warning("No code marker found")
 end
 
-function CodeRunner.display_menu()
-	vim.ui.select(OPTS, {
-		prompt = "Select runner:",
-		format_item = function(item)
-			return item.label
-		end,
-	}, function(item)
-		if item then
-			item.run()
-		end
-	end)
-end
-
-function CodeRunner.run(data)
-	local filetype = vim.bo.filetype
-	local filetype_data = DEFAULTS[filetype]
-
-	if filetype_data == nil then
-		_display_warning("No settings defined for " .. filetype)
-		return
-	end
-
-	local repo_markers = filetype_data.markers
-
-	-- Markers are optional for files because a file (e.g., a script) can be standalone or part of a project
-	if not data.run_current_file and not repo_markers then
-		_display_warning("No project markers defined for " .. filetype)
-		return
-	end
-
-	local paths = {}
-
-	if repo_markers then
-		paths.root = vim.fs.root(0, repo_markers.static) or vim.fs.root(0, repo_markers.code)
-	end
-
-	if data.run_current_file then
-		_run_file(filetype_data, paths)
-		return
-	end
-
-	_run_project(filetype_data, paths, repo_markers.code)
-end
-
-return CodeRunner
+return Runner
