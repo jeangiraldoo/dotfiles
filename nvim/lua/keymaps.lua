@@ -38,25 +38,6 @@ utils.editor.set_keymaps({
 		cmd = runner.display_menu,
 	},
 	{
-		desc = "Display installed plugins",
-		mode = "n",
-		keys = "<leader>ae",
-		cmd = function()
-			local plugin_list = vim.pack.get()
-			local plugin_info_format = "Name: %s\nActive: %s\nSrc: %s\nPath: %s\n\n"
-
-			for _, plugin_spec in ipairs(plugin_list) do
-				local formatted_plugin_info = plugin_info_format:format(
-					plugin_spec.spec.name,
-					plugin_spec.active,
-					plugin_spec.spec.src,
-					plugin_spec.path
-				)
-				vim.notify(formatted_plugin_info)
-			end
-		end,
-	},
-	{
 		desc = "Toggle inlay hints",
 		mode = "n",
 		keys = "<leader>ah",
