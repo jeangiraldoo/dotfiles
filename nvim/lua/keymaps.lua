@@ -28,7 +28,7 @@ utils.editor.set_keymaps({
 	{
 		desc = "Exit terminal mode",
 		mode = "t",
-		keys = "<Esc>",
+		keys = "<C- >",
 		cmd = [[<C-\><C-n>]],
 	},
 	{
