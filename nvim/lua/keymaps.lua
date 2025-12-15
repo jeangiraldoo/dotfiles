@@ -135,34 +135,14 @@ local KEYMAPS = {
 		mode = "n",
 		keys = "<leader>dn",
 		cmd = function()
-			local WINDOW = {
-				HEIGHT = 22,
-				WIDTH = 105,
-				VERTICAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_height(0) / 2),
-				HORIZONTAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_width(0) / 2),
-			}
-
-			WINDOW.HALF_HEIGHT = math.floor(WINDOW.HEIGHT / 2)
-			WINDOW.HALF_WIDTH = math.floor(WINDOW.WIDTH / 2)
-
 			local FILE_NAME = "casefile.md"
-			if vim.api.nvim_buf_get_name(0):match(FILE_NAME .. "$") then
-				vim.api.nvim_buf_delete(0, { force = true })
+			local is_window_displayed = utils.editor.toggle_floating_window(function()
+				return vim.api.nvim_buf_get_name(0):match(FILE_NAME .. "$")
+			end, "Casefile")
+
+			if not is_window_displayed then
 				return
 			end
-
-			local buffer_id = vim.api.nvim_create_buf(true, false)
-			vim.api.nvim_open_win(buffer_id, true, {
-				title = " 〘 Casefile 〙 ",
-				title_pos = "center",
-				relative = "win",
-				row = WINDOW.VERTICAL_MIDDLE_POS - WINDOW.HALF_HEIGHT,
-				col = WINDOW.HORIZONTAL_MIDDLE_POS - WINDOW.HALF_WIDTH,
-				width = WINDOW.WIDTH,
-				height = WINDOW.HEIGHT,
-				zindex = 200,
-				border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
-			})
 
 			local target_path = vim.fs.root(0, { FILE_NAME }) or vim.fs.root(0, { ".git" })
 			local casefile_path = target_path and vim.fs.joinpath(target_path, FILE_NAME) or FILE_NAME
