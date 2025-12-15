@@ -89,4 +89,38 @@ function Utils.terminal.launch(opts)
 	vim.fn.chansend(job_id, { interactive_terminal_cmd })
 end
 
+--- @param window_existance_validator function Returns true if the window is visible, false otherwise
+--- @param title string Window title
+--- @return boolean is_visible Wether or not the window is currently visible
+function Utils.editor.toggle_floating_window(window_existance_validator, title)
+	if window_existance_validator() then
+		vim.api.nvim_buf_delete(0, { force = true })
+		return false
+	end
+
+	local WINDOW = {
+		HEIGHT = 22,
+		WIDTH = 105,
+		VERTICAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_height(0) / 2),
+		HORIZONTAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_width(0) / 2),
+	}
+
+	WINDOW.HALF_HEIGHT = math.floor(WINDOW.HEIGHT / 2)
+	WINDOW.HALF_WIDTH = math.floor(WINDOW.WIDTH / 2)
+
+	local buffer_id = vim.api.nvim_create_buf(true, false)
+	vim.api.nvim_open_win(buffer_id, true, {
+		title = " 〘 " .. title .. " 〙 ",
+		title_pos = "center",
+		relative = "win",
+		row = WINDOW.VERTICAL_MIDDLE_POS - WINDOW.HALF_HEIGHT,
+		col = WINDOW.HORIZONTAL_MIDDLE_POS - WINDOW.HALF_WIDTH,
+		width = WINDOW.WIDTH,
+		height = WINDOW.HEIGHT,
+		zindex = 200,
+		border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+	})
+	return true
+end
+
 return Utils
