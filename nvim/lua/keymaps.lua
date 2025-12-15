@@ -1,7 +1,7 @@
 local utils = require("utils")
 local runner = require("runner.init")
 
-local KEYMAPS = {
+utils.editor.set_keymaps({
 	{
 		desc = "Toggle version control window",
 		mode = "n",
@@ -155,6 +155,4 @@ local KEYMAPS = {
 			vim.cmd("edit " .. casefile_path)
 		end,
 	},
-}
-
-utils.editor.set_keymaps(KEYMAPS)
+})
