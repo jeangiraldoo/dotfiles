@@ -1,11 +1,10 @@
 local utils = require("utils")
-local FILE_ICONS = require("ui._filetype_styles")
 
 local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
 
 local function build_block(block_char_pair, hl, content)
 	local block_structure = "%s" .. block_char_pair[1] .. "%s%s" .. block_char_pair[2]
-	return string.format(block_structure, hl, content, hl)
+	return string.format(block_structure, hl, content, hl) .. RESET_HL
 end
 
 local Diagnostics = {
@@ -45,16 +44,7 @@ function File.build()
 		return File.UNNAMED_BUFFER
 	end
 
-	local new_icon_data = FILE_ICONS[vim.bo.filetype] or FILE_ICONS.text
-
-	local hl_name = File.FILETYPE_ICON_HL.BASE_NAME .. vim.bo.filetype
-	local icon_color = new_icon_data.HIGHLIGHT
-	if icon_color and vim.fn.hlexists(hl_name) == 0 then
-		vim.api.nvim_set_hl(0, hl_name, { bg = icon_color })
-	end
-
 	local items = {
-		File.FILETYPE_ICON_HL.STRUCTURE:format(vim.bo.filetype) .. new_icon_data.ICON .. RESET_HL,
 		vim.fs.joinpath(vim.fs.basename(vim.fs.dirname(vim.api.nvim_buf_get_name(0))), file_name),
 		vim.bo.modified and File.BUFFER_MODIFIED_ICON or "",
 	}
