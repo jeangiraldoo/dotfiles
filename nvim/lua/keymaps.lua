@@ -135,6 +135,16 @@ local KEYMAPS = {
 		mode = "n",
 		keys = "<leader>dn",
 		cmd = function()
+			local WINDOW = {
+				HEIGHT = 22,
+				WIDTH = 105,
+				VERTICAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_height(0) / 2),
+				HORIZONTAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_width(0) / 2),
+			}
+
+			WINDOW.HALF_HEIGHT = math.floor(WINDOW.HEIGHT / 2)
+			WINDOW.HALF_WIDTH = math.floor(WINDOW.WIDTH / 2)
+
 			local FILE_NAME = "casefile.md"
 			if vim.api.nvim_buf_get_name(0):match(FILE_NAME .. "$") then
 				vim.api.nvim_buf_delete(0, { force = true })
@@ -146,10 +156,10 @@ local KEYMAPS = {
 				title = " 〘 Casefile 〙 ",
 				title_pos = "center",
 				relative = "win",
-				row = 5,
-				col = 20,
-				width = 105,
-				height = 22,
+				row = WINDOW.VERTICAL_MIDDLE_POS - WINDOW.HALF_HEIGHT,
+				col = WINDOW.HORIZONTAL_MIDDLE_POS - WINDOW.HALF_WIDTH,
+				width = WINDOW.WIDTH,
+				height = WINDOW.HEIGHT,
 				zindex = 200,
 				border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
 			})
