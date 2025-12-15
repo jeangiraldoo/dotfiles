@@ -1,12 +1,6 @@
 local utils = require("utils")
 local runner = require("runner.init")
 
-local casefile = {
-	FILE_NAME = "casefile.md",
-	window_id = nil,
-	buffer_id = nil,
-}
-
 local WORD_TOGGLE_MAP = vim.iter({
 	["True"] = "False",
 	["true"] = "false",
@@ -141,31 +135,29 @@ local KEYMAPS = {
 		mode = "n",
 		keys = "<leader>dn",
 		cmd = function()
-			if not casefile.window_id then
-				casefile.buffer_id = casefile.buffer_id or vim.api.nvim_create_buf(true, false)
-				casefile.window_id = vim.api.nvim_open_win(casefile.buffer_id, true, {
-					title = " 〘 Casefile 〙 ",
-					title_pos = "center",
-					relative = "win",
-					row = 5,
-					col = 20,
-					width = 105,
-					height = 22,
-					zindex = 200,
-					border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
-				})
-
-				local target_path = vim.fs.root(0, { "casefile.md" }) or vim.fs.root(0, { ".git" })
-
-				local casefile_path = target_path and vim.fs.joinpath(target_path, casefile.FILE_NAME)
-					or casefile.FILE_NAME
-
-				vim.cmd("edit " .. casefile_path)
+			local FILE_NAME = "casefile.md"
+			if vim.api.nvim_buf_get_name(0):match(FILE_NAME .. "$") then
+				vim.api.nvim_buf_delete(0, { force = true })
 				return
 			end
 
-			vim.api.nvim_win_close(casefile.window_id, true)
-			casefile.window_id = nil
+			local buffer_id = vim.api.nvim_create_buf(true, false)
+			vim.api.nvim_open_win(buffer_id, true, {
+				title = " 〘 Casefile 〙 ",
+				title_pos = "center",
+				relative = "win",
+				row = 5,
+				col = 20,
+				width = 105,
+				height = 22,
+				zindex = 200,
+				border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+			})
+
+			local target_path = vim.fs.root(0, { FILE_NAME }) or vim.fs.root(0, { ".git" })
+			local casefile_path = target_path and vim.fs.joinpath(target_path, FILE_NAME) or FILE_NAME
+
+			vim.cmd("edit " .. casefile_path)
 		end,
 	},
 }
