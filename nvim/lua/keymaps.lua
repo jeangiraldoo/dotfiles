@@ -23,6 +23,22 @@ local WORD_TOGGLE_MAP = vim.iter({
 end)
 
 local KEYMAPS = {
+	{
+		desc = "Toggle version control window",
+		mode = "n",
+		keys = "<leader>gg",
+		cmd = function()
+			local is_window_displayed = utils.editor.toggle_floating_window(function()
+				return vim.api.nvim_buf_get_name(0):match("git$")
+			end, "Version control")
+
+			if not is_window_displayed then
+				return
+			end
+
+			vim.cmd("term lazygit")
+		end,
+	},
 	-- Admin
 	{
 		desc = "Launch terminal",
