@@ -1,27 +1,6 @@
 local utils = require("utils")
 local runner = require("runner.init")
 
-local WORD_TOGGLE_MAP = vim.iter({
-	["True"] = "False",
-	["true"] = "false",
-	["on"] = "off",
-	["ON"] = "OFF",
-	["enabled"] = "disabled",
-	["public"] = "private",
-	["fg"] = "bg",
-	["==="] = "!==",
-	["and"] = "or",
-	["&&"] = "||",
-	["=="] = "!=",
-	[">"] = "<",
-	[">="] = "<=",
-	["++"] = "--",
-}):fold({}, function(acc, key, value)
-	acc[key] = value
-	acc[value] = key
-	return acc
-end)
-
 local KEYMAPS = {
 	{
 		desc = "Toggle version control window",
@@ -114,19 +93,42 @@ local KEYMAPS = {
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end,
 	},
-	{
-		desc = "Toggle word under the cursor",
-		mode = "n",
-		keys = "<leader>st",
-		cmd = function()
-			local word_under_cursor = vim.fn.expand("<cword>")
-			local replacement = WORD_TOGGLE_MAP[word_under_cursor]
+	(function()
+		local WORD_TOGGLE_MAP = vim.iter({
+			["True"] = "False",
+			["true"] = "false",
+			["on"] = "off",
+			["ON"] = "OFF",
+			["enabled"] = "disabled",
+			["public"] = "private",
+			["fg"] = "bg",
+			["==="] = "!==",
+			["and"] = "or",
+			["&&"] = "||",
+			["=="] = "!=",
+			[">"] = "<",
+			[">="] = "<=",
+			["++"] = "--",
+		}):fold({}, function(acc, key, value)
+			acc[key] = value
+			acc[value] = key
+			return acc
+		end)
 
-			if replacement then
-				vim.cmd.normal("ciw" .. replacement)
-			end
-		end,
-	},
+		return {
+			desc = "Toggle word under the cursor",
+			mode = "n",
+			keys = "<leader>st",
+			cmd = function()
+				local word_under_cursor = vim.fn.expand("<cword>")
+				local replacement = WORD_TOGGLE_MAP[word_under_cursor]
+
+				if replacement then
+					vim.cmd.normal("ciw" .. replacement)
+				end
+			end,
+		}
+	end)(),
 	{
 		desc = "Add new empty line",
 		mode = "n",
