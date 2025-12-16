@@ -9,7 +9,7 @@ local utils = require("utils")
 ---     keymaps?: table[] }
 
 ---@type PluginSpec[]
-local plugin_specs = utils.module.fetch_join_tables("plugins")
+local plugin_specs = utils.module.require_config_tables("plugins")
 
 -- Defined separately from plugin specs because vim.pack.add throws an error otherwise
 local BUILTIN_PLUGINS = {
