@@ -11,7 +11,7 @@ return {
 				{
 					desc = "Open fuzzy finder",
 					mode = "n",
-					keys = "<leader>ff",
+					keys = "<leader><leader>",
 					cmd = ":FzfLua files<CR>",
 				},
 			},
