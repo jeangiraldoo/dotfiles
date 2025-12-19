@@ -10,6 +10,10 @@
 [push]
     followTags = true
 
+[advice]
+	detachedHead = false
+	statusHints = false
+
 [alias]
 	a = add
 	ua = restore --staged
