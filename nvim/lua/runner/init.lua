@@ -7,13 +7,23 @@ local function _display_warning(msg)
 	vim.notify("[Runner] " .. msg, vim.log.levels.WARN)
 end
 
+local function build_venv_cmd(root, venv_options, source_command)
+	for _, venv_name in ipairs(venv_options) do
+		if vim.fn.isdirectory(vim.fs.joinpath(root, venv_name)) == 1 then
+			return (source_command .. " && "):gsub("%%root_path", root):gsub("%%venv_marker", venv_name)
+		end
+	end
+
+	return ""
+end
+
 local function _build_cmd(cmd_list, paths, venv)
 	local file_name = vim.fn.fnamemodify(paths.file_absolute, ":t:r")
 
 	local cmd = table.concat(cmd_list, " && ")
 
-	if venv and vim.fn.isdirectory(vim.fs.joinpath(paths.root, venv.marker)) == 1 then
-		cmd = (venv.source_command .. " && " .. cmd):gsub("%%root_path", paths.root)
+	if venv then
+		cmd = build_venv_cmd(paths.root, venv.markers, venv.source_command) .. cmd
 	end
 
 	return cmd:gsub("%%abs_file_path", paths.file_absolute):gsub("%%file_name", file_name)
