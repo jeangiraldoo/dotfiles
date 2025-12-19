@@ -17,16 +17,18 @@ local function build_venv_cmd(root, venv_options, source_command)
 	return ""
 end
 
-local function _build_cmd(cmd_list, paths, venv)
+local function _build_cmd(cmd_list, paths, venv, executable)
 	local file_name = vim.fn.fnamemodify(paths.file_absolute, ":t:r")
-
 	local cmd = table.concat(cmd_list, " && ")
 
 	if venv then
 		cmd = build_venv_cmd(paths.root, venv.markers, venv.source_command) .. cmd
 	end
 
-	return cmd:gsub("%%abs_file_path", paths.file_absolute):gsub("%%file_name", file_name)
+	local executable_cmd = type(executable) == "table" and executable[vim.loop.os_uname().sysname] or executable
+	return cmd:gsub("%%abs_file_path", paths.file_absolute)
+		:gsub("%%file_name", file_name)
+		:gsub("%%executable", executable_cmd)
 end
 
 local function _retrieve_filetype_data()
@@ -64,7 +66,12 @@ local RUNNERS = {
 
 			utils.terminal.launch({
 				cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-				cmd = _build_cmd(filetype_data.commands.file or filetype_data.commands, paths, filetype_data.venv),
+				cmd = _build_cmd(
+					filetype_data.commands.file or filetype_data.commands,
+					paths,
+					filetype_data.venv,
+					filetype_data.executable
+				),
 				close_after_cmd = filetype_data.close_after_cmd,
 			})
 		end,
@@ -99,8 +106,12 @@ local RUNNERS = {
 
 				if vim.uv.fs_stat(code_marker_path) then
 					paths["file_absolute"] = code_marker_path
-					terminal_data.cmd =
-						_build_cmd(filetype_data.commands.project or filetype_data.commands, paths, filetype_data.venv)
+					terminal_data.cmd = _build_cmd(
+						filetype_data.commands.project or filetype_data.commands,
+						paths,
+						filetype_data.venv,
+						filetype_data.executable
+					)
 
 					utils.terminal.launch(terminal_data)
 					return
