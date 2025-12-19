@@ -42,16 +42,6 @@ local function _retrieve_filetype_data()
 	return filetype_data
 end
 
-local function _get_paths(repo_markers)
-	local paths = {}
-
-	if repo_markers then
-		paths.root = vim.fs.root(0, repo_markers.static) or vim.fs.root(0, repo_markers.code)
-	end
-
-	return paths
-end
-
 local RUNNERS = {
 	{
 		label = "File",
@@ -61,8 +51,10 @@ local RUNNERS = {
 				return
 			end
 
-			local paths = _get_paths(filetype_data.markers)
-			paths.file_absolute = vim.fn.expand("%:p")
+			local paths = {
+				root = vim.fn.expand("%:p:h"),
+				file_absolute = vim.fn.expand("%:p"),
+			}
 
 			utils.terminal.launch({
 				cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
@@ -89,7 +81,9 @@ local RUNNERS = {
 				return
 			end
 
-			local paths = _get_paths(filetype_data.markers)
+			local paths = {
+				root = vim.fs.root(0, filetype_data.markers.static) or vim.fs.root(0, filetype_data.markers.code),
+			}
 
 			if not paths.root then
 				_display_warning("No project root found")
