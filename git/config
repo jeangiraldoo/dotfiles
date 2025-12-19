@@ -10,6 +10,9 @@
 [push]
     followTags = true
 
+[help]
+	autoCorrect = prompt
+
 [advice]
 	detachedHead = false
 	statusHints = false
