@@ -1,5 +1,9 @@
 return {
 	python = {
+		executable = {
+			Windows = "python",
+			Linux = "python3",
+		},
 		venv = {
 			markers = {
 				"venv",
@@ -17,10 +21,11 @@ return {
 			},
 		},
 		commands = {
-			"python3 %abs_file_path",
+			"%executable %abs_file_path",
 		},
 	},
 	javascript = {
+		executable = "node",
 		markers = {
 			static = {
 				".git",
@@ -31,10 +36,11 @@ return {
 			},
 		},
 		commands = {
-			"node %abs_file_path",
+			"%executable %abs_file_path",
 		},
 	},
 	go = {
+		executable = "go",
 		markers = {
 			static = {
 				".git",
@@ -46,14 +52,15 @@ return {
 		},
 		commands = {
 			file = {
-				"go run %abs_file_path",
+				"%executable run %abs_file_path",
 			},
 			project = {
-				"go run .",
+				"%executable run .",
 			},
 		},
 	},
 	rust = {
+		executable = "rustc",
 		markers = {
 			static = {
 				".git",
@@ -65,7 +72,7 @@ return {
 		},
 		commands = {
 			file = {
-				"rustc %abs_file_path",
+				"%executable %abs_file_path",
 				"chmod +x %file_name",
 				"./%file_name",
 			},
@@ -76,9 +83,10 @@ return {
 	},
 	mermaid = {
 		close_after_cmd = true,
+		executable = "mmdc",
 		commands = {
 			file = {
-				"mmdc --theme forest --input %abs_file_path --output %file_name.svg",
+				"%executable --theme forest --input %abs_file_path --output %file_name.svg",
 				"xdg-open %file_name.svg",
 			},
 		},
