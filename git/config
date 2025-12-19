@@ -28,6 +28,7 @@
 	d = diff
 	s = status
 	sh = show --pretty=format:'%C(magenta)Author: %C(red)%an <%ae>%n%C(magenta)Date: %C(yellow)%ad%n%C(magenta)Hash: %C(blue)%H%n%n%s%n%n%b%n' --date=format:'%d/%b/%Y %H:%M:%S'
+	sw = switch
 	l = log --graph --abbrev-commit --decorate --date=format:%d/%b/%Y --pretty=format:'%C(blue)%h%Creset %C(red)%an %C(yellow)%ad%Creset %s'
 	r = rebase
 	bi = bisect
