@@ -3,6 +3,20 @@ local utils = require("utils")
 
 local Runner = {}
 
+--- Considered to apply to all projects
+local PROJECT_STATIC_MARKERS = {
+	".git",
+	".hg",
+	".svn",
+	".bzr",
+}
+
+for _, data in pairs(DEFAULTS) do
+	if data.project and data.project.markers and data.project.markers.static then
+		data.project.markers.static = vim.list_extend(vim.deepcopy(PROJECT_STATIC_MARKERS), data.project.markers.static)
+	end
+end
+
 local function _display_warning(msg)
 	vim.notify("[Runner] " .. msg, vim.log.levels.WARN)
 end
