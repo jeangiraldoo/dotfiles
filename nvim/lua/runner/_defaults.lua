@@ -14,6 +14,8 @@ return {
 		project = {
 			markers = {
 				static = {
+					"pyproject.toml",
+					".venv",
 					"venv",
 				},
 				code = {
@@ -29,7 +31,9 @@ return {
 		executable = "node",
 		project = {
 			markers = {
-				static = {},
+				static = {
+					"package.json",
+				},
 				code = {
 					"index.js",
 					"main.js",
