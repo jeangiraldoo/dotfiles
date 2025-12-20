@@ -51,6 +51,12 @@ local RUNNERS = {
 				return
 			end
 
+			local commands = filetype_data.commands or (filetype_data.file and filetype_data.file.commands)
+			if not commands then
+				_display_warning("No file commands defined for " .. vim.bo.filetype_data)
+				return
+			end
+
 			local paths = {
 				root = vim.fn.expand("%:p:h"),
 				file_absolute = vim.fn.expand("%:p"),
@@ -58,12 +64,7 @@ local RUNNERS = {
 
 			utils.terminal.launch({
 				cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-				cmd = _build_cmd(
-					filetype_data.commands.file or filetype_data.commands,
-					paths,
-					filetype_data.venv,
-					filetype_data.executable
-				),
+				cmd = _build_cmd(commands, paths, filetype_data.venv, filetype_data.executable),
 				close_after_cmd = filetype_data.close_after_cmd,
 			})
 		end,
@@ -76,13 +77,20 @@ local RUNNERS = {
 				return
 			end
 
-			if not filetype_data.markers then
-				_display_warning("No project markers defined for " .. vim.bo.filetype)
+			if not filetype_data.project then
+				_display_warning("No project section defined for " .. vim.bo.filetype)
+				return
+			end
+
+			local commands = filetype_data.commands or filetype_data.project.commands
+			if not commands then
+				_display_warning("No project commands defined for " .. vim.bo.filetype)
 				return
 			end
 
 			local paths = {
-				root = vim.fs.root(0, filetype_data.markers.static) or vim.fs.root(0, filetype_data.markers.code),
+				root = vim.fs.root(0, filetype_data.project.markers.static)
+					or vim.fs.root(0, filetype_data.project.markers.code),
 			}
 
 			if not paths.root then
@@ -95,17 +103,12 @@ local RUNNERS = {
 				close_after_cmd = filetype_data.close_after_cmd,
 			}
 
-			for _, file_marker in ipairs(filetype_data.markers.code) do
+			for _, file_marker in ipairs(filetype_data.project.markers.code) do
 				local code_marker_path = vim.fs.joinpath(paths.root, file_marker)
 
 				if vim.uv.fs_stat(code_marker_path) then
 					paths["file_absolute"] = code_marker_path
-					terminal_data.cmd = _build_cmd(
-						filetype_data.commands.project or filetype_data.commands,
-						paths,
-						filetype_data.venv,
-						filetype_data.executable
-					)
+					terminal_data.cmd = _build_cmd(commands, paths, filetype_data.venv, filetype_data.executable)
 
 					utils.terminal.launch(terminal_data)
 					return
