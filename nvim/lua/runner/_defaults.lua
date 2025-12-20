@@ -11,13 +11,15 @@ return {
 			},
 			source_command = "source %root_path/%venv_marker/bin/activate",
 		},
-		markers = {
-			static = {
-				"venv",
-				".git",
-			},
-			code = {
-				"main.py",
+		project = {
+			markers = {
+				static = {
+					"venv",
+					".git",
+				},
+				code = {
+					"main.py",
+				},
 			},
 		},
 		commands = {
@@ -26,13 +28,15 @@ return {
 	},
 	javascript = {
 		executable = "node",
-		markers = {
-			static = {
-				".git",
-			},
-			code = {
-				"index.js",
-				"main.js",
+		project = {
+			markers = {
+				static = {
+					".git",
+				},
+				code = {
+					"index.js",
+					"main.js",
+				},
 			},
 		},
 		commands = {
@@ -41,51 +45,55 @@ return {
 	},
 	go = {
 		executable = "go",
-		markers = {
-			static = {
-				".git",
-				"go.mod",
+		project = {
+			markers = {
+				static = {
+					".git",
+					"go.mod",
+				},
+				code = {
+					"main.go",
+				},
 			},
-			code = {
-				"main.go",
+			commands = {
+				"%executable run .",
 			},
 		},
-		commands = {
-			file = {
+		file = {
+			commands = {
 				"%executable run %abs_file_path",
-			},
-			project = {
-				"%executable run .",
 			},
 		},
 	},
 	rust = {
 		executable = "rustc",
-		markers = {
-			static = {
-				".git",
-				"Cargo.toml",
+		project = {
+			markers = {
+				static = {
+					".git",
+					"Cargo.toml",
+				},
+				code = {
+					"src/main.rs",
+				},
 			},
-			code = {
-				"src/main.rs",
+			commands = {
+				"cargo run",
 			},
 		},
-		commands = {
-			file = {
+		file = {
+			commands = {
 				"%executable %abs_file_path",
 				"chmod +x %file_name",
 				"./%file_name",
-			},
-			project = {
-				"cargo run",
 			},
 		},
 	},
 	mermaid = {
 		close_after_cmd = true,
 		executable = "mmdc",
-		commands = {
-			file = {
+		file = {
+			commands = {
 				"%executable --theme forest --input %abs_file_path --output %file_name.svg",
 				"xdg-open %file_name.svg",
 			},
