@@ -15,7 +15,6 @@ return {
 			markers = {
 				static = {
 					"venv",
-					".git",
 				},
 				code = {
 					"main.py",
@@ -30,9 +29,7 @@ return {
 		executable = "node",
 		project = {
 			markers = {
-				static = {
-					".git",
-				},
+				static = {},
 				code = {
 					"index.js",
 					"main.js",
@@ -48,7 +45,6 @@ return {
 		project = {
 			markers = {
 				static = {
-					".git",
 					"go.mod",
 				},
 				code = {
@@ -70,7 +66,6 @@ return {
 		project = {
 			markers = {
 				static = {
-					".git",
 					"Cargo.toml",
 				},
 				code = {
