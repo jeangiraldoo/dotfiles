@@ -5,8 +5,8 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				require("nvim-treesitter.configs").setup({
-					ensure_installed = {
+				require("nvim-treesitter")
+					.install({
 						"java",
 						"javascript",
 						"php",
@@ -17,8 +17,9 @@ return {
 						"typst",
 						"html",
 						"go",
-					},
-				})
+						"yaml",
+					})
+					:wait(300000) -- wait max. 5 minutes
 			end,
 		},
 	},
