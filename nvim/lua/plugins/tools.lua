@@ -207,18 +207,6 @@ return {
 		},
 	},
 	{
-		src = "https://github.com/folke/todo-comments.nvim",
-		dependencies = {
-			{ src = "https://github.com/nvim-lua/plenary.nvim" },
-		},
-		data = {
-			enabled = true,
-			setup = function()
-				require("todo-comments").setup({})
-			end,
-		},
-	},
-	{
 		src = "https://github.com/chomosuke/typst-preview.nvim",
 		data = {
 			enabled = true,
