@@ -13,7 +13,6 @@ Feel free to check my setup, comment on it, or grab anything that you find usefu
 In this branch you will find settings for:
 
 - Neovim (main editor)
-- Yazi (file manager)
 - Wezterm (terminal emulator)
 - Fish (main shell)
 - Git (duh)
