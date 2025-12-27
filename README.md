@@ -14,7 +14,6 @@ In this branch you will find settings for:
 
 - Termux (Terminal emulator & Linux environment for Android)
 - Neovim (main editor)
-- Yazi (file manager)
 - Wezterm (terminal emulator)
 - Fish (main shell)
 - Git (duh)
