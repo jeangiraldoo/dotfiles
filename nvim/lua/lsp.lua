@@ -10,32 +10,3 @@ vim.lsp.enable({
 	"tinymist",
 	"yaml_ls",
 })
-
--- Nerd Font icons for each LSP completion item type
-vim.lsp.protocol.CompletionItemKind = {
-	"󰉿 Text",
-	" Method",
-	"ƒ Function",
-	" Constructor",
-	"󰜢 Field",
-	" Variable",
-	" Class",
-	" Interface",
-	"󰏖 Module",
-	"󰜢 Property",
-	"󰑭 Unit",
-	"󰎠 Value",
-	" Enum",
-	"󰌋 Keyword",
-	" Snippet",
-	"󰏘 Color",
-	"󰈙 File",
-	"󰈇 Reference",
-	"󰉋 Directory",
-	" EnumMember",
-	" Constant",
-	" Struct",
-	" Event",
-	"󰆕 Operator",
-	"󰅲 TypeParameter",
-}
