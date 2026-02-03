@@ -1,23 +1,10 @@
 local utils = require("utils")
 
 utils.editor.set_highlights({
-	WhiteText = {
-		bg = "#ffffff",
-	},
-	PMenu = {
-		bg = "#222222",
-		italic = true,
-		fg = "#ffffff",
-	},
-	PMenuSel = {
-		bg = "#690083",
-		fg = "#ffffff",
-	},
 	PMenuMatch = {
 		fg = "#ffffff",
 	},
 	PMenuMatchSel = {
-		italic = true,
 		fg = "#ffffff",
 	},
 	YankLine = {
