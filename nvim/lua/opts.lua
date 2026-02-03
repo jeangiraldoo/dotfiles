@@ -11,14 +11,6 @@ local OPTS = {
 	foldenable = true,
 	foldmethod = "manual",
 	foldcolumn = "1",
-	listchars = {
-		tab = "» ",
-		trail = "·",
-		eol = "¬",
-		extends = "›",
-		precedes = "‹",
-		space = "·",
-	},
 	scrolloff = 10,
 	showmode = false,
 	winborder = "rounded",
@@ -34,3 +26,5 @@ local OPTS = {
 for opt_name, value in pairs(OPTS) do
 	vim.opt[opt_name] = value
 end
+
+vim.cmd([[cnoreabbrev %% %:h]])
