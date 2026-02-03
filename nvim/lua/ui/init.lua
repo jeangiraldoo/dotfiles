@@ -8,7 +8,7 @@ utils.editor.set_highlights({
 		fg = "#ffffff",
 	},
 	YankLine = {
-		bg = "#44004c",
+		bg = "#d79921",
 		fg = "#FFFFFF",
 	},
 	DiagnosticUnderlineError = {
