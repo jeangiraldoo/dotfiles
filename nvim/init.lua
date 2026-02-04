@@ -62,9 +62,6 @@ require("utils").editor.set_highlights({
 		underline = true,
 		fg = "#ff5555",
 	},
-	FloatBorder = {
-		fg = "#828100",
-	},
 })
 
 vim.cmd([[cnoreabbrev %% %:h]])
