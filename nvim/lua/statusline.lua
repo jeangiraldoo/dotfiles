@@ -2,9 +2,82 @@ local utils = require("utils")
 
 local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
 
-local function build_block(block_char_pair, hl, content)
-	local block_structure = "%s" .. block_char_pair[1] .. "%s%s" .. block_char_pair[2]
-	return string.format(block_structure, hl, content, hl) .. RESET_HL
+local SECTION_STYLES = {
+	GIT = {
+		CONTAINER = {
+			MAIN_HIGHLIGHT = {
+				name = "StatusLineGitContainer",
+				data = {
+					bg = "#d79921",
+				},
+			},
+		},
+		TEXT = {
+			MAIN_HIGHLIGHT = {
+				name = "StatusLineGitText",
+				data = {
+					fg = "#d79921",
+					bg = "#1e2030",
+				},
+			},
+		},
+		ICON = {
+			MAIN_HIGHLIGHT = {
+				name = "StatusLineGitIcon",
+				data = {
+					fg = "#d79921",
+					bg = "#b84500",
+				},
+			},
+		},
+	},
+	POSITION = {
+		LAYOUT = "%s█",
+		CONTAINER = {
+			MAIN_HIGHLIGHT = {
+				name = "StatusLinePositionContainer",
+				data = {
+					bg = "#d79921",
+				},
+			},
+		},
+		TEXT = {
+			MAIN_HIGHLIGHT = {
+				name = "StatusLinePositionText",
+				data = {
+					bg = "#1e2030",
+					fg = "#d79921",
+				},
+			},
+			HIGHLIGHTS = {
+				["StatusLinePositionContainer"] = {
+					bg = "#d79921",
+				},
+			},
+		},
+	},
+}
+SECTION_STYLES.GIT.LAYOUT = "█%%#" .. SECTION_STYLES.GIT.ICON.MAIN_HIGHLIGHT.name .. "# %s█%" .. RESET_HL
+
+for _, section in pairs(SECTION_STYLES) do
+	for section_part_name, section_part_data in pairs(section) do
+		if section_part_name ~= "LAYOUT" then
+			utils.editor.set_highlights({
+				[section_part_data.MAIN_HIGHLIGHT.name] = section_part_data.MAIN_HIGHLIGHT.data,
+			})
+
+			if section_part_data.HIGHLIGHTS then
+				utils.editor.set_highlights(section_part_data.HIGHLIGHTS)
+			end
+		end
+	end
+end
+
+local function build_block_string(name, content)
+	local section_style = SECTION_STYLES[name]
+	local container_hl = "%#" .. section_style.CONTAINER.MAIN_HIGHLIGHT.name .. "#"
+	local text = "%#" .. section_style.TEXT.MAIN_HIGHLIGHT.name .. "#" .. content .. container_hl
+	return container_hl .. string.format(section_style.LAYOUT, text)
 end
 
 local Diagnostics = {
@@ -28,103 +101,30 @@ function Diagnostics.build()
 	return table.concat(diagnostic_items, " ")
 end
 
-local File = {
-	BUFFER_MODIFIED_ICON = "%#WhiteText#●",
-	UNNAMED_BUFFER = RESET_HL .. "[No name]",
-	FILETYPE_ICON_HL = {
-		BASE_NAME = "StatusLineDevIcon",
-	},
-}
-File.FILETYPE_ICON_HL["STRUCTURE"] = "%%#" .. File.FILETYPE_ICON_HL.BASE_NAME .. "%s#"
-
-function File.build()
+local function _build_file()
 	local file_name = vim.fn.expand("%:t")
 
 	if file_name == "" then
-		return File.UNNAMED_BUFFER
+		return RESET_HL .. "[No name]"
 	end
 
 	local items = {
 		vim.fs.joinpath(vim.fs.basename(vim.fs.dirname(vim.api.nvim_buf_get_name(0))), file_name),
-		vim.bo.modified and File.BUFFER_MODIFIED_ICON or "",
+		vim.bo.modified and "%#WhiteText#●" or "",
 	}
 
 	return table.concat(items, " ")
 end
 
-local Git = {
-	ICON = {
-		VALUE = "",
-		COLOUR = "#b84500",
-		HL_NAME = "StatusLineGitIcon",
-	},
-	CONTAINER = {
-		HL_NAME = "StatusLineGitContainer",
-		COLOUR = "#d79921",
-	},
-	TEXT = {
-		HL_NAME = "StatusLineGitText",
-		NO_BRANCH = "[No Branch]",
-		COLOUR = "#1e2030",
-	},
-}
-
-utils.editor.set_highlights({
-	[Git.ICON.HL_NAME] = {
-		bg = Git.ICON.COLOUR,
-		fg = Git.CONTAINER.COLOUR,
-	},
-	[Git.TEXT.HL_NAME] = {
-		fg = Git.CONTAINER.COLOUR,
-		bg = Git.TEXT.COLOUR,
-	},
-	[Git.CONTAINER.HL_NAME] = {
-		bg = Git.CONTAINER.COLOUR,
-	},
-})
-
-function Git.build()
-	local branch_text = "%#" .. Git.TEXT.HL_NAME .. "#" .. (vim.b.gitsigns_head or Git.TEXT.NO_BRANCH)
-	local content = "%#" .. Git.ICON.HL_NAME .. "#" .. Git.ICON.VALUE .. " " .. branch_text
-	return build_block({ "█", "█" }, "%#" .. Git.CONTAINER.HL_NAME .. "#", content)
-end
-
---- The entire ´position´ section is static, so it only needs to be built once
-local POSITION_CACHE = (function()
-	local OPTS = {
-		TEXT = {
-			COLOUR = "#1e2030",
-			HL_NAME = "StatusLinePositionText",
-		},
-		CONTAINER = {
-			COLOUR = "#d79921",
-			HL_NAME = "StatusLinePositionContainer",
-		},
-	}
-
-	utils.editor.set_highlights({
-		[OPTS.TEXT.HL_NAME] = {
-			bg = OPTS.TEXT.COLOUR,
-			fg = OPTS.CONTAINER.COLOUR,
-		},
-		[OPTS.CONTAINER.HL_NAME] = {
-			bg = OPTS.CONTAINER.COLOUR,
-		},
-	})
-
-	local container_hl = "%#" .. OPTS.CONTAINER.HL_NAME .. "#"
-	local content = "󰆌  %l:%c | %p%%"
-
-	return build_block({ "", "█" }, container_hl, "%#" .. OPTS.TEXT.HL_NAME .. "#" .. content)
-end)()
+local POSITION = build_block_string("POSITION", "󰆌  %l:%c | %p%%")
 
 return function()
 	local statusline_str = table.concat({
-		Git.build(),
-		File.build(),
+		build_block_string("GIT", (vim.b.gitsigns_head or "[No Branch]")),
+		_build_file(),
 		"%=",
 		Diagnostics.build(),
-		POSITION_CACHE,
+		POSITION,
 	}, " ")
 
 	return statusline_str
