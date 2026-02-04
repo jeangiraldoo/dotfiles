@@ -100,15 +100,12 @@ function Utils.editor.toggle_floating_window(window_existance_validator, title)
 
 	local buffer_id = vim.api.nvim_create_buf(true, false)
 	vim.api.nvim_open_win(buffer_id, true, {
-		title = " 〘 " .. title .. " 〙 ",
-		title_pos = "center",
 		relative = "win",
 		row = WINDOW.VERTICAL_MIDDLE_POS - WINDOW.HALF_HEIGHT,
 		col = WINDOW.HORIZONTAL_MIDDLE_POS - WINDOW.HALF_WIDTH,
 		width = WINDOW.WIDTH,
 		height = WINDOW.HEIGHT,
 		zindex = 200,
-		border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
 	})
 	return true
 end
