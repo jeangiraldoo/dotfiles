@@ -51,14 +51,6 @@ utils.editor.set_keymaps({
 		keys = "U",
 		cmd = ":Undotree<CR>",
 	},
-	{
-		desc = "Toggle virtual text",
-		mode = "n",
-		keys = "<leader>av",
-		cmd = function()
-			vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
-		end,
-	},
 	-- Code editing
 	{
 		desc = "Go to call",
@@ -188,6 +180,21 @@ utils.editor.set_keymaps({
 
 			local rearranged_substring = table.concat(items, ", ")
 			vim.api.nvim_set_current_line(current_line:gsub(original_substring, rearranged_substring))
+		end,
+	},
+	{
+		desc = "Toggle location list with diagnostics",
+		mode = "n",
+		keys = "<leader>ld",
+		cmd = function()
+			for _, win in ipairs(vim.fn.getwininfo()) do
+				if win.loclist == 1 then
+					vim.cmd("lclose")
+					return
+				end
+			end
+
+			vim.diagnostic.setloclist()
 		end,
 	},
 })
