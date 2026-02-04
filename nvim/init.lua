@@ -62,6 +62,9 @@ require("utils").editor.set_highlights({
 		underline = true,
 		fg = "#ff5555",
 	},
+	DiagnosticWarn = {
+		bg = "orange",
+	},
 })
 
 vim.cmd([[cnoreabbrev %% %:h]])

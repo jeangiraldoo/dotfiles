@@ -80,27 +80,6 @@ local function build_block_string(name, content)
 	return container_hl .. string.format(section_style.LAYOUT, text)
 end
 
-local Diagnostics = {
-	TYPES = {
-		[vim.diagnostic.severity.ERROR] = "%#DiagnosticError#" .. RESET_HL,
-		[vim.diagnostic.severity.WARN] = "%#DiagnosticWarn#" .. RESET_HL,
-		[vim.diagnostic.severity.INFO] = "%#DiagnosticInfo#" .. RESET_HL,
-		[vim.diagnostic.severity.HINT] = "%#DiagnosticHint#" .. RESET_HL,
-	},
-}
-
-function Diagnostics.build()
-	local diagnostic_items = {}
-	for severity_type, icon in pairs(Diagnostics.TYPES) do
-		local severity_count = #vim.diagnostic.get(0, { severity = severity_type })
-
-		local diagnostic_item = icon .. severity_count
-		table.insert(diagnostic_items, diagnostic_item)
-	end
-
-	return table.concat(diagnostic_items, " ")
-end
-
 local function _build_file()
 	local file_name = vim.fn.expand("%:t")
 
@@ -123,7 +102,7 @@ return function()
 		build_block_string("GIT", (vim.b.gitsigns_head or "[No Branch]")),
 		_build_file(),
 		"%=",
-		Diagnostics.build(),
+		"%#DiagnosticWarn#☢" .. RESET_HL .. " " .. #vim.diagnostic.get(0),
 		POSITION,
 	}, " ")
 
