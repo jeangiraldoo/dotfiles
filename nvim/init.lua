@@ -24,6 +24,25 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
+function _G.build_statusline()
+	local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
+
+	local statusline_str = table.concat({
+		(
+			"%#statusline_section#█%#statusline_git_icon# "
+			.. "%#statusline_section_text#"
+			.. (vim.b.gitsigns_head or "[No Branch]")
+			.. "%#statusline_section#█"
+		),
+		(RESET_HL .. "%f" .. (vim.bo.modified and " %#WhiteText#●" or "")),
+		"%=",
+		("%#DiagnosticWarn#☢" .. RESET_HL .. " " .. #vim.diagnostic.get(0)),
+		"%#statusline_section#" .. "%#statusline_section_text#󰆌  %l:%c " .. "%#statusline_section█",
+	}, " ")
+
+	return statusline_str
+end
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
@@ -32,7 +51,7 @@ vim.opt.scroll = 10
 vim.opt.mouse = ""
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.statusline = "%!v:lua.require'statusline'()"
+vim.opt.statusline = "%!v:lua.build_statusline()"
 vim.opt.foldenable = true
 vim.opt.foldmethod = "manual"
 vim.opt.foldcolumn = "1"
@@ -64,6 +83,21 @@ require("utils").editor.set_highlights({
 	},
 	DiagnosticWarn = {
 		bg = "orange",
+	},
+	statusline_section_text = {
+		bg = "#1e2030",
+		fg = "#d79921",
+	},
+	StatusLineGitText = {
+		fg = "#d79921",
+		bg = "#1e2030",
+	},
+	statusline_git_icon = {
+		fg = "#d79921",
+		bg = "#b84500",
+	},
+	statusline_section = {
+		bg = "#d79921",
 	},
 })
 
