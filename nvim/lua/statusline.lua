@@ -2,93 +2,36 @@ local utils = require("utils")
 
 local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
 
-local SECTION_STYLES = {
-	GIT = {
-		CONTAINER = {
-			MAIN_HIGHLIGHT = {
-				name = "StatusLineGitContainer",
-				data = {
-					bg = "#d79921",
-				},
-			},
-		},
-		TEXT = {
-			MAIN_HIGHLIGHT = {
-				name = "StatusLineGitText",
-				data = {
-					fg = "#d79921",
-					bg = "#1e2030",
-				},
-			},
-		},
-		ICON = {
-			MAIN_HIGHLIGHT = {
-				name = "StatusLineGitIcon",
-				data = {
-					fg = "#d79921",
-					bg = "#b84500",
-				},
-			},
-		},
+utils.editor.set_highlights({
+	statusline_section_text = {
+		bg = "#1e2030",
+		fg = "#d79921",
 	},
-	POSITION = {
-		LAYOUT = "%s█",
-		CONTAINER = {
-			MAIN_HIGHLIGHT = {
-				name = "StatusLinePositionContainer",
-				data = {
-					bg = "#d79921",
-				},
-			},
-		},
-		TEXT = {
-			MAIN_HIGHLIGHT = {
-				name = "StatusLinePositionText",
-				data = {
-					bg = "#1e2030",
-					fg = "#d79921",
-				},
-			},
-			HIGHLIGHTS = {
-				["StatusLinePositionContainer"] = {
-					bg = "#d79921",
-				},
-			},
-		},
+	StatusLineGitText = {
+		fg = "#d79921",
+		bg = "#1e2030",
 	},
-}
-SECTION_STYLES.GIT.LAYOUT = "█%%#" .. SECTION_STYLES.GIT.ICON.MAIN_HIGHLIGHT.name .. "# %s█%" .. RESET_HL
-
-for _, section in pairs(SECTION_STYLES) do
-	for section_part_name, section_part_data in pairs(section) do
-		if section_part_name ~= "LAYOUT" then
-			utils.editor.set_highlights({
-				[section_part_data.MAIN_HIGHLIGHT.name] = section_part_data.MAIN_HIGHLIGHT.data,
-			})
-
-			if section_part_data.HIGHLIGHTS then
-				utils.editor.set_highlights(section_part_data.HIGHLIGHTS)
-			end
-		end
-	end
-end
-
-local function build_block_string(name, content)
-	local section_style = SECTION_STYLES[name]
-	local container_hl = "%#" .. section_style.CONTAINER.MAIN_HIGHLIGHT.name .. "#"
-	local text = "%#" .. section_style.TEXT.MAIN_HIGHLIGHT.name .. "#" .. content .. container_hl
-	return container_hl .. string.format(section_style.LAYOUT, text)
-end
-
-local POSITION = build_block_string("POSITION", "󰆌  %l:%c | %p%%")
+	statusline_git_icon = {
+		fg = "#d79921",
+		bg = "#b84500",
+	},
+	statusline_section = {
+		bg = "#d79921",
+	},
+})
 
 return function()
 	local statusline_str = table.concat({
-		build_block_string("GIT", (vim.b.gitsigns_head or "[No Branch]")),
-		"%f" .. (vim.bo.modified and " %#WhiteText#●" or ""),
+		(
+			"%#statusline_section#█%#statusline_git_icon# "
+			.. "%#statusline_section_text#"
+			.. (vim.b.gitsigns_head or "[No Branch]")
+			.. "%#statusline_section#█"
+		),
+		(RESET_HL .. "%f" .. (vim.bo.modified and " %#WhiteText#●" or "")),
 		"%=",
-		"%#DiagnosticWarn#☢" .. RESET_HL .. " " .. #vim.diagnostic.get(0),
-		POSITION,
+		("%#DiagnosticWarn#☢" .. RESET_HL .. " " .. #vim.diagnostic.get(0)),
+		"%#statusline_section#" .. "%#statusline_section_text#󰆌  %l:%c " .. "%#statusline_section█",
 	}, " ")
 
 	return statusline_str
