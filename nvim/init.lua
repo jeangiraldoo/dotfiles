@@ -27,20 +27,26 @@ vim.diagnostic.config({
 function _G.build_statusline()
 	local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
 
-	local statusline_str = table.concat({
-		(
-			"%#statusline_section#█%#statusline_git_icon# "
-			.. "%#statusline_section_text#"
-			.. (vim.b.gitsigns_head or "[No Branch]")
-			.. "%#statusline_section#█"
-		),
-		(RESET_HL .. "%f" .. (vim.bo.modified and " %#WhiteText#●" or "")),
-		"%=",
-		("%#DiagnosticWarn#☢" .. RESET_HL .. " " .. #vim.diagnostic.get(0)),
-		"%#statusline_section#" .. "%#statusline_section_text#󰆌  %l:%c " .. "%#statusline_section█",
-	}, " ")
+	local git_section = "%#statusline_section#█%#statusline_git_icon# "
+		.. "%#statusline_section_text#"
+		.. (vim.b.gitsigns_head or "[No Branch]")
+		.. "%#statusline_section#█"
 
-	return statusline_str
+	local file_section = RESET_HL .. "%f" .. (vim.bo.modified and " %#WhiteText#●" or "")
+
+	local diagnostics_section = "%#DiagnosticWarn#☢" .. RESET_HL .. " " .. #vim.diagnostic.get(0)
+
+	local position_section = "%#statusline_section#"
+		.. "%#statusline_section_text#󰆌  %l:%c "
+		.. "%#statusline_section█"
+
+	return table.concat({
+		git_section,
+		file_section,
+		"%=",
+		diagnostics_section,
+		position_section,
+	}, " ")
 end
 
 vim.opt.number = true
