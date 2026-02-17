@@ -80,27 +80,12 @@ local function build_block_string(name, content)
 	return container_hl .. string.format(section_style.LAYOUT, text)
 end
 
-local function _build_file()
-	local file_name = vim.fn.expand("%:t")
-
-	if file_name == "" then
-		return RESET_HL .. "[No name]"
-	end
-
-	local items = {
-		vim.fs.joinpath(vim.fs.basename(vim.fs.dirname(vim.api.nvim_buf_get_name(0))), file_name),
-		vim.bo.modified and "%#WhiteText#●" or "",
-	}
-
-	return table.concat(items, " ")
-end
-
 local POSITION = build_block_string("POSITION", "󰆌  %l:%c | %p%%")
 
 return function()
 	local statusline_str = table.concat({
 		build_block_string("GIT", (vim.b.gitsigns_head or "[No Branch]")),
-		_build_file(),
+		"%f" .. (vim.bo.modified and " %#WhiteText#●" or ""),
 		"%=",
 		"%#DiagnosticWarn#☢" .. RESET_HL .. " " .. #vim.diagnostic.get(0),
 		POSITION,
