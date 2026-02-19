@@ -10,4 +10,13 @@ return {
 		"rust",
 	},
 	single_file_support = true,
+	settings = {
+		["rust-analyzer"] = {
+			diagnostics = {
+				disabled = {
+					"unlinked-file",
+				},
+			},
+		},
+	},
 }
