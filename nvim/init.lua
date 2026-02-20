@@ -24,7 +24,7 @@ vim.diagnostic.config({
 })
 
 function _G.build_statusline()
-	local RESET_HL = "%#StatusLine#" -- Used to reset/close any active highlights
+	local RESET_HL = "%#StatusLine#"
 
 	local git_section = "%#statusline_section#█%#statusline_git_icon# "
 		.. "%#statusline_section_text#"
@@ -62,7 +62,7 @@ vim.opt.winborder = "rounded"
 vim.opt.pumborder = "rounded"
 vim.opt.autocomplete = true
 vim.opt.completeopt = "menuone,noselect,popup,preview,fuzzy"
-vim.opt.complete = "." -- Only scans the current buffer
+vim.opt.complete = "."
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.exrc = true
