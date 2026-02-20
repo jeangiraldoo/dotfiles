@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-vim.o.exrc = true -- Load project-specific config using `.nvim.lua`
 
 vim.cmd("colorscheme retrobox")
 
@@ -67,6 +66,7 @@ vim.opt.completeopt = "menuone,noselect,popup,preview,fuzzy"
 vim.opt.complete = "." -- Only scans the current buffer
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.exrc = true
 
 require("utils").editor.set_highlights({
 	PMenuMatch = {
