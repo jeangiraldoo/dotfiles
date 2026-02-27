@@ -54,12 +54,6 @@ local AUTOCMDS = {
 		pattern = "*",
 		command = "silent! mkview",
 	},
-	{
-		desc = "Reload config",
-		event = "BufWritePost",
-		pattern = "*/nvim/*.lua",
-		command = "silent source %",
-	},
 	-- UI
 	{
 		desc = "Highlight yanked line",
