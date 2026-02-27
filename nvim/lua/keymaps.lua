@@ -197,4 +197,19 @@ utils.editor.set_keymaps({
 			vim.diagnostic.setloclist()
 		end,
 	},
+	{
+		desc = "Toggle notes",
+		mode = "n",
+		keys = "<leader>tn",
+		cmd = function()
+			local nodes_file_path = "~/.notes.md"
+			local is_window_displayed = utils.editor.toggle_floating_window(function()
+				return vim.api.nvim_buf_get_name(0):match("notes")
+			end, "Notes")
+
+			if is_window_displayed then
+				vim.cmd("edit " .. nodes_file_path)
+			end
+		end,
+	},
 })
