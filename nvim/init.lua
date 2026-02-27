@@ -48,24 +48,30 @@ function _G.build_statusline()
 	}, " ")
 end
 
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
-vim.opt.mouse = ""
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.statusline = "%!v:lua.build_statusline()"
-vim.opt.scrolloff = 10
-vim.opt.showmode = false
-vim.opt.winborder = "rounded"
-vim.opt.pumborder = "rounded"
-vim.opt.autocomplete = true
-vim.opt.completeopt = "menuone,noselect,popup,preview,fuzzy"
-vim.opt.complete = "."
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.exrc = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.cursorline = true
+vim.o.cursorcolumn = true
+vim.o.mouse = ""
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.statusline = "%!v:lua.build_statusline()"
+vim.o.scrolloff = 10
+vim.o.showmode = false
+vim.o.winborder = "rounded"
+vim.o.pumborder = "rounded"
+vim.o.autocomplete = true
+vim.opt.completeopt = {
+	"menuone",
+	"noselect",
+	"popup",
+	"preview",
+	"fuzzy",
+}
+vim.o.complete = "."
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.exrc = true
 
 require("utils").editor.set_highlights({
 	PMenuMatch = {
