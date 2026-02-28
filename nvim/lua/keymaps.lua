@@ -2,22 +2,21 @@ local utils = require("utils")
 local runner = require("runner.init")
 
 utils.editor.set_keymaps({
-	{
-		desc = "Toggle version control window",
-		mode = "n",
-		keys = "<leader>gg",
-		cmd = function()
-			local is_window_displayed = utils.editor.toggle_floating_window(function()
-				return vim.api.nvim_buf_get_name(0):match("git$")
-			end, "Version control")
+	(function()
+		local window_toggler = utils.editor.build_window_toggler()
 
-			if not is_window_displayed then
-				return
-			end
-
-			vim.cmd("term lazygit")
-		end,
-	},
+		return {
+			desc = "Toggle version control window",
+			mode = "n",
+			keys = "<leader>gg",
+			cmd = function()
+				local toggle_state = window_toggler()
+				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
+					vim.cmd("term lazygit")
+				end
+			end,
+		}
+	end)(),
 	-- Admin
 	{
 		desc = "Launch terminal",
@@ -114,7 +113,7 @@ utils.editor.set_keymaps({
 		keys = "<leader>dn",
 		cmd = function()
 			local FILE_NAME = "casefile.md"
-			local is_window_displayed = utils.editor.toggle_floating_window(function()
+			local is_window_displayed = utils.editor.build_window_toggler(function()
 				return vim.api.nvim_buf_get_name(0):match(FILE_NAME .. "$")
 			end, "Casefile")
 
@@ -197,19 +196,20 @@ utils.editor.set_keymaps({
 			vim.diagnostic.setloclist()
 		end,
 	},
-	{
-		desc = "Toggle notes",
-		mode = "n",
-		keys = "<leader>tn",
-		cmd = function()
-			local nodes_file_path = "~/.notes.md"
-			local is_window_displayed = utils.editor.toggle_floating_window(function()
-				return vim.api.nvim_buf_get_name(0):match("notes")
-			end, "Notes")
+	(function()
+		local window_toggler = utils.editor.build_window_toggler()
 
-			if is_window_displayed then
-				vim.cmd("edit " .. nodes_file_path)
-			end
-		end,
-	},
+		return {
+			desc = "Toggle notes",
+			mode = "n",
+			keys = "<leader>tn",
+			cmd = function()
+				local toggle_state = window_toggler()
+
+				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
+					vim.cmd("silent edit ~/.notes.md")
+				end
+			end,
+		}
+	end)(),
 })

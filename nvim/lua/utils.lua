@@ -79,35 +79,48 @@ function Utils.terminal.launch(opts)
 	vim.fn.chansend(job_id, { interactive_terminal_cmd })
 end
 
---- @param window_existance_validator function Returns true if the window is visible, false otherwise
---- @param title string Window title
---- @return boolean is_visible Wether or not the window is currently visible
-function Utils.editor.toggle_floating_window(window_existance_validator, title)
-	if window_existance_validator() then
-		vim.api.nvim_buf_delete(0, { force = true })
-		return false
-	end
-
-	local WINDOW = {
-		HEIGHT = 22,
-		WIDTH = 105,
-		VERTICAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_height(0) / 2),
-		HORIZONTAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_width(0) / 2),
+--- @param title string | nil Window title
+--- @return fun(): { buffer_id: number | nil, window_id: number | nil} window_toggler
+function Utils.editor.build_window_toggler(title)
+	local current_state = {
+		buffer_id = vim.api.nvim_create_buf(true, true),
+		window_id = nil,
 	}
 
-	WINDOW.HALF_HEIGHT = math.floor(WINDOW.HEIGHT / 2)
-	WINDOW.HALF_WIDTH = math.floor(WINDOW.WIDTH / 2)
+	local window_toggler = function()
+		current_state.buffer_id = vim.api.nvim_buf_is_valid(current_state.buffer_id) and current_state.buffer_id
+			or vim.api.nvim_create_buf(true, true)
 
-	local buffer_id = vim.api.nvim_create_buf(true, false)
-	vim.api.nvim_open_win(buffer_id, true, {
-		relative = "win",
-		row = WINDOW.VERTICAL_MIDDLE_POS - WINDOW.HALF_HEIGHT,
-		col = WINDOW.HORIZONTAL_MIDDLE_POS - WINDOW.HALF_WIDTH,
-		width = WINDOW.WIDTH,
-		height = WINDOW.HEIGHT,
-		zindex = 200,
-	})
-	return true
+		if current_state.window_id and vim.api.nvim_win_is_valid(current_state.window_id) then
+			vim.api.nvim_win_close(current_state.window_id, true)
+			current_state.window_id = nil
+			return current_state
+		end
+
+		local WINDOW = {
+			HEIGHT = 22,
+			WIDTH = 105,
+			VERTICAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_height(0) / 2),
+			HORIZONTAL_MIDDLE_POS = math.floor(vim.api.nvim_win_get_width(0) / 2),
+		}
+
+		WINDOW.HALF_HEIGHT = math.floor(WINDOW.HEIGHT / 2)
+		WINDOW.HALF_WIDTH = math.floor(WINDOW.WIDTH / 2)
+
+		current_state.window_id = vim.api.nvim_open_win(current_state.buffer_id, true, {
+			title = title or "",
+			relative = "win",
+			row = WINDOW.VERTICAL_MIDDLE_POS - WINDOW.HALF_HEIGHT,
+			col = WINDOW.HORIZONTAL_MIDDLE_POS - WINDOW.HALF_WIDTH,
+			width = WINDOW.WIDTH,
+			height = WINDOW.HEIGHT,
+			zindex = 200,
+		})
+
+		return current_state
+	end
+
+	return window_toggler
 end
 
 return Utils
