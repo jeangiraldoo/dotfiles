@@ -44,12 +44,6 @@ utils.editor.set_keymaps({
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end,
 	},
-	{
-		desc = "Toggle undotree",
-		mode = { "n" },
-		keys = "U",
-		cmd = ":Undotree<CR>",
-	},
 	-- Code editing
 	{
 		desc = "Go to call",
@@ -106,26 +100,6 @@ utils.editor.set_keymaps({
 		mode = "n",
 		keys = "O",
 		cmd = "o<Esc>",
-	},
-	{
-		desc = "Toggle casefile floating window",
-		mode = "n",
-		keys = "<leader>dn",
-		cmd = function()
-			local FILE_NAME = "casefile.md"
-			local is_window_displayed = utils.editor.build_window_toggler(function()
-				return vim.api.nvim_buf_get_name(0):match(FILE_NAME .. "$")
-			end, "Casefile")
-
-			if not is_window_displayed then
-				return
-			end
-
-			local target_path = vim.fs.root(0, { FILE_NAME }) or vim.fs.root(0, { ".git" })
-			local casefile_path = target_path and vim.fs.joinpath(target_path, FILE_NAME) or FILE_NAME
-
-			vim.cmd("edit " .. casefile_path)
-		end,
 	},
 	{
 		desc = "Swap comma-separated items",
