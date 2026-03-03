@@ -25,7 +25,7 @@ return {
 				{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 			},
 			setup = function()
-				require("oil").setup({
+				require("oil").setup {
 					default_file_explorer = true,
 					columns = {
 						"icon",
@@ -34,7 +34,7 @@ return {
 					view_options = {
 						show_hidden = true,
 					},
-				})
+				}
 			end,
 			keymaps = {
 				{

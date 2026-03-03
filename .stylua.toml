@@ -1,0 +1,4 @@
+call_parentheses = "None"
+
+[sort_requires]
+enabled = true

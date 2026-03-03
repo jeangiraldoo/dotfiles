@@ -1,7 +1,7 @@
-local utils = require("utils")
-local runner = require("runner.init")
+local runner = require "runner.init"
+local utils = require "utils"
 
-utils.editor.set_keymaps({
+utils.editor.set_keymaps {
 	(function()
 		local window_toggler = utils.editor.build_window_toggler()
 
@@ -12,7 +12,7 @@ utils.editor.set_keymaps({
 			cmd = function()
 				local toggle_state = window_toggler()
 				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
-					vim.cmd("term lazygit")
+					vim.cmd "term lazygit"
 				end
 			end,
 		}
@@ -86,7 +86,7 @@ utils.editor.set_keymaps({
 			mode = "n",
 			keys = "<leader>st",
 			cmd = function()
-				local word_under_cursor = vim.fn.expand("<cword>")
+				local word_under_cursor = vim.fn.expand "<cword>"
 				local replacement = WORD_TOGGLE_MAP[word_under_cursor]
 
 				if replacement then
@@ -107,7 +107,7 @@ utils.editor.set_keymaps({
 		keys = "cp",
 		cmd = function()
 			local current_line = vim.api.nvim_get_current_line()
-			local substring_start_pos, substring_end_pos = current_line:find("[%w][%w_]*,%s*[%w][%w_ ]*[, %w_]*")
+			local substring_start_pos, substring_end_pos = current_line:find "[%w][%w_]*,%s*[%w][%w_ ]*[, %w_]*"
 
 			if not (substring_start_pos and substring_end_pos) then
 				vim.notify("No comma-separated match found", vim.log.levels.WARN)
@@ -162,7 +162,7 @@ utils.editor.set_keymaps({
 		cmd = function()
 			for _, win in ipairs(vim.fn.getwininfo()) do
 				if win.loclist == 1 then
-					vim.cmd("lclose")
+					vim.cmd "lclose"
 					return
 				end
 			end
@@ -181,9 +181,9 @@ utils.editor.set_keymaps({
 				local toggle_state = window_toggler()
 
 				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
-					vim.cmd("silent edit ~/.notes.md")
+					vim.cmd "silent edit ~/.notes.md"
 				end
 			end,
 		}
 	end)(),
-})
+}

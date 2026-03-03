@@ -1,10 +1,10 @@
 vim.g.mapleader = " "
 
-vim.cmd("colorscheme retrobox")
+vim.cmd "colorscheme retrobox"
 
-vim.lsp.log.set_level("off")
+vim.lsp.log.set_level "off"
 vim.lsp.log.set_format_func(vim.inspect)
-vim.lsp.enable({
+vim.lsp.enable {
 	"lua_ls",
 	"rust_analyzer",
 	"basedpyright",
@@ -12,16 +12,16 @@ vim.lsp.enable({
 	"marksman",
 	"tinymist",
 	"yaml_ls",
-})
+}
 
-vim.diagnostic.config({
+vim.diagnostic.config {
 	float = {
 		scope = "line",
 		header = "診断メッセージ",
 	},
 	signs = false,
 	severity_sort = true,
-})
+}
 
 function _G.build_statusline()
 	local RESET_HL = "%#StatusLine#"
@@ -73,7 +73,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.exrc = true
 
-require("utils").editor.set_highlights({
+require("utils").editor.set_highlights {
 	PMenuMatch = {
 		fg = "#ffffff",
 	},
@@ -106,9 +106,9 @@ require("utils").editor.set_highlights({
 	statusline_section = {
 		bg = "#d79921",
 	},
-})
+}
 
-vim.cmd([[cnoreabbrev %% %:h]])
-require("keymaps")
-require("autocmds")
-require("plugins")
+vim.cmd [[cnoreabbrev %% %:h]]
+require "keymaps"
+require "autocmds"
+require "plugins"

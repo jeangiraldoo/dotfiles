@@ -6,7 +6,7 @@ local AUTOCMDS = {
 		callback = function(event)
 			local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-			if not (client and client:supports_method("textDocument/completion")) then
+			if not (client and client:supports_method "textDocument/completion") then
 				return
 			end
 
@@ -60,10 +60,10 @@ local AUTOCMDS = {
 		pattern = "*",
 		event = "TextYankPost",
 		callback = function()
-			vim.highlight.on_yank({
+			vim.highlight.on_yank {
 				timeout = 200,
 				higroup = "YankLine",
-			})
+			}
 		end,
 	},
 	{

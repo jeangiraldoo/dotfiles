@@ -1,4 +1,4 @@
-local utils = require("utils")
+local utils = require "utils"
 
 ---@type PluginSpec[]
 return {
@@ -7,13 +7,13 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				require("gitsigns").setup({
+				require("gitsigns").setup {
 					current_line_blame_opts = {
 						delay = 0,
 					},
 					current_line_blame_formatter = "  <author> -> <summary> •  <author_time:%d-%b-%Y> • 󰜛 <abbrev_sha>",
 					current_line_blame_formatter_nc = " Not commited yet",
-				})
+				}
 			end,
 			keymaps = {
 				{
@@ -40,7 +40,7 @@ return {
 				-- Also nvim-treesitter, defined in its own file
 			},
 			setup = function()
-				require("codecompanion").setup({
+				require("codecompanion").setup {
 					log_level = "ERROR",
 					display = {
 						chat = {
@@ -91,7 +91,7 @@ return {
 							},
 						},
 					},
-				})
+				}
 			end,
 			keymaps = {
 				{
@@ -99,11 +99,11 @@ return {
 					mode = { "n", "v" },
 					keys = "<leader>ta",
 					cmd = function()
-						utils.terminal.launch({
+						utils.terminal.launch {
 							cmd = "ollama serve",
 							close_after_cmd = true,
-						})
-						vim.cmd("CodeCompanionChat Toggle")
+						}
+						vim.cmd "CodeCompanionChat Toggle"
 					end,
 				},
 			},
@@ -114,7 +114,7 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				local dap = require("dap")
+				local dap = require "dap"
 
 				dap.adapters.python = {
 					type = "executable",
@@ -158,7 +158,7 @@ return {
 					mode = "n",
 					keys = "<leader>dt",
 					cmd = function()
-						vim.cmd("DapViewToggle")
+						vim.cmd "DapViewToggle"
 						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>j", true, false, true), "n", true)
 					end,
 				},
@@ -200,7 +200,7 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				require("dap-view").setup({})
+				require("dap-view").setup {}
 			end,
 		},
 	},
@@ -209,11 +209,11 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				require("typst-preview").setup({
+				require("typst-preview").setup {
 					dependencies_bin = {
 						tinymist = "tinymist",
 					},
-				})
+				}
 			end,
 		},
 	},
@@ -222,7 +222,7 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				local ccc = require("ccc")
+				local ccc = require "ccc"
 
 				local function build_colour_map(template)
 					local colours = {}
@@ -233,7 +233,7 @@ return {
 					return colours
 				end
 
-				ccc.setup({
+				ccc.setup {
 					bar_len = 40,
 					point_char = "⋇",
 					empty_point_bg = false,
@@ -243,7 +243,7 @@ return {
 						lsp = true,
 					},
 					pickers = {
-						ccc.picker.custom_entries(build_colour_map({
+						ccc.picker.custom_entries(build_colour_map {
 							yellow = "#FFFF00",
 							orange = "#FFA500",
 							red = "#ff0000",
@@ -256,7 +256,7 @@ return {
 							white = "#FFFFFF",
 							gray = "#808080",
 							black = "#000000",
-						})),
+						}),
 						ccc.picker.hex,
 						ccc.picker.hex_long,
 						ccc.picker.hex_short,
@@ -270,7 +270,7 @@ return {
 						ccc.picker.css_name,
 						ccc.picker.defaults,
 					},
-				})
+				}
 			end,
 			keymaps = {
 				{
