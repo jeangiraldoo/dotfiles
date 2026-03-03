@@ -85,7 +85,7 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				require("conform").setup({
+				require("conform").setup {
 					formatters_by_ft = {
 						lua = { "stylua" },
 						yaml = { "prettier" },
@@ -101,7 +101,7 @@ return {
 					notify_on_error = true,
 					notify_no_formatters = true,
 					log_level = vim.log.levels.DEBUG,
-				})
+				}
 			end,
 		},
 	},
@@ -110,7 +110,7 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				local nvim_lint_config = require("lint")
+				local nvim_lint_config = require "lint"
 
 				nvim_lint_config.linters_by_ft = {
 					markdown = {
