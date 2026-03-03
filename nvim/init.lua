@@ -7,7 +7,7 @@ vim.lsp.log.set_format_func(vim.inspect)
 vim.lsp.enable {
 	"lua_ls",
 	"rust_analyzer",
-	"basedpyright",
+	"ty",
 	"harper_ls",
 	"marksman",
 	"tinymist",
