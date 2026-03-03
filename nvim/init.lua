@@ -72,6 +72,7 @@ vim.o.complete = "."
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.exrc = true
+vim.o.signcolumn = "yes"
 
 require("utils").editor.set_highlights {
 	PMenuMatch = {
