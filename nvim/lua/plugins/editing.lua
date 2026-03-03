@@ -5,7 +5,7 @@ return {
 		data = {
 			enabled = true,
 			setup = function()
-				require("nvim-surround").setup({})
+				require("nvim-surround").setup {}
 			end,
 		},
 	},

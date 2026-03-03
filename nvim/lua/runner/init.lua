@@ -1,5 +1,5 @@
-local DEFAULTS = require("runner._defaults")
-local utils = require("utils")
+local DEFAULTS = require "runner._defaults"
+local utils = require "utils"
 
 local Runner = {}
 
@@ -72,15 +72,15 @@ local RUNNERS = {
 			end
 
 			local paths = {
-				root = vim.fn.expand("%:p:h"),
-				file_absolute = vim.fn.expand("%:p"),
+				root = vim.fn.expand "%:p:h",
+				file_absolute = vim.fn.expand "%:p",
 			}
 
-			utils.terminal.launch({
+			utils.terminal.launch {
 				cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
 				cmd = _build_cmd(commands, paths, filetype_data.venv, filetype_data.executable),
 				close_after_cmd = filetype_data.close_after_cmd,
-			})
+			}
 		end,
 	},
 	{
@@ -108,7 +108,7 @@ local RUNNERS = {
 			}
 
 			if not paths.root then
-				_display_warning("No project root found")
+				_display_warning "No project root found"
 				return
 			end
 
@@ -128,7 +128,7 @@ local RUNNERS = {
 					return
 				end
 			end
-			_display_warning("No code marker found")
+			_display_warning "No code marker found"
 		end,
 	},
 	{ --- Displays a project-specific command menu offering a predefined list of actions
@@ -139,10 +139,10 @@ local RUNNERS = {
 				prompt = "Select command:",
 			}, function(item)
 				if item then
-					utils.terminal.launch({
+					utils.terminal.launch {
 						cwd = vim.fs.root(0, { ".git" }) or vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
 						cmd = item,
-					})
+					}
 				end
 			end)
 		end,

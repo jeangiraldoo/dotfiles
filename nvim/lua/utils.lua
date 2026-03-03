@@ -7,7 +7,7 @@ local Utils = {
 ---@param dir_name string
 ---@return table[] acc Merged directory tables
 function Utils.module.require_config_tables(dir_name)
-	local full_path = vim.fs.joinpath(vim.fn.stdpath("config"), "lua", dir_name)
+	local full_path = vim.fs.joinpath(vim.fn.stdpath "config", "lua", dir_name)
 	local dir_files = vim.fn.readdir(full_path, [[v:val =~ '\.lua$' && v:val !=# 'init.lua']])
 
 	return vim.iter(dir_files):fold({}, function(acc, file_name)
@@ -70,7 +70,7 @@ function Utils.terminal.launch(opts)
 		return
 	end
 
-	vim.cmd("botright new")
+	vim.cmd "botright new"
 	vim.cmd.term()
 	local job_id = vim.bo.channel
 
