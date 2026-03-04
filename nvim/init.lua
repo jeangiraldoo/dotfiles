@@ -8,6 +8,7 @@ vim.lsp.enable {
 	"lua_ls",
 	"rust_analyzer",
 	"ty",
+	"tsgo",
 	"harper_ls",
 	"marksman",
 	"tinymist",
