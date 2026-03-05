@@ -41,6 +41,20 @@ local AUTOCMDS = {
 			})
 		end,
 	},
+	{
+		desc = "Enable LSP-based colour highlighting",
+		event = "LspAttach",
+		callback = function(args)
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+			if client:supports_method "textDocument/documentColor" then
+				print "Supports"
+				vim.lsp.document_color.enable(true, args.buf, {
+					style = "virtual",
+				})
+			end
+		end,
+	},
 	-- Session management
 	{
 		desc = "Load view",
