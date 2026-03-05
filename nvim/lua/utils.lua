@@ -34,6 +34,16 @@ function Utils.editor.set_highlights(highlights)
 	end
 end
 
+function Utils.editor.set_autocmds(autocmds)
+	for _, autocmd in ipairs(autocmds) do
+		-- Passing the autocmd table with an `event` field will result in an error
+		local autocmd_event = autocmd.event
+		autocmd.event = nil
+
+		vim.api.nvim_create_autocmd(autocmd_event, autocmd)
+	end
+end
+
 function Utils.editor.set_keymaps(keymaps)
 	local DEFAULT_OPTS = {
 		noremap = true,
