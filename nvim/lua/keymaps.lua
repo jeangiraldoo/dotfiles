@@ -36,29 +36,7 @@ utils.editor.set_keymaps {
 		keys = "<leader>ar",
 		cmd = runner.display_menu,
 	},
-	{
-		desc = "Toggle inlay hints",
-		mode = "n",
-		keys = "<leader>ah",
-		cmd = function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-		end,
-	},
 	-- Code editing
-	{
-		desc = "Go to call",
-		mode = "n",
-		keys = "<leader>sf",
-		cmd = vim.lsp.buf.outgoing_calls,
-	},
-	{
-		desc = "Toggle inlay hints",
-		mode = "n",
-		keys = "<leader>sh",
-		cmd = function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-		end,
-	},
 	(function()
 		local WORD_TOGGLE_MAP = vim.iter({
 			["True"] = "False",
