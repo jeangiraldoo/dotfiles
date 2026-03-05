@@ -38,7 +38,8 @@ vim.o.exrc = true
 vim.o.signcolumn = "yes"
 
 vim.cmd [[cnoreabbrev %% %:h]]
-require "keymaps"
+
+require "editing"
 require "plugins"
 require "lsp"
 require "ui"

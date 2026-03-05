@@ -1,4 +1,3 @@
-local runner = require "runner.init"
 local utils = require "utils"
 
 utils.editor.set_keymaps {
@@ -34,7 +33,7 @@ utils.editor.set_keymaps {
 		desc = "Launch runner menu",
 		mode = "n",
 		keys = "<leader>ar",
-		cmd = runner.display_menu,
+		cmd = require("runner").display_menu,
 	},
 	-- Code editing
 	(function()
