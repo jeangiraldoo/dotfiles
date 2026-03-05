@@ -2,19 +2,6 @@ vim.g.mapleader = " "
 
 vim.cmd "colorscheme retrobox"
 
-vim.lsp.log.set_level "off"
-vim.lsp.log.set_format_func(vim.inspect)
-vim.lsp.enable {
-	"lua_ls",
-	"rust_analyzer",
-	"ty",
-	"tsgo",
-	"harper_ls",
-	"marksman",
-	"tinymist",
-	"yaml_ls",
-}
-
 vim.diagnostic.config {
 	float = {
 		scope = "line",
@@ -114,3 +101,4 @@ vim.cmd [[cnoreabbrev %% %:h]]
 require "keymaps"
 require "autocmds"
 require "plugins"
+require "lsp"
