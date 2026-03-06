@@ -7,6 +7,8 @@ vim.lsp.enable {
 	"rust_analyzer",
 	"ty",
 	"tsgo",
+	"css_ls",
+	"html_ls",
 	"harper_ls",
 	"marksman",
 	"tinymist",
