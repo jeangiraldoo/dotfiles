@@ -40,6 +40,5 @@ vim.o.signcolumn = "yes"
 vim.cmd [[cnoreabbrev %% %:h]]
 
 require "editing"
-require "plugins"
 require "lsp"
 require "ui"
