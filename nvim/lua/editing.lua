@@ -73,12 +73,6 @@ utils.editor.set_keymaps {
 		}
 	end)(),
 	{
-		desc = "Add new empty line",
-		mode = "n",
-		keys = "O",
-		cmd = "o<Esc>",
-	},
-	{
 		desc = "Swap comma-separated items",
 		mode = "n",
 		keys = "cp",
