@@ -18,12 +18,6 @@ utils.editor.set_keymaps {
 	end)(),
 	-- Admin
 	{
-		desc = "Launch terminal",
-		mode = "n",
-		keys = "<leader>at",
-		cmd = utils.terminal.launch,
-	},
-	{
 		desc = "Exit terminal mode",
 		mode = "t",
 		keys = "<C- >",
@@ -99,6 +93,22 @@ utils.editor.set_keymaps {
 
 				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
 					vim.cmd "silent edit ~/.notes.md"
+				end
+			end,
+		}
+	end)(),
+	(function()
+		local window_toggler = utils.editor.build_window_toggler()
+
+		return {
+			desc = "Toggle floating terminal",
+			mode = "n",
+			keys = "<leader>tt",
+			cmd = function()
+				local toggle_state = window_toggler()
+
+				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
+					vim.cmd "silent term"
 				end
 			end,
 		}
