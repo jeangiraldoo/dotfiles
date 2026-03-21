@@ -28,7 +28,6 @@ vim.opt.completeopt = {
 	"menuone",
 	"noselect",
 	"popup",
-	"preview",
 	"fuzzy",
 }
 vim.o.complete = "."
