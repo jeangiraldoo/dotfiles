@@ -15,6 +15,10 @@ vim.lsp.enable {
 	"yaml_ls",
 }
 
+vim.lsp.document_color.enable(true, nil, { --- Enabled by default, but there's no other way to explicitely set the style
+	style = "virtual",
+})
+
 utils.editor.set_keymaps {
 	{
 		desc = "Go to call",
@@ -72,19 +76,6 @@ utils.editor.set_autocmds {
 				buffer = event.buf,
 				callback = vim.lsp.codelens.refresh,
 			})
-		end,
-	},
-	{
-		desc = "Enable LSP-based colour highlighting",
-		event = "LspAttach",
-		callback = function(args)
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-			if client:supports_method "textDocument/documentColor" then
-				vim.lsp.document_color.enable(true, args.buf, {
-					style = "virtual",
-				})
-			end
 		end,
 	},
 }
