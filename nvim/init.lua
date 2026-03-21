@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 
-vim.cmd "colorscheme retrobox"
+vim.cmd "colorscheme catppuccin"
 
 vim.diagnostic.config {
 	float = {
