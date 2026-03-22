@@ -66,21 +66,6 @@ utils.editor.set_keymaps {
 			end,
 		}
 	end)(),
-	{
-		desc = "Toggle location list with diagnostics",
-		mode = "n",
-		keys = "<leader>ld",
-		cmd = function()
-			for _, win in ipairs(vim.fn.getwininfo()) do
-				if win.loclist == 1 then
-					vim.cmd "lclose"
-					return
-				end
-			end
-
-			vim.diagnostic.setloclist()
-		end,
-	},
 	(function()
 		local window_toggler = utils.editor.build_window_toggler()
 
