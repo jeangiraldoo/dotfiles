@@ -15,6 +15,7 @@ vim.lsp.enable {
 	"yaml_ls",
 }
 
+vim.lsp.codelens.enable(true)
 vim.lsp.document_color.enable(true, nil, { --- Enabled by default, but there's no other way to explicitely set the style
 	style = "virtual",
 })
@@ -61,21 +62,6 @@ utils.editor.set_autocmds {
 		end,
 	},
 	{
-		desc = "Set up LSP CodeLens",
-		pattern = "*",
-		event = "LspAttach",
-		callback = function(event)
-			local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-			if not (client and client.server_capabilities.codeLensProvider) then
-				return
-			end
-
-			vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "CursorHold" }, {
-				desc = "Auto-refresh CodeLens",
-				buffer = event.buf,
-				callback = vim.lsp.codelens.refresh,
-			})
 		end,
 	},
 }
