@@ -30,7 +30,7 @@ utils.editor.set_keymaps {
 	{
 		desc = "Toggle inlay hints",
 		mode = "n",
-		keys = "<leader>sh",
+		keys = "<leader>th",
 		cmd = function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end,
