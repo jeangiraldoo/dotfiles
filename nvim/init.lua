@@ -30,6 +30,9 @@ vim.opt.completeopt = {
 	"popup",
 	"fuzzy",
 }
+vim.opt.wildmode = {
+	"noselect",
+}
 vim.o.complete = "."
 vim.o.ignorecase = true
 vim.o.smartcase = true
