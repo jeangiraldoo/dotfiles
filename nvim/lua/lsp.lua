@@ -62,6 +62,11 @@ utils.editor.set_autocmds {
 		end,
 	},
 	{
+		desc = "Set up command line autocompletion",
+		event = "CmdlineChanged",
+		pattern = { ":", "/", "?" },
+		callback = function()
+			vim.fn.wildtrigger()
 		end,
 	},
 }
