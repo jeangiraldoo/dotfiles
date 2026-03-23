@@ -8,11 +8,4 @@ require("codedocs").setup {
 	debug = true,
 }
 
-require("utils").editor.set_keymaps {
-	{
-		desc = "Insert code annotation",
-		mode = "n",
-		keys = "<leader>sa",
-		cmd = "<plug>Codedocs",
-	},
-}
+vim.keymap.set("n", "<leader>sa", "<plug>Codedocs", { desc = "Insert code annotation", silent = true })

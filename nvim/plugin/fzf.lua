@@ -7,11 +7,4 @@ vim.pack.add {
 	},
 }
 
-require("utils").editor.set_keymaps {
-	{
-		desc = "Open fuzzy finder",
-		mode = "n",
-		keys = "<leader><leader>",
-		cmd = ":FzfLua files<CR>",
-	},
-}
+vim.keymap.set("n", "<leader><leader>", ":FzfLua files<CR>", { desc = "Open fuzzy finder", silent = true })

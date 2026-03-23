@@ -54,11 +54,4 @@ ccc.setup {
 	},
 }
 
-require("utils").editor.set_keymaps {
-	{
-		desc = "Open color picker",
-		mode = { "n", "v" },
-		keys = "<leader>tc",
-		cmd = ":CccPick<CR>",
-	},
-}
+vim.keymap.set({ "n", "v" }, "<leader>tc", ":CccPick<CR>", { desc = "Open colour picker", silent = true })

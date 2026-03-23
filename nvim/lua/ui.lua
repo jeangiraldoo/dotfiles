@@ -1,4 +1,4 @@
-local utils = require "utils"
+-- local utils = require "utils"
 
 function _G.build_statusline()
 	local RESET_HL = "%#StatusLine#"
@@ -25,81 +25,39 @@ function _G.build_statusline()
 	}, " ")
 end
 
-require("utils").editor.set_highlights {
-	PMenuMatch = {
-		fg = "#ffffff",
-	},
-	PMenuMatchSel = {
-		fg = "#ffffff",
-	},
-	YankLine = {
-		bg = "#d79921",
-		fg = "#FFFFFF",
-	},
-	DiagnosticUnderlineError = {
-		underline = true,
-		fg = "#ff5555",
-	},
-	DiagnosticWarn = {
-		bg = "orange",
-	},
-	statusline_section_text = {
-		bg = "#1e2030",
-		fg = "#d79921",
-	},
-	StatusLineGitText = {
-		fg = "#d79921",
-		bg = "#1e2030",
-	},
-	statusline_git_icon = {
-		fg = "#d79921",
-		bg = "#b84500",
-	},
-	statusline_section = {
-		bg = "#d79921",
-	},
-}
+vim.api.nvim_set_hl(0, "PMenuMatch", { fg = "#ffffff" })
+vim.api.nvim_set_hl(0, "PMenuMatchSel", { fg = "#ffffff" })
+vim.api.nvim_set_hl(0, "YankLine", { bg = "#d79921", fg = "#FFFFFF" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = true, fg = "#ff5555" })
+vim.api.nvim_set_hl(0, "DiagnosticWarn", { bg = "orange" })
+vim.api.nvim_set_hl(0, "statusline_section_text", { bg = "#1e2030", fg = "#d79921" })
+vim.api.nvim_set_hl(0, "StatusLineGitText", { fg = "#d79921", bg = "#1e2030" })
+vim.api.nvim_set_hl(0, "statusline_git_icon", { fg = "#d79921", bg = "#b84500" })
+vim.api.nvim_set_hl(0, "statusline_section", { bg = "#d79921" })
 
-utils.editor.set_autocmds {
-	{
-		desc = "Load view",
-		event = "BufWinEnter",
-		pattern = "*",
-		command = "silent! loadview",
-	},
-	{
-		desc = "Make view",
-		event = "BufWinLeave",
-		pattern = "*",
-		command = "silent! mkview",
-	},
-	{
-		desc = "Highlight yanked line",
-		pattern = "*",
-		event = "TextYankPost",
-		callback = function()
-			vim.highlight.on_yank {
-				timeout = 200,
-				higroup = "YankLine",
-			}
-		end,
-	},
-	{
-		desc = "Start Treesitter syntax highlight",
-		event = "FileType",
-		callback = function(args)
-			pcall(vim.treesitter.start, args.buf)
-		end,
-	},
-	{
-		desc = "Open help buffers in a vertical split",
-		event = "BufWinEnter",
-		callback = function()
-			if vim.bo.buftype ~= "help" then
-				return
-			end
-
-			pcall(vim.cmd, "wincmd L")
-		end,
-	},
-}
+vim.api.nvim_create_autocmd("BufWinEnter", { desc = "Load view", pattern = "*", command = "silent! loadview" })
+vim.api.nvim_create_autocmd("BufWinLeave", { desc = "Make view", pattern = "*", command = "silent! mkview" })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight yanked line",
+	pattern = "*",
+	callback = function()
+		vim.hl.on_yank {
+			timeout = 200,
+			higroup = "YankLine",
+		}
+	end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Start Treesitter syntax highlight",
+	callback = function(args)
+		pcall(vim.treesitter.start, args.buf)
+	end,
+})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	desc = "Open help buffers in a vertical split",
+	callback = function()
+		if vim.bo.buftype == "help" then
+			vim.cmd "wincmd L"
+		end
+	end,
+})

@@ -1,35 +1,25 @@
 local utils = require "utils"
 
-utils.editor.set_keymaps {
+vim.keymap.set(
+	"n",
+	"<leader>gg",
 	(function()
-		local window_toggler = utils.editor.build_window_toggler()
+		local window_toggler = utils.build_window_toggler()
 
-		return {
-			desc = "Toggle version control window",
-			mode = "n",
-			keys = "<leader>gg",
-			cmd = function()
-				local toggle_state = window_toggler()
-				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
-					vim.cmd "term lazygit"
-				end
-			end,
-		}
+		return function()
+			local toggle_state = window_toggler()
+			if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
+				vim.cmd "term lazygit"
+			end
+		end
 	end)(),
-	-- Admin
-	{
-		desc = "Exit terminal mode",
-		mode = "t",
-		keys = "<C- >",
-		cmd = [[<C-\><C-n>]],
-	},
-	{
-		desc = "Launch runner menu",
-		mode = "n",
-		keys = "<leader>ar",
-		cmd = require("runner").display_menu,
-	},
-	-- Code editing
+	{ desc = "Toggle version control window", silent = true }
+)
+vim.keymap.set("t", "<C- >", [[<C-\><C-n>]], { desc = "Exit terminal mode", silent = true })
+vim.keymap.set("n", "<leader>ar", require("runner").display_menu, { desc = "Launch runner menu", silent = true })
+vim.keymap.set(
+	"n",
+	"<leader>st",
 	(function()
 		local WORD_TOGGLE_MAP = vim.iter({
 			["True"] = "False",
@@ -52,50 +42,46 @@ utils.editor.set_keymaps {
 			return acc
 		end)
 
-		return {
-			desc = "Toggle word under the cursor",
-			mode = "n",
-			keys = "<leader>st",
-			cmd = function()
-				local word_under_cursor = vim.fn.expand "<cword>"
-				local replacement = WORD_TOGGLE_MAP[word_under_cursor]
+		return function()
+			local word_under_cursor = vim.fn.expand "<cWORD>"
+			local replacement = WORD_TOGGLE_MAP[word_under_cursor]
 
-				if replacement then
-					vim.cmd.normal("ciw" .. replacement)
-				end
-			end,
-		}
+			if replacement then
+				vim.cmd.normal("ciw" .. replacement)
+			end
+		end
 	end)(),
+	{ desc = "Toggle the word under the cursor", silent = true }
+)
+vim.keymap.set(
+	"n",
+	"<leader>tn",
 	(function()
-		local window_toggler = utils.editor.build_window_toggler()
+		local window_toggler = utils.build_window_toggler()
 
-		return {
-			desc = "Toggle notes",
-			mode = "n",
-			keys = "<leader>tn",
-			cmd = function()
-				local toggle_state = window_toggler()
+		return function()
+			local toggle_state = window_toggler()
 
-				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
-					vim.cmd "silent edit ~/.notes.md"
-				end
-			end,
-		}
+			if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
+				vim.cmd "silent edit ~/.notes.md"
+			end
+		end
 	end)(),
+	{ desc = "Toggle notes", silent = true }
+)
+vim.keymap.set(
+	"n",
+	"<leader>tt",
 	(function()
-		local window_toggler = utils.editor.build_window_toggler()
+		local window_toggler = utils.build_window_toggler()
 
-		return {
-			desc = "Toggle floating terminal",
-			mode = "n",
-			keys = "<leader>tt",
-			cmd = function()
-				local toggle_state = window_toggler()
+		return function()
+			local toggle_state = window_toggler()
 
-				if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
-					vim.cmd "silent term"
-				end
-			end,
-		}
+			if vim.api.nvim_buf_get_name(toggle_state.buffer_id) == "" then
+				vim.cmd "silent term"
+			end
+		end
 	end)(),
-}
+	{ desc = "Toggle floating terminal", silent = true }
+)
