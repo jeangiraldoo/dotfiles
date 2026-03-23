@@ -4,30 +4,6 @@ local Utils = {
 	terminal = {},
 }
 
----@param dir_name string
----@return table[] acc Merged directory tables
-function Utils.module.require_config_tables(dir_name)
-	local full_path = vim.fs.joinpath(vim.fn.stdpath "config", "lua", dir_name)
-	local dir_files = vim.fn.readdir(full_path, [[v:val =~ '\.lua$' && v:val !=# 'init.lua']])
-
-	return vim.iter(dir_files):fold({}, function(acc, file_name)
-		local lua_file_path = dir_name .. "." .. file_name:gsub("%.lua$", "")
-
-		local ok, file_tbl = pcall(require, lua_file_path)
-		if not ok then
-			vim.notify("Failed to load " .. lua_file_path, vim.log.levels.WARN)
-			return acc
-		end
-
-		if vim.islist(file_tbl) then
-			return vim.list_extend(acc, file_tbl)
-		end
-
-		table.insert(acc, file_tbl)
-		return acc
-	end)
-end
-
 function Utils.editor.set_highlights(highlights)
 	for highlight_name, data in pairs(highlights) do
 		vim.api.nvim_set_hl(0, highlight_name, data)
