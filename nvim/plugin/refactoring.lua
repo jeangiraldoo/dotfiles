@@ -4,29 +4,7 @@ vim.pack.add {
 	},
 }
 
-require("utils").editor.set_keymaps {
-	{
-		desc = "Extract variable",
-		mode = "x",
-		keys = "<leader>rv",
-		cmd = ":Refactor extract_var ",
-	},
-	{
-		desc = "Inline variable",
-		mode = "n",
-		keys = "<leader>rV",
-		cmd = ":Refactor inline_var<CR>",
-	},
-	{
-		desc = "Extract function",
-		mode = "x",
-		keys = "<leader>rf",
-		cmd = ":Refactor extract ",
-	},
-	{
-		desc = "Inline function",
-		mode = "n",
-		keys = "<leader>rF",
-		cmd = ":Refactor inline_func<CR>",
-	},
-}
+vim.keymap.set("n", "<leader>rv", ":Refactor extract_var ", { desc = "Extract variable", silent = true })
+vim.keymap.set("n", "<leader>rV", ":Refactor inline_var<CR> ", { desc = "Inline variable", silent = true })
+vim.keymap.set("n", "<leader>rf", ":Refactor extract ", { desc = "Extract function", silent = true })
+vim.keymap.set("n", "<leader>rF", ":Refactor inline_func<CR> ", { desc = "Inline function", silent = true })

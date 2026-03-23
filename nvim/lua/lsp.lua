@@ -20,53 +20,37 @@ vim.lsp.document_color.enable(true, nil, { --- Enabled by default, but there's n
 	style = "virtual",
 })
 
-utils.editor.set_keymaps {
-	{
-		desc = "Go to call",
-		mode = "n",
-		keys = "<leader>sf",
-		cmd = vim.lsp.buf.outgoing_calls,
-	},
-	{
-		desc = "Toggle inlay hints",
-		mode = "n",
-		keys = "<leader>th",
-		cmd = function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-		end,
-	},
-}
+vim.keymap.set("n", "<leader>sf", vim.lsp.buf.outgoing_calls, { desc = "Go to call" })
+vim.keymap.set("n", "<leader>th", function()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Go to call" })
 
-utils.editor.set_autocmds {
-	{
-		desc = "Set up LSP autocompletion",
-		event = "LspAttach",
-		callback = function(event)
-			local client = vim.lsp.get_client_by_id(event.data.client_id)
+vim.api.nvim_create_autocmd("LspAttach", {
+	desc = "Set up LSP autocompletion",
+	callback = function(event)
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-			if not (client and client:supports_method "textDocument/completion") then
-				return
-			end
+		if not (client and client:supports_method "textDocument/completion") then
+			return
+		end
 
-			vim.lsp.completion.enable(true, client.id, event.buf, {
-				autotrigger = true,
-				convert = function(item)
-					return { abbr = item.label:gsub("%b()", "") }
-				end,
-			})
+		vim.lsp.completion.enable(true, client.id, event.buf, {
+			autotrigger = true,
+			convert = function(item)
+				return { abbr = item.label:gsub("%b()", "") }
+			end,
+		})
 
-			vim.api.nvim_create_autocmd("TextChangedI", {
-				desc = "Display autocomplete window while typing",
-				callback = vim.lsp.completion.get,
-			})
-		end,
-	},
-	{
-		desc = "Set up command line autocompletion",
-		event = "CmdlineChanged",
-		pattern = { ":", "/", "?" },
-		callback = function()
-			vim.fn.wildtrigger()
-		end,
-	},
-}
+		vim.api.nvim_create_autocmd("TextChangedI", {
+			desc = "Display autocomplete window while typing",
+			callback = vim.lsp.completion.get,
+		})
+	end,
+})
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+	desc = "Set up command line autocompletion",
+	pattern = { ":", "/", "?" },
+	callback = function()
+		vim.fn.wildtrigger()
+	end,
+})
