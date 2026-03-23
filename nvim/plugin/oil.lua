@@ -18,11 +18,4 @@ require("oil").setup {
 	},
 }
 
-require("utils").editor.set_keymaps {
-	{
-		desc = "Open file manager",
-		mode = "n",
-		keys = "<leader>fm",
-		cmd = ":Oil <CR>",
-	},
-}
+vim.keymap.set("n", "<leader>fm", ":Oil <CR>", { desc = "Open file manager", silent = true })

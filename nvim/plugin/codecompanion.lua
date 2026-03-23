@@ -62,17 +62,10 @@ require("codecompanion").setup {
 	},
 }
 
-utils.editor.set_keymaps {
-	{
-		desc = "Toggle AI chat",
-		mode = { "n", "v" },
-		keys = "<leader>ta",
-		cmd = function()
-			utils.terminal.launch {
-				cmd = "ollama serve",
-				close_after_cmd = true,
-			}
-			vim.cmd "CodeCompanionChat Toggle"
-		end,
-	},
-}
+vim.keymap.set({ "n", "v" }, "<leader>ta", function()
+	utils.launch {
+		cmd = "ollama serve",
+		close_after_cmd = true,
+	}
+	vim.cmd "CodeCompanionChat Toggle"
+end, { desc = "Toggle AI chat", silent = true })
