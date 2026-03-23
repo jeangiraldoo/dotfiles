@@ -12,17 +12,10 @@ require("gitsigns").setup {
 	current_line_blame_formatter_nc = " Not commited yet",
 }
 
-require("utils").editor.set_keymaps {
-	{
-		desc = "Toggle inline Git blame",
-		mode = "n",
-		keys = "<leader>gb",
-		cmd = ":Gitsigns toggle_current_line_blame<CR>",
-	},
-	{
-		desc = "Open buffer Git blame",
-		mode = "n",
-		keys = "<leader>gB",
-		cmd = ":Gitsigns blame<CR>",
-	},
-}
+vim.keymap.set(
+	"n",
+	"<leader>gb",
+	":Gitsigns toggle_current_line_blame<CR>",
+	{ desc = "Toggle inline Git blame", silent = true }
+)
+vim.keymap.set("n", "<leader>gB", ":Gitsigns blame<CR>", { desc = "Open buffer Git blame", silent = true })

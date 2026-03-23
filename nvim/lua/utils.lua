@@ -1,41 +1,4 @@
-local Utils = {
-	module = {},
-	editor = {},
-	terminal = {},
-}
-
-function Utils.editor.set_highlights(highlights)
-	for highlight_name, data in pairs(highlights) do
-		vim.api.nvim_set_hl(0, highlight_name, data)
-	end
-end
-
-function Utils.editor.set_autocmds(autocmds)
-	for _, autocmd in ipairs(autocmds) do
-		-- Passing the autocmd table with an `event` field will result in an error
-		local autocmd_event = autocmd.event
-		autocmd.event = nil
-
-		vim.api.nvim_create_autocmd(autocmd_event, autocmd)
-	end
-end
-
-function Utils.editor.set_keymaps(keymaps)
-	local DEFAULT_OPTS = {
-		noremap = true,
-		silent = true,
-	}
-
-	for _, keymap in ipairs(keymaps) do
-		local opts = vim.tbl_extend("force", DEFAULT_OPTS, keymap.opts or {})
-
-		if keymap.desc then
-			opts.desc = keymap.desc
-		end
-
-		vim.keymap.set(keymap.mode, keymap.keys, keymap.cmd, opts)
-	end
-end
+local Utils = {}
 
 --- Launches a configurable terminal using a vertical split.
 --- @param opts table A table with the following optional settings:
@@ -44,7 +7,7 @@ end
 ---   Mimicks running a command in the background.
 --- * `cwd`: The working directory to run the command from.
 --- @return nil
-function Utils.terminal.launch(opts)
+function Utils.launch(opts)
 	opts = opts or {}
 
 	if opts.close_after_cmd and not opts.cmd then
@@ -67,7 +30,7 @@ end
 
 --- @param title string | nil Window title
 --- @return fun(): { buffer_id: number | nil, window_id: number | nil} window_toggler
-function Utils.editor.build_window_toggler(title)
+function Utils.build_window_toggler(title)
 	local current_state = {
 		buffer_id = vim.api.nvim_create_buf(true, true),
 		window_id = nil,

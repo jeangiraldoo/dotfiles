@@ -76,7 +76,7 @@ local RUNNERS = {
 				file_absolute = vim.fn.expand "%:p",
 			}
 
-			utils.terminal.launch {
+			utils.launch {
 				cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
 				cmd = _build_cmd(commands, paths, filetype_data.venv, filetype_data.executable),
 				close_after_cmd = filetype_data.close_after_cmd,
@@ -124,7 +124,7 @@ local RUNNERS = {
 					paths["file_absolute"] = code_marker_path
 					terminal_data.cmd = _build_cmd(commands, paths, filetype_data.venv, filetype_data.executable)
 
-					utils.terminal.launch(terminal_data)
+					utils.launch(terminal_data)
 					return
 				end
 			end
@@ -139,7 +139,7 @@ local RUNNERS = {
 				prompt = "Select command:",
 			}, function(item)
 				if item then
-					utils.terminal.launch {
+					utils.launch {
 						cwd = vim.fs.root(0, { ".git" }) or vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
 						cmd = item,
 					}
