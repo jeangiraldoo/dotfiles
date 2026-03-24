@@ -10,22 +10,13 @@ Feel free to check my setup, comment on it, or grab anything that you find usefu
 > - **termux** — Based on `main`, adapted for Android/Termux
 > - **windows** — Windows-specific setup
 
-In this branch you will find settings for:
-
-- Neovim (main editor)
-- Wezterm (terminal emulator)
-- Fish (main shell)
-- Git (duh)
-- Github CLI (gh)
-- Lazygit (I prefer it over regular git for day-to-day tasks)
-- Starship (favorite cross-shell prompt)
-
 ## Usage
 
 ```powershell
 curl.exe -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/windows/install.ps1
 ./install.ps1
 ```
+
 The script does the following:
 
 1. Install the applications/packages present in `packages.json` using Winget
