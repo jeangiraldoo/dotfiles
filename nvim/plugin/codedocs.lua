@@ -5,7 +5,8 @@ vim.pack.add {
 }
 
 require("codedocs").setup {
-	debug = true,
+	debug = false,
 }
 
-vim.keymap.set("n", "<leader>sa", "<plug>Codedocs", { desc = "Insert code annotation", silent = true })
+vim.keymap.set("n", "<leader>aa", "<cmd>Codedocs<CR>", { desc = "Insert code annotation", silent = true })
+vim.keymap.set("n", "<leader>ac", "<cmd>Codedocs comment<CR>", { desc = "Insert comment annotation", silent = true })
