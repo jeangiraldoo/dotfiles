@@ -47,6 +47,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		})
 	end,
 })
+
+vim.keymap.set("i", "<C-s>", function()
+	if vim.fn.pumvisible() == 1 then
+		vim.api.nvim_input(vim.api.nvim_replace_termcodes("<C-e>", true, false, true)) ---Close popup menu
+	end
+
+	vim.lsp.buf.signature_help()
+end, { desc = "Show signature help" })
+
 vim.api.nvim_create_autocmd("CmdlineChanged", {
 	desc = "Set up command line autocompletion",
 	pattern = { ":", "/", "?" },
