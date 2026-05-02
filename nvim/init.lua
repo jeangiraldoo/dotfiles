@@ -18,7 +18,6 @@ vim.o.cursorcolumn = true
 vim.o.mouse = ""
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.o.statusline = "%!v:lua.build_statusline()"
 vim.o.scrolloff = 10
 vim.o.showmode = false
 vim.o.winborder = "rounded"
