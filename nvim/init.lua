@@ -1,16 +1,5 @@
 vim.g.mapleader = " "
 
-vim.cmd "colorscheme catppuccin"
-
-vim.diagnostic.config {
-	float = {
-		scope = "line",
-		header = "診断メッセージ",
-	},
-	signs = false,
-	severity_sort = true,
-}
-
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true

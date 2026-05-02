@@ -1,3 +1,13 @@
+vim.cmd "colorscheme catppuccin"
+
+vim.diagnostic.config {
+	float = {
+		scope = "line",
+		header = "診断メッセージ",
+	},
+	signs = false,
+	severity_sort = true,
+}
 
 vim.api.nvim_set_hl(0, "PMenuMatch", { fg = "#ffffff" })
 vim.api.nvim_set_hl(0, "PMenuMatchSel", { fg = "#ffffff" })
