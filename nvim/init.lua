@@ -11,7 +11,6 @@ vim.o.scrolloff = 10
 vim.o.showmode = false
 vim.o.winborder = "rounded"
 vim.o.pumborder = "rounded"
-vim.o.autocomplete = true
 vim.opt.completeopt = {
 	"menuone",
 	"noselect",
