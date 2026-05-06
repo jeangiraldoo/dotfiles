@@ -27,21 +27,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-		if not (client and client:supports_method "textDocument/completion") then
-			return
+		if client and client:supports_method "textDocument/completion" then
+			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+			vim.o.complete = ""
 		end
-
-		vim.lsp.completion.enable(true, client.id, event.buf, {
-			autotrigger = true,
-			convert = function(item)
-				return { abbr = item.label:gsub("%b()", "") }
-			end,
-		})
-
-		vim.api.nvim_create_autocmd("TextChangedI", {
-			desc = "Display autocomplete window while typing",
-			callback = vim.lsp.completion.get,
-		})
 	end,
 })
 
