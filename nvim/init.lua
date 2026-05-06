@@ -26,6 +26,7 @@ vim.o.smartcase = true
 vim.o.exrc = true
 vim.o.signcolumn = "yes"
 vim.o.confirm = true
+vim.o.tildeop = true
 
 vim.cmd [[cnoreabbrev %% %:h]]
 
