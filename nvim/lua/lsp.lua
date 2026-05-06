@@ -49,3 +49,15 @@ vim.api.nvim_create_autocmd("CmdlineChanged", {
 		vim.fn.wildtrigger()
 	end,
 })
+
+vim.api.nvim_create_autocmd("BufWrite", {
+	desc = "Autogenerate `tags` file",
+	callback = function()
+		local valid_roots = { ".git" }
+		local root = vim.fs.root(0, valid_roots) or vim.uv.cwd()
+
+		if vim.fn.executable "ctags" == 1 then
+			os.execute(("cd %s && ctags -R"):format(root))
+		end
+	end,
+})
