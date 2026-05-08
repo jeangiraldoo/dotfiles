@@ -1,4 +1,4 @@
-# Unix dotfiles 🐧
+# Windows dotfiles 🪟
 
 I love tinkering with my personal and development environment to make it both productive and fun to use.
 Feel free to check my setup, comment on it, or grab anything that you find useful, but be aware that it is tailored to my needs!
@@ -12,10 +12,9 @@ Feel free to check my setup, comment on it, or grab anything that you find usefu
 
 ## Usage
 
-```bash
-curl -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/main/install.sh
-chmod +x install.sh
-./install.sh
+```powershell
+curl.exe -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/windows/install.ps1
+./install.ps1
 ```
 
 The script does the following:
