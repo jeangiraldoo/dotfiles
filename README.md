@@ -15,6 +15,10 @@ Feel free to check my setup, comment on it, or grab anything that you find usefu
 ```powershell
 curl.exe -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/windows/install.ps1
 ./install.ps1
+```bash
+curl -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/termux/install.sh
+chmod +x install.sh
+./install.sh
 ```
 
 The script does the following:
