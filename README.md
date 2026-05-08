@@ -5,7 +5,19 @@ Feel free to check my setup, comment on it, or grab anything that you find usefu
 
 ## Usage
 
-The script does the following:
+There's a script per system that will install all the packages I use and clone this repository under `~/.config`
 
-1. Install all the packages I use in my system
-2. It will clone this repository into `~/.config` if `~/.config` does not exist or is empty
+- Unix:
+
+```bash
+curl -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/scripts/unix/install.sh
+chmod +x install.sh
+./install.sh
+```
+
+- Windows:
+
+```powershell
+curl.exe -O https://raw.githubusercontent.com/jeangiraldoo/dotfiles/scripts/windows/install.ps1
+./install.ps1
+```
