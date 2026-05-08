@@ -1,15 +1,15 @@
 vim.lsp.log.set_level "off"
 vim.lsp.enable {
-	"lua_ls",
-	"rust_analyzer",
-	"ty",
-	"tsgo",
-	"css_ls",
-	"html_ls",
-	"harper_ls",
-	"marksman",
-	"tinymist",
-	"yaml_ls",
+	-- "lua_ls",
+	-- "rust_analyzer",
+	-- "ty",
+	-- "tsgo",
+	-- "css_ls",
+	-- "html_ls",
+	-- "harper_ls",
+	-- "marksman",
+	-- "tinymist",
+	-- "yaml_ls",
 }
 
 vim.lsp.codelens.enable(true)
