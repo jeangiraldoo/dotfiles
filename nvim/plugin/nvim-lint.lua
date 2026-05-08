@@ -22,6 +22,9 @@ nvim_lint_config.linters_by_ft = {
 	["yaml.github"] = {
 		"actionlint",
 	},
+	sh = {
+		"shellcheck",
+	},
 }
 
 local linters_config = nvim_lint_config.linters
